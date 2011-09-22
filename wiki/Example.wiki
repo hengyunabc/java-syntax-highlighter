@@ -1,0 +1,69 @@
+=Example=
+
+Simple example:
+{{{
+import java.awt.Dimension;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JFrame;
+import syntaxhighlighter.Brushes.BrushXML;
+import syntaxhighlighter.SyntaxHighlighter;
+import syntaxhighlighter.Themes.ThemeDjango;
+
+public class Example {
+
+    public static void main(String[] args) throws IOException {
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setContentPane(new SyntaxHighlighter(new File("test.html"), new BrushXML(), new ThemeDjango()));
+        frame.setSize(new Dimension(800, 600));
+        frame.setLocationByPlatform(true);
+        frame.setVisible(true);
+    }
+}
+}}}
+
+
+An example showing more control:
+{{{
+import java.awt.Dimension;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import syntaxhighlighter.Brush;
+import syntaxhighlighter.Brushes.BrushXML;
+import syntaxhighlighter.JTextComponentRowHeader;
+import syntaxhighlighter.Parser;
+import syntaxhighlighter.SyntaxHighlighter;
+import syntaxhighlighter.SyntaxHighlighterPane;
+import syntaxhighlighter.Theme;
+import syntaxhighlighter.Themes.ThemeDjango;
+
+public class Example {
+
+    public static void main(String[] args) throws IOException {
+        Brush brush = new BrushXML();
+        Theme theme = new ThemeDjango();
+
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBorder(null);
+
+        SyntaxHighlighterPane highlighter = new SyntaxHighlighterPane();
+        theme.setTheme(highlighter);
+        highlighter.setCode((new Parser(brush, theme)).parse(SyntaxHighlighter.readFile(new File("test.html"))));
+        scrollPane.setViewportView(highlighter);
+
+        JTextComponentRowHeader _rowHeader = new JTextComponentRowHeader(scrollPane, highlighter);
+        theme.setTheme(_rowHeader);
+        scrollPane.setRowHeaderView(_rowHeader);
+
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setContentPane(scrollPane);
+        frame.setSize(new Dimension(800, 600));
+        frame.setLocationByPlatform(true);
+        frame.setVisible(true);
+    }
+}
+}}}
