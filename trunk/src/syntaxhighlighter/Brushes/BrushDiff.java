@@ -9,12 +9,15 @@
  */
 package syntaxhighlighter.Brushes;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 import syntaxhighlighter.Brush;
 import syntaxhighlighter.Brush.RegExpRule;
 
 /**
+ * Diff file brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class BrushDiff extends Brush {
@@ -22,13 +25,15 @@ public class BrushDiff extends Brush {
     public BrushDiff() {
         super();
 
-        regExpRule.add(new RegExpRule("^\\+\\+\\+.*$", Pattern.MULTILINE, "color2"));
-        regExpRule.add(new RegExpRule("^\\-\\-\\-.*$", Pattern.MULTILINE, "color2"));
-        regExpRule.add(new RegExpRule("^\\s.*$", Pattern.MULTILINE, "color1"));
-        regExpRule.add(new RegExpRule("^@@.*@@$", Pattern.MULTILINE, "variable"));
-        regExpRule.add(new RegExpRule("^\\+[^\\+]{1}.*$", Pattern.MULTILINE, "string"));
-        regExpRule.add(new RegExpRule("^\\-[^\\-]{1}.*$", Pattern.MULTILINE, "comments"));
+        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
+        regExpRuleList.add(new RegExpRule("^\\+\\+\\+.*$", Pattern.MULTILINE, "color2"));
+        regExpRuleList.add(new RegExpRule("^\\-\\-\\-.*$", Pattern.MULTILINE, "color2"));
+        regExpRuleList.add(new RegExpRule("^\\s.*$", Pattern.MULTILINE, "color1"));
+        regExpRuleList.add(new RegExpRule("^@@.*@@$", Pattern.MULTILINE, "variable"));
+        regExpRuleList.add(new RegExpRule("^\\+[^\\+]{1}.*$", Pattern.MULTILINE, "string"));
+        regExpRuleList.add(new RegExpRule("^\\-[^\\-]{1}.*$", Pattern.MULTILINE, "comments"));
+        setRegExpRuleList(regExpRuleList);
 
-        commonFileExtensionList = Arrays.asList(new String[]{"diff"});
+        setCommonFileExtensionList(Arrays.asList(new String[]{"diff"}));
     }
 }

@@ -9,12 +9,15 @@
  */
 package syntaxhighlighter.Brushes;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 import syntaxhighlighter.Brush;
 import syntaxhighlighter.Brush.RegExpRule;
 
 /**
+ * Perl brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class BrushPerl extends Brush {
@@ -23,12 +26,13 @@ public class BrushPerl extends Brush {
         super();
 
         // Contributed by David Simmons-Duffin and Marty Kube
-        regExpRule.add(new RegExpRule("#[^!].*$", Pattern.MULTILINE, "comments"));
-        regExpRule.add(new RegExpRule("^\\s*#!.*$", Pattern.MULTILINE, "preprocessor")); // shebang
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string"));
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string"));
-        regExpRule.add(new RegExpRule("(\\$|@|%)\\w+", "variable"));
-        regExpRule.add(new RegExpRule(getKeywords("abs accept alarm atan2 bind binmode chdir chmod chomp chop chown chr "
+        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
+        regExpRuleList.add(new RegExpRule("#[^!].*$", Pattern.MULTILINE, "comments"));
+        regExpRuleList.add(new RegExpRule("^\\s*#!.*$", Pattern.MULTILINE, "preprocessor")); // shebang
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string"));
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string"));
+        regExpRuleList.add(new RegExpRule("(\\$|@|%)\\w+", "variable"));
+        regExpRuleList.add(new RegExpRule(getKeywords("abs accept alarm atan2 bind binmode chdir chmod chomp chop chown chr "
                 + "chroot close closedir connect cos crypt defined delete each endgrent "
                 + "endhostent endnetent endprotoent endpwent endservent eof exec exists "
                 + "exp fcntl fileno flock fork format formline getc getgrent getgrgid "
@@ -47,10 +51,13 @@ public class BrushPerl extends Brush {
                 + "sqrt srand stat study substr symlink syscall sysopen sysread sysseek "
                 + "system syswrite tell telldir time times tr truncate uc ucfirst umask "
                 + "undef unlink unpack unshift utime values vec wait waitpid warn write"), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "functions"));
-        regExpRule.add(new RegExpRule(getKeywords("bless caller continue dbmclose dbmopen die do dump else elsif eval exit "
+        regExpRuleList.add(new RegExpRule(getKeywords("bless caller continue dbmclose dbmopen die do dump else elsif eval exit "
                 + "for foreach goto if import last local my next no our package redo ref "
                 + "require return sub tie tied unless untie until use wantarray while"), Pattern.MULTILINE, "keyword"));
+        setRegExpRuleList(regExpRuleList);
 
-        commonFileExtensionList = Arrays.asList(new String[]{"pl", "pm", "t"});
+        setHTMLScriptRegExp(HTMLScriptRegExp.phpScriptTags);
+
+        setCommonFileExtensionList(Arrays.asList(new String[]{"pl", "pm", "t"}));
     }
 }

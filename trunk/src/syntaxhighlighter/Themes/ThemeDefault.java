@@ -14,6 +14,7 @@ import java.awt.Font;
 import syntaxhighlighter.Theme;
 
 /**
+ * Default theme.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class ThemeDefault extends Theme {
@@ -21,15 +22,17 @@ public class ThemeDefault extends Theme {
     public ThemeDefault() {
         super();
 
+        setFont(new Font("Consolas", Font.PLAIN, 12));
         setBackground(Color.white);
+
+        setHighlightedBackground(Color.decode("0xe0e0e0"));
+
         setGutterText(Color.decode("0xafafaf"));
         setGutterBorderColor(Color.decode("0x6ce26c"));
         setGutterBorderWidth(3);
         setGutterTextFont(new Font("Verdana", Font.PLAIN, 11));
         setGutterTextPaddingLeft(7);
         setGutterTextPaddingRight(7);
-
-        setFont(new Font("Consolas", Font.PLAIN, 12));
 
         Style style = new Style();
         style.setColor(Color.black);

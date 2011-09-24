@@ -9,12 +9,15 @@
  */
 package syntaxhighlighter.Brushes;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 import syntaxhighlighter.Brush;
 import syntaxhighlighter.Brush.RegExpRule;
 
 /**
+ * SQL brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class BrushSql extends Brush {
@@ -22,14 +25,15 @@ public class BrushSql extends Brush {
     public BrushSql() {
         super();
 
-        regExpRule.add(new RegExpRule("--(.*)$", Pattern.MULTILINE, "comments")); // one line and multiline comments
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.multiLineDoubleQuotedString, "string")); // double quoted strings
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.multiLineSingleQuotedString, "string")); // single quoted strings
-        regExpRule.add(new RegExpRule(getKeywords("abs avg case cast coalesce convert count current_timestamp "
+        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
+        regExpRuleList.add(new RegExpRule("--(.*)$", Pattern.MULTILINE, "comments")); // one line and multiline comments
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineDoubleQuotedString, "string")); // double quoted strings
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineSingleQuotedString, "string")); // single quoted strings
+        regExpRuleList.add(new RegExpRule(getKeywords("abs avg case cast coalesce convert count current_timestamp "
                 + "current_user day isnull left lower month nullif replace right "
                 + "session_user space substring sum system_user upper user year"), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "color2")); // functions
-        regExpRule.add(new RegExpRule(getKeywords("all and any between cross in join like not null or outer some"), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "color1")); // operators and such
-        regExpRule.add(new RegExpRule(getKeywords("absolute action add after alter as asc at authorization begin bigint "
+        regExpRuleList.add(new RegExpRule(getKeywords("all and any between cross in join like not null or outer some"), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "color1")); // operators and such
+        regExpRuleList.add(new RegExpRule(getKeywords("absolute action add after alter as asc at authorization begin bigint "
                 + "binary bit by cascade char character check checkpoint close collate "
                 + "column commit committed connect connection constraint contains continue "
                 + "create cube current current_date current_time cursor database date "
@@ -46,7 +50,8 @@ public class BrushSql extends Brush {
                 + "statistics table temp temporary then time timestamp to top transaction "
                 + "translation trigger true truncate uncommitted union unique update values "
                 + "varchar varying view when where with work"), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "keyword"));// keyword
+        setRegExpRuleList(regExpRuleList);
 
-        commonFileExtensionList = Arrays.asList(new String[]{"sql"});
+        setCommonFileExtensionList(Arrays.asList(new String[]{"sql"}));
     }
 }

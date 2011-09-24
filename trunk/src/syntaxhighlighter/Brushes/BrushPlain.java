@@ -12,6 +12,7 @@ package syntaxhighlighter.Brushes;
 import syntaxhighlighter.Brush;
 
 /**
+ * Plain text file brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class BrushPlain extends Brush {

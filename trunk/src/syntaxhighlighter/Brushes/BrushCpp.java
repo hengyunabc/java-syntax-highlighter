@@ -9,12 +9,15 @@
  */
 package syntaxhighlighter.Brushes;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 import syntaxhighlighter.Brush;
 import syntaxhighlighter.Brush.RegExpRule;
 
 /**
+ * C++ brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class BrushCpp extends Brush {
@@ -23,11 +26,12 @@ public class BrushCpp extends Brush {
         super();
 
         // Copyright 2006 Shin, YoungJin
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // one line comments
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // strings
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // strings
-        regExpRule.add(new RegExpRule("^ *#.*", Pattern.MULTILINE, "preprocessor"));
+        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // one line comments
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // strings
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // strings
+        regExpRuleList.add(new RegExpRule("^ *#.*", Pattern.MULTILINE, "preprocessor"));
         RegExpRule rule = new RegExpRule(getKeywords("ATOM BOOL BOOLEAN BYTE CHAR COLORREF DWORD DWORDLONG DWORD_PTR "
                 + "DWORD32 DWORD64 FLOAT HACCEL HALF_PTR HANDLE HBITMAP HBRUSH "
                 + "HCOLORSPACE HCONV HCONVLIST HCURSOR HDC HDDEDATA HDESK HDROP HDWP "
@@ -53,7 +57,7 @@ public class BrushCpp extends Brush {
                 + "time_t __time64_t _timeb __timeb64 tm uintptr_t _utimbuf "
                 + "va_list wchar_t wctrans_t wctype_t wint_t signed"), Pattern.MULTILINE, "color1");
         rule.setBold(true);
-        regExpRule.add(rule);
+        regExpRuleList.add(rule);
         // bold
         rule = new RegExpRule(getKeywords("assert isalnum isalpha iscntrl isdigit isgraph islower isprint"
                 + "ispunct isspace isupper isxdigit tolower toupper errno localeconv "
@@ -72,7 +76,7 @@ public class BrushCpp extends Brush {
                 + "strncpy strpbrk strrchr strspn strstr strtok strxfrm asctime "
                 + "clock ctime difftime gmtime localtime mktime strftime time"), Pattern.MULTILINE, "functions");
         rule.setBold(true);
-        regExpRule.add(rule);
+        regExpRuleList.add(rule);
         rule = new RegExpRule(getKeywords("break case catch class const __finally __exception __try "
                 + "const_cast continue private public protected __declspec "
                 + "default delete deprecated dllexport dllimport do dynamic_cast "
@@ -83,8 +87,9 @@ public class BrushCpp extends Brush {
                 + "thread throw true false try typedef typeid typename union "
                 + "using uuid virtual void volatile whcar_t while"), Pattern.MULTILINE, "keyword");
         rule.setBold(true);
-        regExpRule.add(rule);
+        regExpRuleList.add(rule);
+        setRegExpRuleList(regExpRuleList);
 
-        commonFileExtensionList = Arrays.asList(new String[]{"c", "cpp"});
+        setCommonFileExtensionList(Arrays.asList(new String[]{"c", "cpp"}));
     }
 }

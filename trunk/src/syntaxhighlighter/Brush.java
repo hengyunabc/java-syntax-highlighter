@@ -10,44 +10,214 @@
 package syntaxhighlighter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
-import syntaxhighlighter.Theme.Style;
 
 /**
+ * Brush for SyntaxHighlighter.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class Brush {
 
-    protected List<RegExpRule> regExpRule;
-    protected List<String> commonFileExtensionList;
+    /**
+     * Regular expression rule list.
+     */
+    private List<RegExpRule> regExpRuleList;
+    /**
+     * Common file extension list.
+     */
+    private List<String> commonFileExtensionList;
+    /**
+     * HTML script RegExp. null means no HTML script RegExp for this brush.
+     */
+    private HTMLScriptRegExp htmlScriptRegExp;
 
+    /**
+     * Constructor.
+     */
     public Brush() {
-        regExpRule = new ArrayList<RegExpRule>();
+        regExpRuleList = new ArrayList<RegExpRule>();
         commonFileExtensionList = new ArrayList<String>();
+        htmlScriptRegExp = null;
     }
 
+    /**
+     * Get the regular expression rule list.
+     * @return a copy of the list
+     */
     public List<RegExpRule> getRegExpRuleList() {
-        return new ArrayList<RegExpRule>(regExpRule);
+        return new ArrayList<RegExpRule>(regExpRuleList);
     }
 
+    /**
+     * Set the regular expression rule list.
+     * @param regExpRuleList the list
+     */
+    public void setRegExpRuleList(List<RegExpRule> regExpRuleList) {
+        this.regExpRuleList = regExpRuleList;
+    }
+
+    /**
+     * Get the HTML script RegExp.
+     * @return the HTML script RegExp, null means not defined
+     */
+    public HTMLScriptRegExp getHTMLScriptRegExp() {
+        return htmlScriptRegExp;
+    }
+
+    /**
+     * Set the HTML script RegExp.
+     * @param htmlScriptRegExp the RegExp
+     */
+    public void setHTMLScriptRegExp(HTMLScriptRegExp htmlScriptRegExp) {
+        this.htmlScriptRegExp = htmlScriptRegExp;
+    }
+
+    /**
+     * Get the common file extension list.
+     * @return a copy of the list
+     */
     public List<String> getCommonFileExtensionList() {
         return new ArrayList<String>(commonFileExtensionList);
     }
 
+    /**
+     * Set the common file extension list.
+     * @param commonFileExtensionList the list
+     */
     public void setCommonFileExtensionList(List<String> commonFileExtensionList) {
         this.commonFileExtensionList = new ArrayList<String>(commonFileExtensionList);
     }
 
+    /**
+     * Similar function in SyntaxHighlighter for making string of keywords into regular expression.
+     */
     protected static String getKeywords(String str) {
         return "\\b(?:" + str.replaceAll("^\\s+|\\s+$", "").replaceAll("\\s+", "|") + ")\\b";
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(getClass().getName());
+        sb.append("\n");
+        sb.append("rule count: ");
+        sb.append(regExpRuleList.size());
+        for (int i = 0, iEnd = regExpRuleList.size(); i < iEnd; i++) {
+            RegExpRule rule = regExpRuleList.get(i);
+            sb.append("\n");
+            sb.append(i);
+            sb.append(": ");
+            sb.append(rule.toString());
+        }
+        sb.append("\n");
+        sb.append("common file extension list: ");
+        sb.append(commonFileExtensionList);
+        sb.append("\n");
+        sb.append("HTML Script RegExp: ");
+        sb.append(htmlScriptRegExp);
+
+        return sb.toString();
+    }
+
+    /**
+     * The regular expression of the HTML script.
+     */
+    public static class HTMLScriptRegExp {
+
+        /**
+         * Common HTML script RegExp.
+         */
+        public static final HTMLScriptRegExp phpScriptTags = new HTMLScriptRegExp("(?:&lt;|<)\\?=?", "\\?(?:&gt;|>)");
+        public static final HTMLScriptRegExp aspScriptTags = new HTMLScriptRegExp("(?:&lt;|<)%=?", "%(?:&gt;|>)");
+        public static final HTMLScriptRegExp scriptScriptTags = new HTMLScriptRegExp("(?:&lt;|<)\\s*script.*?(?:&gt;|>)", "(?:&lt;|<)\\/\\s*script\\s*(?:&gt;|>)");
+        /**
+         * The regular expression of the left tag.
+         */
+        private String left;
+        /**
+         * The regular expression of the right tag.
+         */
+        private String right;
+
+        /**
+         * Constructor
+         * @param left the regular expression of the left tag
+         * @param right the regular expression of the right tag
+         */
+        public HTMLScriptRegExp(String left, String right) {
+            this.left = left;
+            this.right = right;
+        }
+
+        /**
+         * Get the regular expression of the left tag
+         * @return the RegExp
+         */
+        public String getLeft() {
+            return left;
+        }
+
+        /**
+         * Set the regular expression of the left tag
+         * @param left the RegExp
+         */
+        public void setLeft(String left) {
+            this.left = left;
+        }
+
+        /**
+         * Get the regular expression of the right tag
+         * @return the RegExp
+         */
+        public String getRight() {
+            return right;
+        }
+
+        /**
+         * Set the regular expression of the right tag
+         * @param right the RegExp
+         */
+        public void setRight(String right) {
+            this.right = right;
+        }
+
+        /**
+         * Get the pattern of this HTML script RegExp.
+         * Group 1 is the left tag, group 2 is the inner content, group 3 is the right tag.
+         * @return the pattern
+         */
+        public Pattern getpattern() {
+            return Pattern.compile("(" + left + ")(.*?)(" + right + ")", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+
+            sb.append(getClass().getName());
+            sb.append(":[");
+            sb.append("left: ");
+            sb.append(left);
+            sb.append("right: ");
+            sb.append(right);
+            sb.append("]");
+
+            return sb.toString();
+        }
+    }
+
+    /**
+     * The regular expression rule.
+     */
     public static class RegExpRule {
 
+        /**
+         * Common regular expression rule.
+         */
         public static final Pattern multiLineCComments = Pattern.compile("\\/\\*[\\s\\S]*?\\*\\/", Pattern.MULTILINE);
         public static final Pattern singleLineCComments = Pattern.compile("\\/\\/.*$", Pattern.MULTILINE);
         public static final Pattern singleLinePerlComments = Pattern.compile("#.*$", Pattern.MULTILINE);
@@ -57,10 +227,8 @@ public class Brush {
         public static final Pattern multiLineSingleQuotedString = Pattern.compile("'([^\\\\']|\\\\.)*'", Pattern.DOTALL);
         public static final Pattern xmlComments = Pattern.compile("\\w+:\\/\\/[\\w-.\\/?%&=:@;]*");
         //
-        private int regFlags;
         private Pattern pattern;
-        private List<String> affectedStyleKeyList;
-        private Map<Integer, String> matchesToStyleKey;
+        private Map<Integer, Object> groupOperations;
         private Boolean bold;
 
         public RegExpRule(String regExp, String styleKey) {
@@ -69,31 +237,12 @@ public class Brush {
 
         public RegExpRule(String regExp, int regFlags, String styleKey) {
             this(Pattern.compile(regExp, regFlags), styleKey);
-            this.regFlags = regFlags;
         }
 
         public RegExpRule(Pattern pattern, String styleKey) {
             this.pattern = pattern;
-            this.matchesToStyleKey = new HashMap<Integer, String>();
-            matchesToStyleKey.put(0, styleKey);
-            regFlags = 0;
-            affectedStyleKeyList = Arrays.asList(new String[]{""});
-        }
-
-        public Style setStyle(Style style) {
-            if (getBold() != null) {
-                style.setBold(getBold());
-            }
-            return style;
-        }
-
-        public int getRegFlags() {
-            return regFlags;
-        }
-
-        public void setRegFlags(int regFlags) {
-            this.regFlags = regFlags;
-            pattern = Pattern.compile(pattern.pattern(), regFlags);
+            this.groupOperations = new HashMap<Integer, Object>();
+            groupOperations.put(0, styleKey);
         }
 
         public Pattern getPattern() {
@@ -109,23 +258,23 @@ public class Brush {
         }
 
         public void setRegExp(String regExp) {
-            pattern = Pattern.compile(regExp, regFlags);
+            pattern = Pattern.compile(regExp, pattern.flags());
         }
 
-        public Map<Integer, String> getMatchesToStyleKey() {
-            return new HashMap<Integer, String>(matchesToStyleKey);
+        public int getRegExpFlags() {
+            return pattern.flags();
         }
 
-        public void setMatchesToStyleKey(Map<Integer, String> matchesToStyleKey) {
-            this.matchesToStyleKey = new HashMap<Integer, String>(matchesToStyleKey);
+        public void setRegExpFlags(int flags) {
+            pattern = Pattern.compile(pattern.pattern(), flags);
         }
 
-        public List<String> getAffectedStyleKeyList() {
-            return new ArrayList<String>(affectedStyleKeyList);
+        public Map<Integer, Object> getGroupOperations() {
+            return new HashMap<Integer, Object>(groupOperations);
         }
 
-        public void setAffectedStyleKeyList(List<String> affectedStyleKeyList) {
-            this.affectedStyleKeyList = new ArrayList<String>(affectedStyleKeyList);
+        public void setGroupOperations(Map<Integer, Object> GroupOperations) {
+            this.groupOperations = new HashMap<Integer, Object>(GroupOperations);
         }
 
         public Boolean getBold() {
@@ -146,37 +295,15 @@ public class Brush {
             sb.append(getRegExp());
             sb.append(", ");
             sb.append("regFlags: ");
-            sb.append(getRegFlags());
+            sb.append(getRegExpFlags());
             sb.append(", ");
-            sb.append("affectedStyleKeyList: ");
-            sb.append(getAffectedStyleKeyList());
-            sb.append(", ");
-            sb.append("matchesToStyleKey: ");
-            sb.append(getMatchesToStyleKey());
+            sb.append("getGroupOperations: ");
+            sb.append(getGroupOperations());
             sb.append(", ");
             sb.append("bold: ");
             sb.append(getBold());
 
             return sb.toString();
         }
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(getClass().getName());
-        sb.append("\n");
-        sb.append("rule count: ");
-        sb.append(regExpRule.size());
-        for (int i = 0, iEnd = regExpRule.size(); i < iEnd; i++) {
-            RegExpRule rule = regExpRule.get(i);
-            sb.append("\n");
-            sb.append(i);
-            sb.append(": ");
-            sb.append(rule.toString());
-        }
-
-        return sb.toString();
     }
 }

@@ -14,6 +14,7 @@ import java.awt.Font;
 import syntaxhighlighter.Theme;
 
 /**
+ * RDark theme.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class ThemeRDark extends Theme {
@@ -24,15 +25,17 @@ public class ThemeRDark extends Theme {
         // RDark SyntaxHighlighter theme based on theme by Radu Dineiu
         // http://www.vim.org/scripts/script.php?script_id=1732
 
+        setFont(new Font("Consolas", Font.PLAIN, 12));
         setBackground(Color.decode("0x1b2426"));
+
+        setHighlightedBackground(Color.decode("0x323E41"));
+
         setGutterText(Color.decode("0xafafaf"));
         setGutterBorderColor(Color.decode("0x435a5f"));
         setGutterBorderWidth(3);
         setGutterTextFont(new Font("Verdana", Font.PLAIN, 11));
         setGutterTextPaddingLeft(7);
         setGutterTextPaddingRight(7);
-
-        setFont(new Font("Consolas", Font.PLAIN, 12));
 
         Style style = new Style();
         style.setColor(Color.decode("0xb9bdb6"));
@@ -72,7 +75,7 @@ public class ThemeRDark extends Theme {
 
         style = new Style();
         style.setBold(true);
-        style.setColor(Color.decode("0x006699"));
+        style.setColor(Color.decode("0x5ba1cf"));
         setScript(style);
 
         style = new Style();

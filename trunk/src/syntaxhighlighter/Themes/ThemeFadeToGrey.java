@@ -14,6 +14,7 @@ import java.awt.Font;
 import syntaxhighlighter.Theme;
 
 /**
+ * Fade to Grey theme.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class ThemeFadeToGrey extends Theme {
@@ -24,15 +25,17 @@ public class ThemeFadeToGrey extends Theme {
         // Fade to Grey SyntaxHighlighter theme based on theme by Brasten Sager
         // :http//www.ibrasten.com/
 
+        setFont(new Font("Consolas", Font.PLAIN, 12));
         setBackground(Color.decode("0x121212"));
+
+        setHighlightedBackground(Color.decode("0x2C2C29"));
+
         setGutterText(Color.decode("0xafafaf"));
         setGutterBorderColor(Color.decode("0x3185b9"));
         setGutterBorderWidth(3);
         setGutterTextFont(new Font("Verdana", Font.PLAIN, 11));
         setGutterTextPaddingLeft(7);
         setGutterTextPaddingRight(7);
-
-        setFont(new Font("Consolas", Font.PLAIN, 12));
 
         Style style = new Style();
         style.setColor(Color.white);
@@ -73,7 +76,7 @@ public class ThemeFadeToGrey extends Theme {
 
         style = new Style();
         style.setBold(true);
-        style.setColor(Color.decode("0x006699"));
+        style.setColor(Color.decode("0xd01d33"));
         setScript(style);
 
         style = new Style();

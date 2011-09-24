@@ -9,12 +9,15 @@
  */
 package syntaxhighlighter.Brushes;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 import syntaxhighlighter.Brush;
 import syntaxhighlighter.Brush.RegExpRule;
 
 /**
+ * JavaScript brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class BrushJScript extends Brush {
@@ -22,17 +25,21 @@ public class BrushJScript extends Brush {
     public BrushJScript() {
         super();
 
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.multiLineDoubleQuotedString, "string")); // double quoted strings
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.multiLineSingleQuotedString, "string")); // single quoted strings
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // one line comments
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
-        regExpRule.add(new RegExpRule("\\s*#.*", Pattern.MULTILINE, "preprocessor")); // preprocessor tags like #region and #endregion
-        regExpRule.add(new RegExpRule(getKeywords("break case catch continue "
+        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineDoubleQuotedString, "string")); // double quoted strings
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineSingleQuotedString, "string")); // single quoted strings
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // one line comments
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
+        regExpRuleList.add(new RegExpRule("\\s*#.*", Pattern.MULTILINE, "preprocessor")); // preprocessor tags like #region and #endregion
+        regExpRuleList.add(new RegExpRule(getKeywords("break case catch continue "
                 + "default delete do else false  "
                 + "for function if in instanceof "
                 + "new null return super switch "
                 + "this throw true try typeof var while with"), Pattern.MULTILINE, "keyword")); // keywords
+        setRegExpRuleList(regExpRuleList);
 
-        commonFileExtensionList = Arrays.asList(new String[]{"js", "es"});
+        setHTMLScriptRegExp(HTMLScriptRegExp.scriptScriptTags);
+
+        setCommonFileExtensionList(Arrays.asList(new String[]{"js", "es"}));
     }
 }

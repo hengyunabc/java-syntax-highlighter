@@ -14,6 +14,7 @@ import java.awt.Font;
 import syntaxhighlighter.Theme;
 
 /**
+ * Eclipse theme.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class ThemeEclipse extends Theme {
@@ -24,15 +25,17 @@ public class ThemeEclipse extends Theme {
         // (C) Code-House
         // :http//blog.code-house.org/2009/10/xml-i-adnotacje-kod-ogolnego-przeznaczenia-i-jpa/
 
+        setFont(new Font("Consolas", Font.PLAIN, 12));
         setBackground(Color.decode("0xffffff"));
+
+        setHighlightedBackground(Color.decode("0xc3defe"));
+
         setGutterText(Color.decode("0x787878"));
         setGutterBorderColor(Color.decode("0xd4d0c8"));
         setGutterBorderWidth(3);
         setGutterTextFont(new Font("Verdana", Font.PLAIN, 11));
         setGutterTextPaddingLeft(7);
         setGutterTextPaddingRight(7);
-
-        setFont(new Font("Consolas", Font.PLAIN, 12));
 
         Style style = new Style();
         style.setColor(Color.decode("0x000000"));
@@ -73,7 +76,7 @@ public class ThemeEclipse extends Theme {
 
         style = new Style();
         style.setBold(true);
-        style.setColor(Color.decode("0x96dd3b"));
+        style.setColor(Color.decode("0x7f0055"));
         setScript(style);
 
         style = new Style();
