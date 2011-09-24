@@ -12,5 +12,5 @@ http://java-syntax-highlighter.googlecode.com/files/3.png<br />
 RDark theme (line 8 is mouse over effect):<br />
 http://java-syntax-highlighter.googlecode.com/files/4.png<br />
 
-Support of line number row header (line 25 is mouse over effect):<br />
+Support of line number row header:<br />
 http://java-syntax-highlighter.googlecode.com/files/5.png<br />
