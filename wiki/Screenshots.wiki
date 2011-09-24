@@ -6,8 +6,11 @@ http://java-syntax-highlighter.googlecode.com/files/1.png<br />
 Default theme:<br />
 http://java-syntax-highlighter.googlecode.com/files/2.png<br />
 
-RDark theme:<br />
+Django theme:<br />
 http://java-syntax-highlighter.googlecode.com/files/3.png<br />
 
-Support of line number row header:<br />
+RDark theme:<br />
 http://java-syntax-highlighter.googlecode.com/files/4.png<br />
+
+Support of line number row header:<br />
+http://java-syntax-highlighter.googlecode.com/files/5.png<br />
