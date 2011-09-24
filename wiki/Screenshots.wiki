@@ -3,7 +3,7 @@
 Eclipse theme:<br />
 http://java-syntax-highlighter.googlecode.com/files/1.png<br />
 
-Default theme:<br />
+Default theme (line 9 is mouse over effect):<br />
 http://java-syntax-highlighter.googlecode.com/files/2.png<br />
 
 Django theme:<br />
