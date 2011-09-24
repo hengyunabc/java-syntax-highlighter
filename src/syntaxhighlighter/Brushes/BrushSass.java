@@ -9,12 +9,15 @@
  */
 package syntaxhighlighter.Brushes;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 import syntaxhighlighter.Brush;
 import syntaxhighlighter.Brush.RegExpRule;
 
 /**
+ * Sass brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class BrushSass extends Brush {
@@ -22,16 +25,17 @@ public class BrushSass extends Brush {
     public BrushSass() {
         super();
 
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // singleline comments
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // double quoted strings
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // single quoted strings
-        regExpRule.add(new RegExpRule("\\#[a-fA-F0-9]{3,6}", "value")); // html colors
-        regExpRule.add(new RegExpRule("\\b(-?\\d+)(\\.\\d+)?(px|em|pt|\\:|\\%|)\\b", "value")); // sizes
-        regExpRule.add(new RegExpRule("\\$\\w+", "variable")); // variables
-        regExpRule.add(new RegExpRule(getKeywords("!important !default"), "color3"));
-        regExpRule.add(new RegExpRule(getKeywords("@import @extend @debug @warn @if @for @while @mixin @include"), "preprocessor"));
-        regExpRule.add(new RegExpRule(getKeywordsCSS("ascent azimuth background-attachment background-color background-image background-position "
+        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // singleline comments
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // double quoted strings
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // single quoted strings
+        regExpRuleList.add(new RegExpRule("\\#[a-fA-F0-9]{3,6}", "value")); // html colors
+        regExpRuleList.add(new RegExpRule("\\b(-?\\d+)(\\.\\d+)?(px|em|pt|\\:|\\%|)\\b", "value")); // sizes
+        regExpRuleList.add(new RegExpRule("\\$\\w+", "variable")); // variables
+        regExpRuleList.add(new RegExpRule(getKeywords("!important !default"), "color3"));
+        regExpRuleList.add(new RegExpRule(getKeywords("@import @extend @debug @warn @if @for @while @mixin @include"), "preprocessor"));
+        regExpRuleList.add(new RegExpRule(getKeywordsCSS("ascent azimuth background-attachment background-color background-image background-position "
                 + "background-repeat background baseline bbox border-collapse border-color border-spacing border-style border-top "
                 + "border-right border-bottom border-left border-top-color border-right-color border-bottom-color border-left-color "
                 + "border-top-style border-right-style border-bottom-style border-left-style border-top-width border-right-width "
@@ -45,7 +49,7 @@ public class BrushSass extends Brush {
                 + "quotes right richness size slope src speak-header speak-numeral speak-punctuation speak speech-rate stemh stemv stress "
                 + "table-layout text-align top text-decoration text-indent text-shadow text-transform unicode-bidi unicode-range units-per-em "
                 + "vertical-align visibility voice-family volume white-space widows width widths word-spacing x-height z-index"), Pattern.MULTILINE, "keyword"));
-        regExpRule.add(new RegExpRule(getValuesCSS("above absolute all always aqua armenian attr aural auto avoid baseline behind below bidi-override black blink block blue bold bolder "
+        regExpRuleList.add(new RegExpRule(getValuesCSS("above absolute all always aqua armenian attr aural auto avoid baseline behind below bidi-override black blink block blue bold bolder "
                 + "both bottom braille capitalize caption center center-left center-right circle close-quote code collapse compact condensed "
                 + "continuous counter counters crop cross crosshair cursive dashed decimal decimal-leading-zero digits disc dotted double "
                 + "embed embossed e-resize expanded extra-condensed extra-expanded fantasy far-left far-right fast faster fixed format fuchsia "
@@ -59,9 +63,10 @@ public class BrushSass extends Brush {
                 + "table-caption table-cell table-column table-column-group table-footer-group table-header-group table-row table-row-group teal "
                 + "text-bottom text-top thick thin top transparent tty tv ultra-condensed ultra-expanded underline upper-alpha uppercase upper-latin "
                 + "upper-roman url visible wait white wider w-resize x-fast x-high x-large x-loud x-low x-slow x-small x-soft xx-large xx-small yellow"), "value"));
-        regExpRule.add(new RegExpRule(getKeywords("[mM]onospace [tT]ahoma [vV]erdana [aA]rial [hH]elvetica [sS]ans-serif [sS]erif [cC]ourier mono sans serif"), "value"));
+        regExpRuleList.add(new RegExpRule(getKeywords("[mM]onospace [tT]ahoma [vV]erdana [aA]rial [hH]elvetica [sS]ans-serif [sS]erif [cC]ourier mono sans serif"), "value"));
+        setRegExpRuleList(regExpRuleList);
 
-        commonFileExtensionList = Arrays.asList(new String[]{"sass", "scss"});
+        setCommonFileExtensionList(Arrays.asList(new String[]{"sass", "scss"}));
     }
 
     protected static String getKeywordsCSS(String str) {

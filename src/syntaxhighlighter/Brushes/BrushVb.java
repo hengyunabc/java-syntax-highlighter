@@ -9,12 +9,15 @@
  */
 package syntaxhighlighter.Brushes;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 import syntaxhighlighter.Brush;
 import syntaxhighlighter.Brush.RegExpRule;
 
 /**
+ * Visual Basic brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class BrushVb extends Brush {
@@ -22,10 +25,11 @@ public class BrushVb extends Brush {
     public BrushVb() {
         super();
 
-        regExpRule.add(new RegExpRule("'.*$", Pattern.MULTILINE, "comments")); // one line comments
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // strings
-        regExpRule.add(new RegExpRule("^\\s*#.*$", Pattern.MULTILINE, "preprocessor")); // preprocessor tags like #region and #endregion
-        regExpRule.add(new RegExpRule(getKeywords("AddHandler AddressOf AndAlso Alias And Ansi As Assembly Auto "
+        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
+        regExpRuleList.add(new RegExpRule("'.*$", Pattern.MULTILINE, "comments")); // one line comments
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // strings
+        regExpRuleList.add(new RegExpRule("^\\s*#.*$", Pattern.MULTILINE, "preprocessor")); // preprocessor tags like #region and #endregion
+        regExpRuleList.add(new RegExpRule(getKeywords("AddHandler AddressOf AndAlso Alias And Ansi As Assembly Auto "
                 + "Boolean ByRef Byte ByVal Call Case Catch CBool CByte CChar CDate "
                 + "CDec CDbl Char CInt Class CLng CObj Const CShort CSng CStr CType "
                 + "Date Decimal Declare Default Delegate Dim DirectCast Do Double Each "
@@ -39,7 +43,10 @@ public class BrushVb extends Brush {
                 + "Return Select Set Shadows Shared Short Single Static Step Stop String "
                 + "Structure Sub SyncLock Then Throw To True Try TypeOf Unicode Until "
                 + "Variant When While With WithEvents WriteOnly Xor"), Pattern.MULTILINE, "keyword")); // vb keyword
+        setRegExpRuleList(regExpRuleList);
 
-        commonFileExtensionList = Arrays.asList(new String[]{"vb", "vbs"});
+        setHTMLScriptRegExp(HTMLScriptRegExp.aspScriptTags);
+
+        setCommonFileExtensionList(Arrays.asList(new String[]{"vb", "vbs"}));
     }
 }

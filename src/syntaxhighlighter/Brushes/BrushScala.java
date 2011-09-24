@@ -9,12 +9,15 @@
  */
 package syntaxhighlighter.Brushes;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 import syntaxhighlighter.Brush;
 import syntaxhighlighter.Brush.RegExpRule;
 
 /**
+ * Scala brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class BrushScala extends Brush {
@@ -23,17 +26,19 @@ public class BrushScala extends Brush {
         super();
 
         // Contributed by Yegor Jbanov and David Bernard.
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // one line comments
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.multiLineSingleQuotedString, "string")); // multi-line strings
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.multiLineDoubleQuotedString, "string")); // double-quoted string
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // strings
-        regExpRule.add(new RegExpRule("0x[a-f0-9]+|\\d+(\\.\\d+)?", Pattern.CASE_INSENSITIVE, "value")); // numbers
-        regExpRule.add(new RegExpRule(getKeywords("val sealed case def true trait implicit forSome import match object null finally super "
+        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // one line comments
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineSingleQuotedString, "string")); // multi-line strings
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineDoubleQuotedString, "string")); // double-quoted string
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // strings
+        regExpRuleList.add(new RegExpRule("0x[a-f0-9]+|\\d+(\\.\\d+)?", Pattern.CASE_INSENSITIVE, "value")); // numbers
+        regExpRuleList.add(new RegExpRule(getKeywords("val sealed case def true trait implicit forSome import match object null finally super "
                 + "override try lazy for var catch throw type extends class while with new final yield abstract "
                 + "else do if return protected private this package false"), Pattern.MULTILINE, "keyword")); // keywords
-        regExpRule.add(new RegExpRule("[_:=><%#@]+", Pattern.MULTILINE, "keyword")); // scala keyword
+        regExpRuleList.add(new RegExpRule("[_:=><%#@]+", Pattern.MULTILINE, "keyword")); // scala keyword
+        setRegExpRuleList(regExpRuleList);
 
-        commonFileExtensionList = Arrays.asList(new String[]{"scl", "scala"});
+        setCommonFileExtensionList(Arrays.asList(new String[]{"scl", "scala"}));
     }
 }

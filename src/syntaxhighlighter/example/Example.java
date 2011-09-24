@@ -9,24 +9,23 @@
  */
 package syntaxhighlighter.example;
 
-import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import syntaxhighlighter.Brush;
-import syntaxhighlighter.Brushes.BrushXML;
-import syntaxhighlighter.JTextComponentRowHeader;
-import syntaxhighlighter.Parser;
+import syntaxhighlighter.Brushes.BrushCss;
+import syntaxhighlighter.Brushes.BrushJScript;
+import syntaxhighlighter.Brushes.BrushPhp;
+import syntaxhighlighter.Brushes.BrushXml;
 import syntaxhighlighter.SyntaxHighlighter;
-import syntaxhighlighter.SyntaxHighlighterPane;
-import syntaxhighlighter.Theme;
-import syntaxhighlighter.Themes.ThemeDjango;
+import syntaxhighlighter.Themes.ThemeRDark;
 
 /**
+ * Usage example.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class Example {
@@ -38,27 +37,39 @@ public class Example {
             Logger.getLogger(SyntaxHighlighter.class.getName()).log(Level.INFO, "Failed to set system look and feel.", ex);
         }
 
-//        Brush brush = new BrushXML();
-//        Theme theme = new ThemeDjango();
-//
-//        JScrollPane scrollPane = new JScrollPane();
-//        scrollPane.setBorder(null);
-//
-//        SyntaxHighlighterPane highlighter = new SyntaxHighlighterPane();
-//        theme.setTheme(highlighter);
-//        highlighter.setCode((new Parser(brush, theme)).parse(SyntaxHighlighter.readFile(new File("test.html"))));
-//        scrollPane.setViewportView(highlighter);
-//
-//        JTextComponentRowHeader _rowHeader = new JTextComponentRowHeader(scrollPane, highlighter);
-//        theme.setTheme(_rowHeader);
-//        scrollPane.setRowHeaderView(_rowHeader);
+        SwingUtilities.invokeLater(new Runnable() {
 
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setContentPane(scrollPane);
-        frame.setContentPane(new SyntaxHighlighter(new File("test.html"), new BrushXML(), new ThemeDjango()));
-        frame.setSize(new Dimension(800, 600));
-        frame.setLocationByPlatform(true);
-        frame.setVisible(true);
+            @Override
+            public void run() {
+                try {
+                    JFrame frame = new JFrame();
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+                    long start, end;
+                    start = System.currentTimeMillis();
+
+                    SyntaxHighlighter highlighter = new SyntaxHighlighter(new BrushXml(), new ThemeRDark());
+                    highlighter.setHtmlScript(true);
+                    highlighter.addHTMLScriptBrush(new BrushCss());
+                    highlighter.addHTMLScriptBrush(new BrushJScript());
+                    highlighter.addHTMLScriptBrush(new BrushPhp());
+                    File file = new File(Example.class.getResource("/syntaxhighlighter/example/example.html").toURI());
+                    highlighter.setContent(file);
+                    highlighter.setFirstLine(10);
+                    highlighter.setHighlightedLineList(Arrays.asList(new Integer[]{13, 27, 28, 38, 42, 43, 53}));
+
+                    end = System.currentTimeMillis();
+                    System.out.println((end - start));
+
+                    frame.setContentPane(highlighter);
+                    frame.pack();
+//                    frame.setSize(new Dimension(800, 600));
+                    frame.setLocationByPlatform(true);
+                    frame.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(Example.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 }

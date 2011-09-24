@@ -9,12 +9,15 @@
  */
 package syntaxhighlighter.Brushes;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 import syntaxhighlighter.Brush;
 import syntaxhighlighter.Brush.RegExpRule;
 
 /**
+ * Groovy brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class BrushGroovy extends Brush {
@@ -24,18 +27,19 @@ public class BrushGroovy extends Brush {
 
         // Contributed by Andres Almiray
         // http://jroller.com/aalmiray/entry/nice_source_code_syntax_highlighter
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // one line comments
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // strings
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // strings
-        regExpRule.add(new RegExpRule("\"\"\".*\"\"\"", "string")); // GStrings
-        regExpRule.add(new RegExpRule("\\b([\\d]+(\\.[\\d]+)?|0x[a-f0-9]+)\\b", Pattern.CASE_INSENSITIVE, "value")); // numbers
-        regExpRule.add(new RegExpRule(getKeywords("as assert break case catch class continue def default do else extends finally "
+        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // one line comments
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // strings
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // strings
+        regExpRuleList.add(new RegExpRule("\"\"\".*\"\"\"", "string")); // GStrings
+        regExpRuleList.add(new RegExpRule("\\b([\\d]+(\\.[\\d]+)?|0x[a-f0-9]+)\\b", Pattern.CASE_INSENSITIVE, "value")); // numbers
+        regExpRuleList.add(new RegExpRule(getKeywords("as assert break case catch class continue def default do else extends finally "
                 + "if in implements import instanceof interface new package property return switch "
                 + "throw throws try while public protected private static"), Pattern.MULTILINE, "keyword")); // goovy keyword
-        regExpRule.add(new RegExpRule(getKeywords("void boolean byte char short int long float double"), Pattern.MULTILINE, "color1")); // goovy/java type
-        regExpRule.add(new RegExpRule(getKeywords("null"), Pattern.MULTILINE, "constants")); // constants
-        regExpRule.add(new RegExpRule(getKeywords("allProperties count get size "
+        regExpRuleList.add(new RegExpRule(getKeywords("void boolean byte char short int long float double"), Pattern.MULTILINE, "color1")); // goovy/java type
+        regExpRuleList.add(new RegExpRule(getKeywords("null"), Pattern.MULTILINE, "constants")); // constants
+        regExpRuleList.add(new RegExpRule(getKeywords("allProperties count get size "
                 + "collect each eachProperty eachPropertyName eachWithIndex find findAll "
                 + "findIndexOf grep inject max min reverseEach sort "
                 + "asImmutable asSynchronized flatten intersect join pop reverse subMap toList "
@@ -46,7 +50,10 @@ public class BrushGroovy extends Brush {
                 + "withStreams withWriter withWriterAppend write writeLine "
                 + "dump inspect invokeMethod print println step times upto use waitForOrKill "
                 + "getText"), Pattern.MULTILINE, "functions")); // methods
+        setRegExpRuleList(regExpRuleList);
 
-        commonFileExtensionList = Arrays.asList(new String[]{"groovy"});
+        setHTMLScriptRegExp(HTMLScriptRegExp.aspScriptTags);
+
+        setCommonFileExtensionList(Arrays.asList(new String[]{"groovy"}));
     }
 }

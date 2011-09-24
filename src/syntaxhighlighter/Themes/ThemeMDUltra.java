@@ -14,6 +14,7 @@ import java.awt.Font;
 import syntaxhighlighter.Theme;
 
 /**
+ * MD Ultra theme.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class ThemeMDUltra extends Theme {
@@ -24,15 +25,17 @@ public class ThemeMDUltra extends Theme {
         // MDUltra SyntaxHighlighter theme based on Midnight Theme
         // http://www.mddev.co.uk/
 
+        setFont(new Font("Consolas", Font.PLAIN, 12));
         setBackground(Color.decode("0x222222"));
+
+        setHighlightedBackground(Color.decode("0x253e5a"));
+
         setGutterText(Color.decode("0x38566f"));
         setGutterBorderColor(Color.decode("0x435a5f"));
         setGutterBorderWidth(3);
         setGutterTextFont(new Font("Verdana", Font.PLAIN, 11));
         setGutterTextPaddingLeft(7);
         setGutterTextPaddingRight(7);
-
-        setFont(new Font("Consolas", Font.PLAIN, 12));
 
         Style style = new Style();
         style.setColor(Color.decode("0x00ff00"));
@@ -72,7 +75,7 @@ public class ThemeMDUltra extends Theme {
 
         style = new Style();
         style.setBold(true);
-        style.setColor(Color.decode("0x006699"));
+        style.setColor(Color.decode("0xaaaaff"));
         setScript(style);
 
         style = new Style();

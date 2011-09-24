@@ -11,23 +11,38 @@ package syntaxhighlighter;
 
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.text.JTextComponent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 /**
+ * Theme for SyntaxHighlighter.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class Theme {
 
+    /**
+     * General
+     */
+    private Font font;
     private Color background;
+    /**
+     * Line
+     */
+    private Color highlightedBackground;
+    /**
+     * Gutter
+     */
     private Color gutterText;
     private Color gutterBorderColor;
     private int gutterBorderWidth;
     private Font gutterTextFont;
     private int gutterTextPaddingLeft;
     private int gutterTextPaddingRight;
-    private Font font;
+    /**
+     * Code
+     */
     private Style plain;
     private Style comments;
     private Style string;
@@ -43,15 +58,22 @@ public class Theme {
     private Style color2;
     private Style color3;
 
+    /**
+     * Constructor.
+     */
     public Theme() {
+        font = gutterTextFont;
         background = Color.white;
+
+        highlightedBackground = Color.gray;
+
         gutterText = Color.black;
         gutterBorderColor = new Color(184, 184, 184);
         gutterBorderWidth = 3;
         gutterTextFont = new Font("Consolas", Font.PLAIN, 12);
         gutterTextPaddingLeft = 7;
         gutterTextPaddingRight = 7;
-        font = gutterTextFont;
+
         plain = new Style();
         comments = new Style();
         string = new Style();
@@ -68,21 +90,27 @@ public class Theme {
         color3 = new Style();
     }
 
-    public void setTheme(JTextComponent textComponent) {
-        textComponent.setBackground(background);
-        textComponent.setFont(font);
-    }
-
+    /**
+     * Apply the theme to the row header panel.
+     * @param rowHeader the row header to apply theme on
+     */
     public void setTheme(JTextComponentRowHeader rowHeader) {
         rowHeader.setBackground(background);
+        rowHeader.setHighlightedColor(background);
+
         rowHeader.setForeground(gutterText);
         rowHeader.setBorderColor(gutterBorderColor);
         rowHeader.setBorderWidth(gutterBorderWidth);
-        rowHeader.setLineNumberFont(gutterTextFont);
+        rowHeader.setFont(gutterTextFont);
         rowHeader.setPaddingLeft(gutterTextPaddingLeft);
         rowHeader.setPaddingRight(gutterTextPaddingRight);
     }
 
+    /**
+     * Get the {@link syntaxhighlighter.Theme.Style} by keyword.
+     * @param key the keyword
+     * @return the {@link syntaxhighlighter.Theme.Style} related to the {@code key}
+     */
     public Style getStyle(String key) {
         if (key.equals("plain")) {
             return plain;
@@ -124,6 +152,14 @@ public class Theme {
 
     public void setBackground(Color background) {
         this.background = background;
+    }
+
+    public Color getHighlightedBackground() {
+        return highlightedBackground;
+    }
+
+    public void setHighlightedBackground(Color highlightedBackground) {
+        this.highlightedBackground = highlightedBackground;
     }
 
     public Color getGutterText() {
@@ -294,14 +330,112 @@ public class Theme {
         this.variable = variable;
     }
 
+    @Override
+    public Theme clone() {
+        Theme object = null;
+        try {
+            object = (Theme) super.clone();
+            object.font = font;
+            object.background = background;
+            object.highlightedBackground = highlightedBackground;
+            object.gutterText = gutterText;
+            object.gutterBorderColor = gutterBorderColor;
+            object.gutterBorderWidth = gutterBorderWidth;
+            object.gutterTextFont = gutterTextFont;
+            object.gutterTextPaddingLeft = gutterTextPaddingLeft;
+            object.gutterTextPaddingRight = gutterTextPaddingRight;
+            object.plain = plain.clone();
+            object.comments = comments.clone();
+            object.string = string.clone();
+            object.keyword = keyword.clone();
+            object.preprocessor = preprocessor.clone();
+            object.variable = variable.clone();
+            object.value = value.clone();
+            object.functions = functions.clone();
+            object.constants = constants.clone();
+            object.script = script.clone();
+            object.scriptBackground = scriptBackground.clone();
+            object.color1 = color1.clone();
+            object.color2 = color2.clone();
+            object.color3 = color3.clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Theme.class.getName()).log(Level.WARNING, null, ex);
+        }
+        return object;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(getClass().getName());
+        sb.append(": ");
+        sb.append("font: ").append(getFont());
+        sb.append(", ");
+        sb.append("background: ").append(getBackground());
+        sb.append(", ");
+        sb.append("highlightedBackground: ").append(getHighlightedBackground());
+        sb.append(", ");
+        sb.append("gutterText: ").append(getGutterText());
+        sb.append(", ");
+        sb.append("gutterBorderColor: ").append(getGutterBorderColor());
+        sb.append(", ");
+        sb.append("gutterBorderWidth: ").append(getGutterBorderWidth());
+        sb.append(", ");
+        sb.append("gutterTextFont: ").append(getGutterTextFont());
+        sb.append(", ");
+        sb.append("gutterTextPaddingLeft: ").append(getGutterTextPaddingLeft());
+        sb.append(", ");
+        sb.append("gutterTextPaddingRight: ").append(getGutterTextPaddingRight());
+        sb.append(", ");
+        sb.append("plain: ").append(getPlain());
+        sb.append(", ");
+        sb.append("comments: ").append(getComments());
+        sb.append(", ");
+        sb.append("string: ").append(getString());
+        sb.append(", ");
+        sb.append("keyword: ").append(getKeyword());
+        sb.append(", ");
+        sb.append("preprocessor: ").append(getPreprocessor());
+        sb.append(", ");
+        sb.append("variable: ").append(getVariable());
+        sb.append(", ");
+        sb.append("value: ").append(getValue());
+        sb.append(", ");
+        sb.append("functions: ").append(getFunctions());
+        sb.append(", ");
+        sb.append("constants: ").append(getConstants());
+        sb.append(", ");
+        sb.append("script: ").append(getScript());
+        sb.append(", ");
+        sb.append("scriptBackground: ").append(getScriptBackground());
+        sb.append(", ");
+        sb.append("color1: ").append(getColor1());
+        sb.append(", ");
+        sb.append("color2: ").append(getColor2());
+        sb.append(", ");
+        sb.append("color3: ").append(getColor3());
+
+        return sb.toString();
+    }
+
+    /**
+     * The style used by {@link syntaxhighlighter.Theme} as those of CSS styles.
+     */
     public static class Style {
 
         private boolean bold;
         private Color color;
+        /**
+         * The background color, null means no background color is set.
+         */
         private Color background;
         private boolean underline;
         private boolean italic;
 
+        /**
+         * Constructor.
+         */
         public Style() {
             bold = false;
             color = Color.black;
@@ -310,6 +444,27 @@ public class Theme {
             italic = false;
         }
 
+        /**
+         * Apply the style to the AttributeSet.
+         * Note that the AttributeSet should only be set by this function or some unexpected style may appear.
+         * @param attributeSet the AttributeSet to set the style on
+         */
+        public void setAttributeSet(SimpleAttributeSet attributeSet) {
+            StyleConstants.setBold(attributeSet, bold);
+            StyleConstants.setForeground(attributeSet, color);
+            if (background != null) {
+                StyleConstants.setBackground(attributeSet, background);
+            } else {
+                attributeSet.removeAttribute(StyleConstants.Background);
+            }
+            StyleConstants.setUnderline(attributeSet, underline);
+            StyleConstants.setItalic(attributeSet, italic);
+        }
+
+        /**
+         * Get the AttributeSet from this style.
+         * @return the AttributeSet
+         */
         public SimpleAttributeSet getAttributeSet() {
             SimpleAttributeSet attributeSet = new SimpleAttributeSet();
             StyleConstants.setBold(attributeSet, bold);
@@ -322,10 +477,18 @@ public class Theme {
             return attributeSet;
         }
 
+        /**
+         * Get the background color.
+         * @return the background color or null if no color is set
+         */
         public Color getBackground() {
             return background;
         }
 
+        /**
+         * Set the background color.
+         * @param background input null means do not set the background
+         */
         public void setBackground(Color background) {
             this.background = background;
         }
@@ -363,6 +526,35 @@ public class Theme {
         }
 
         @Override
+        public boolean equals(Object obj) {
+            if (obj == null || !(obj instanceof Style)) {
+                return false;
+            }
+            if (obj == this) {
+                return true;
+            }
+            Style _object = (Style) obj;
+            return _object.bold == bold && _object.color.equals(color) && _object.background.equals(background)
+                    && _object.underline == underline && _object.italic == italic;
+        }
+
+        @Override
+        public Style clone() {
+            Style object = null;
+            try {
+                object = (Style) super.clone();
+                object.bold = bold;
+                object.color = color;
+                object.background = background;
+                object.underline = underline;
+                object.italic = italic;
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(Style.class.getName()).log(Level.WARNING, null, ex);
+            }
+            return object;
+        }
+
+        @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
 
@@ -380,58 +572,5 @@ public class Theme {
 
             return sb.toString();
         }
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(getClass().getName());
-        sb.append(": ");
-        sb.append("background: ").append(getBackground());
-        sb.append(", ");
-        sb.append("gutterText: ").append(getGutterText());
-        sb.append(", ");
-        sb.append("gutterBorderColor: ").append(getGutterBorderColor());
-        sb.append(", ");
-        sb.append("gutterBorderWidth: ").append(getGutterBorderWidth());
-        sb.append(", ");
-        sb.append("gutterTextFont: ").append(getGutterTextFont());
-        sb.append(", ");
-        sb.append("gutterTextPaddingLeft: ").append(getGutterTextPaddingLeft());
-        sb.append(", ");
-        sb.append("gutterTextPaddingRight: ").append(getGutterTextPaddingRight());
-        sb.append(", ");
-        sb.append("font: ").append(getFont());
-        sb.append(", ");
-        sb.append("plain: ").append(getPlain());
-        sb.append(", ");
-        sb.append("comments: ").append(getComments());
-        sb.append(", ");
-        sb.append("string: ").append(getString());
-        sb.append(", ");
-        sb.append("keyword: ").append(getKeyword());
-        sb.append(", ");
-        sb.append("preprocessor: ").append(getPreprocessor());
-        sb.append(", ");
-        sb.append("variable: ").append(getVariable());
-        sb.append(", ");
-        sb.append("value: ").append(getValue());
-        sb.append(", ");
-        sb.append("functions: ").append(getFunctions());
-        sb.append(", ");
-        sb.append("constants: ").append(getConstants());
-        sb.append(", ");
-        sb.append("script: ").append(getScript());
-        sb.append(", ");
-        sb.append("scriptBackground: ").append(getScriptBackground());
-        sb.append(", ");
-        sb.append("color1: ").append(getColor1());
-        sb.append(", ");
-        sb.append("color2: ").append(getColor2());
-        sb.append(", ");
-        sb.append("color3: ").append(getColor3());
-
-        return sb.toString();
     }
 }

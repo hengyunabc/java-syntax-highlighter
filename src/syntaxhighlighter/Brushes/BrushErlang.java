@@ -9,11 +9,14 @@
  */
 package syntaxhighlighter.Brushes;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 import syntaxhighlighter.Brush;
 import syntaxhighlighter.Brush.RegExpRule;
 
 /**
+ * Erlang brush.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class BrushErlang extends Brush {
@@ -23,17 +26,19 @@ public class BrushErlang extends Brush {
 
         // Contributed by Jean-Lou Dupont
         // http://jldupont.blogspot.com/2009/06/erlang-syntax-highlighter.html
-        regExpRule.add(new RegExpRule("[A-Z][A-Za-z0-9_]+", "constants"));
-        regExpRule.add(new RegExpRule("\\%.+", Pattern.MULTILINE, "comments"));
-        regExpRule.add(new RegExpRule("\\?[A-Za-z0-9_]+", "preprocessor"));
-        regExpRule.add(new RegExpRule("[a-z0-9_]+:[a-z0-9_]+", "functions"));
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string"));
-        regExpRule.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string"));
+        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
+        regExpRuleList.add(new RegExpRule("[A-Z][A-Za-z0-9_]+", "constants"));
+        regExpRuleList.add(new RegExpRule("\\%.+", Pattern.MULTILINE, "comments"));
+        regExpRuleList.add(new RegExpRule("\\?[A-Za-z0-9_]+", "preprocessor"));
+        regExpRuleList.add(new RegExpRule("[a-z0-9_]+:[a-z0-9_]+", "functions"));
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string"));
+        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string"));
         // According to: http://erlang.org/doc/reference_manual/introduction.html#1.5
-        regExpRule.add(new RegExpRule(getKeywords("after and andalso band begin bnot bor bsl bsr bxor "
+        regExpRuleList.add(new RegExpRule(getKeywords("after and andalso band begin bnot bor bsl bsr bxor "
                 + "case catch cond div end fun if let not of or orelse "
                 + "query receive rem try when xor"
                 + // additional
                 " module export import define"), Pattern.MULTILINE, "keyword"));
+        setRegExpRuleList(regExpRuleList);
     }
 }

@@ -14,6 +14,7 @@ import java.awt.Font;
 import syntaxhighlighter.Theme;
 
 /**
+ * Emacs theme.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class ThemeEmacs extends Theme {
@@ -24,15 +25,17 @@ public class ThemeEmacs extends Theme {
         // Emacs SyntaxHighlighter theme based on theme by Joshua Emmons
         // http://www.skia.net/
 
+        setFont(new Font("Consolas", Font.PLAIN, 12));
         setBackground(Color.black);
+
+        setHighlightedBackground(Color.decode("0x2A3133"));
+
         setGutterText(Color.decode("0xd3d3d3"));
         setGutterBorderColor(Color.decode("0x990000"));
         setGutterBorderWidth(3);
         setGutterTextFont(new Font("Verdana", Font.PLAIN, 11));
         setGutterTextPaddingLeft(7);
         setGutterTextPaddingRight(7);
-
-        setFont(new Font("Consolas", Font.PLAIN, 12));
 
         Style style = new Style();
         style.setColor(Color.decode("0xd3d3d3"));
@@ -72,7 +75,7 @@ public class ThemeEmacs extends Theme {
 
         style = new Style();
         style.setBold(true);
-        style.setColor(Color.decode("0x006699"));
+        style.setColor(Color.decode("0x00ffff"));
         setScript(style);
 
         style = new Style();

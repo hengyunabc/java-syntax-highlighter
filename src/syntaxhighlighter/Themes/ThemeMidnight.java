@@ -14,6 +14,7 @@ import java.awt.Font;
 import syntaxhighlighter.Theme;
 
 /**
+ * Midnight theme.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class ThemeMidnight extends Theme {
@@ -24,15 +25,17 @@ public class ThemeMidnight extends Theme {
         // Midnight SyntaxHighlighter theme based on theme by J.D. Myers
         // http://webdesign.lsnjd.com/
 
+        setFont(new Font("Consolas", Font.PLAIN, 12));
         setBackground(Color.decode("0x0f192a"));
+
+        setHighlightedBackground(Color.decode("0x253e5a"));
+
         setGutterText(Color.decode("0xafafaf"));
         setGutterBorderColor(Color.decode("0x435a5f"));
         setGutterBorderWidth(3);
         setGutterTextFont(new Font("Verdana", Font.PLAIN, 11));
         setGutterTextPaddingLeft(7);
         setGutterTextPaddingRight(7);
-
-        setFont(new Font("Consolas", Font.PLAIN, 12));
 
         Style style = new Style();
         style.setColor(Color.decode("0xd1edff"));
@@ -72,7 +75,7 @@ public class ThemeMidnight extends Theme {
 
         style = new Style();
         style.setBold(true);
-        style.setColor(Color.decode("0x006699"));
+        style.setColor(Color.decode("0xb43d3d"));
         setScript(style);
 
         style = new Style();
