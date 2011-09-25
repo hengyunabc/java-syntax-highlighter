@@ -44,6 +44,6 @@ public class BrushJava extends Brush {
 
         setHTMLScriptRegExp(new HTMLScriptRegExp("(?:&lt;|<)%[@!=]?", "%(?:&gt;|>)"));
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"java"}));
+        setCommonFileExtensionList(Arrays.asList("java"));
     }
 }

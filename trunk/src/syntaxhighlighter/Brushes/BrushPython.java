@@ -50,6 +50,6 @@ public class BrushPython extends Brush {
 
         setHTMLScriptRegExp(HTMLScriptRegExp.aspScriptTags);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"py"}));
+        setCommonFileExtensionList(Arrays.asList("py"));
     }
 }

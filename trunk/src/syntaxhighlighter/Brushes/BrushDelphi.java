@@ -46,6 +46,6 @@ public class BrushDelphi extends Brush {
                 + "widestring with word write writeln xor"), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "keyword")); // keyword
         setRegExpRuleList(regExpRuleList);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"pas"}));
+        setCommonFileExtensionList(Arrays.asList("pas"));
     }
 }

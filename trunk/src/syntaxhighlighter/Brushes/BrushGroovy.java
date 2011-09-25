@@ -54,6 +54,6 @@ public class BrushGroovy extends Brush {
 
         setHTMLScriptRegExp(HTMLScriptRegExp.aspScriptTags);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"groovy"}));
+        setCommonFileExtensionList(Arrays.asList("groovy"));
     }
 }

@@ -75,6 +75,6 @@ public class BrushPhp extends Brush {
 
         setHTMLScriptRegExp(HTMLScriptRegExp.phpScriptTags);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"php", "php3", "php4", "php5", "phps", "phtml"}));
+        setCommonFileExtensionList(Arrays.asList("php", "php3", "php4", "php5", "phps", "phtml"));
     }
 }

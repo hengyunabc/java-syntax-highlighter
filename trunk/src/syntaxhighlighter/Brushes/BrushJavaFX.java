@@ -46,6 +46,6 @@ public class BrushJavaFX extends Brush {
 
         setHTMLScriptRegExp(HTMLScriptRegExp.aspScriptTags);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"fx"}));
+        setCommonFileExtensionList(Arrays.asList("fx"));
     }
 }

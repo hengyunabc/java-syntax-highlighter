@@ -40,6 +40,6 @@ public class BrushJScript extends Brush {
 
         setHTMLScriptRegExp(HTMLScriptRegExp.scriptScriptTags);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"js", "es"}));
+        setCommonFileExtensionList(Arrays.asList("js", "es"));
     }
 }

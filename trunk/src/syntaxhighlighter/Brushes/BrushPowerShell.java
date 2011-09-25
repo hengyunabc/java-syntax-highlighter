@@ -63,6 +63,6 @@ public class BrushPowerShell extends Brush {
                 + "erase rd ren type % \\?"), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "keyword"));
         setRegExpRuleList(regExpRuleList);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"ps1"}));
+        setCommonFileExtensionList(Arrays.asList("ps1"));
     }
 }

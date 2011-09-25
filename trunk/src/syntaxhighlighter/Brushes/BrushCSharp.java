@@ -46,6 +46,6 @@ public class BrushCSharp extends Brush {
 
         setHTMLScriptRegExp(HTMLScriptRegExp.aspScriptTags);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"cs"}));
+        setCommonFileExtensionList(Arrays.asList("cs"));
     }
 }

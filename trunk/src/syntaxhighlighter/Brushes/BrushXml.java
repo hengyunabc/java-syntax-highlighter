@@ -54,6 +54,6 @@ public class BrushXml extends Brush {
 
         setRegExpRuleList(regExpRuleList);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"xml", "html", "xhtml", "xslt"}));
+        setCommonFileExtensionList(Arrays.asList("xml", "html", "xhtml", "xslt"));
     }
 }

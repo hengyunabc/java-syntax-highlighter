@@ -34,6 +34,10 @@ public class SyntaxHighlighter extends JScrollPane {
     protected String content;
 
     public SyntaxHighlighter(Brush brush, Theme theme) {
+        this(brush, theme, new SyntaxHighlighterPane());
+    }
+
+    public SyntaxHighlighter(Brush brush, Theme theme, SyntaxHighlighterPane highlighterPane) {
         super();
 
         this.brush = brush;
@@ -43,7 +47,7 @@ public class SyntaxHighlighter extends JScrollPane {
 
         setBorder(null);
 
-        highlighter = new SyntaxHighlighterPane();
+        highlighter = highlighterPane;
         highlighter.setTheme(theme);
         setViewportView(highlighter);
 
@@ -60,7 +64,6 @@ public class SyntaxHighlighter extends JScrollPane {
             }
             highlighterRowHeader.setListenToDocumentUpdate(false);
             highlighter.setStyle(parser.parse(brush, htmlScript, content.toCharArray(), 0, content.length()));
-//            System.out.println(parser.parse(brush, htmlScript, content.toCharArray(), 0, content.length()));
             highlighterRowHeader.setListenToDocumentUpdate(true);
             highlighterRowHeader.checkPanelSize();
         }

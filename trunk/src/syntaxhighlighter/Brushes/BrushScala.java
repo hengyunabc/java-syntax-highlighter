@@ -39,6 +39,6 @@ public class BrushScala extends Brush {
         regExpRuleList.add(new RegExpRule("[_:=><%#@]+", Pattern.MULTILINE, "keyword")); // scala keyword
         setRegExpRuleList(regExpRuleList);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"scl", "scala"}));
+        setCommonFileExtensionList(Arrays.asList("scl", "scala"));
     }
 }
