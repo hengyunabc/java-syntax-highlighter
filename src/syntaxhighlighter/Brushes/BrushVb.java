@@ -47,6 +47,6 @@ public class BrushVb extends Brush {
 
         setHTMLScriptRegExp(HTMLScriptRegExp.aspScriptTags);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"vb", "vbs"}));
+        setCommonFileExtensionList(Arrays.asList("vb", "vbs"));
     }
 }

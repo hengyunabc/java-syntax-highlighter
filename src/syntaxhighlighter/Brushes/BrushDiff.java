@@ -34,6 +34,6 @@ public class BrushDiff extends Brush {
         regExpRuleList.add(new RegExpRule("^\\-[^\\-]{1}.*$", Pattern.MULTILINE, "comments"));
         setRegExpRuleList(regExpRuleList);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"diff"}));
+        setCommonFileExtensionList(Arrays.asList("diff"));
     }
 }

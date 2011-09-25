@@ -65,7 +65,7 @@ public class BrushCss extends Brush {
 
         setHTMLScriptRegExp(new HTMLScriptRegExp("(?:&lt;|<)\\s*style.*?(?:&gt;|>)", "(?:&lt;|<)\\/\\s*style\\s*(?:&gt;|>)"));
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"css"}));
+        setCommonFileExtensionList(Arrays.asList("css"));
     }
 
     protected static String getKeywordsCSS(String str) {

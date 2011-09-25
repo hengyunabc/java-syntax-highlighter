@@ -58,6 +58,6 @@ public class BrushPerl extends Brush {
 
         setHTMLScriptRegExp(HTMLScriptRegExp.phpScriptTags);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"pl", "pm", "t"}));
+        setCommonFileExtensionList(Arrays.asList("pl", "pm", "t"));
     }
 }

@@ -52,6 +52,6 @@ public class BrushSql extends Brush {
                 + "varchar varying view when where with work"), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "keyword"));// keyword
         setRegExpRuleList(regExpRuleList);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"sql"}));
+        setCommonFileExtensionList(Arrays.asList("sql"));
     }
 }

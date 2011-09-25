@@ -86,6 +86,6 @@ public class BrushColdFusion extends Brush {
                 + "cfwindow cfxml cfzip cfzipparam"), Pattern.CASE_INSENSITIVE | Pattern.MULTILINE, "keyword")); // keyword
         setRegExpRuleList(regExpRuleList);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"cfm", "cfml"}));
+        setCommonFileExtensionList(Arrays.asList("cfm", "cfml"));
     }
 }

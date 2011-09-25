@@ -90,6 +90,6 @@ public class BrushCpp extends Brush {
         regExpRuleList.add(rule);
         setRegExpRuleList(regExpRuleList);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"c", "cpp"}));
+        setCommonFileExtensionList(Arrays.asList("c", "cpp"));
     }
 }

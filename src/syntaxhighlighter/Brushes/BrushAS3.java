@@ -46,6 +46,6 @@ public class BrushAS3 extends Brush {
 
         setHTMLScriptRegExp(HTMLScriptRegExp.scriptScriptTags);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"as"}));
+        setCommonFileExtensionList(Arrays.asList("as"));
     }
 }

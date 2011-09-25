@@ -49,6 +49,6 @@ public class BrushBash extends Brush {
                 + "vi watch wc whereis which who whoami Wget xargs yes"), Pattern.MULTILINE, "functions")); // commands
         setRegExpRuleList(regExpRuleList);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"sh"}));
+        setCommonFileExtensionList(Arrays.asList("sh"));
     }
 }

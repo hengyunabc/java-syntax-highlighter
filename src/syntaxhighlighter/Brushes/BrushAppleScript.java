@@ -43,6 +43,6 @@ public class BrushAppleScript extends Brush {
         regExpRuleList.add(new RegExpRule(getKeywords("first second third fourth fifth sixth seventh eighth ninth tenth last front back middle"), Pattern.MULTILINE, "keyword"));
         setRegExpRuleList(regExpRuleList);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"applescript", "scpt"}));
+        setCommonFileExtensionList(Arrays.asList("applescript", "scpt"));
     }
 }

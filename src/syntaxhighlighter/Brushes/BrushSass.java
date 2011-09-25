@@ -66,7 +66,7 @@ public class BrushSass extends Brush {
         regExpRuleList.add(new RegExpRule(getKeywords("[mM]onospace [tT]ahoma [vV]erdana [aA]rial [hH]elvetica [sS]ans-serif [sS]erif [cC]ourier mono sans serif"), "value"));
         setRegExpRuleList(regExpRuleList);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"sass", "scss"}));
+        setCommonFileExtensionList(Arrays.asList("sass", "scss"));
     }
 
     protected static String getKeywordsCSS(String str) {

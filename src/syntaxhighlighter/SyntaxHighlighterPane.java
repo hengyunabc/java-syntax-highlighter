@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -202,9 +203,21 @@ public class SyntaxHighlighterPane extends JTextPane {
                 if (!highlightWhenMouseOver) {
                     return;
                 }
+
                 Element defaultRootElement = getDocument().getDefaultRootElement();
                 int documentOffsetStart = viewToModel(e.getPoint());
+
                 int lineNumber = documentOffsetStart == -1 ? -1 : defaultRootElement.getElementIndex(documentOffsetStart) + 1 + lineNumberOffset;
+                if (lineNumber == defaultRootElement.getElementCount()) {
+                    try {
+                        Rectangle rectangle = modelToView(documentOffsetStart);
+                        if (e.getY() > rectangle.y + rectangle.height) {
+                            lineNumber = -1;
+                        }
+                    } catch (BadLocationException ex) {
+                        Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
                 if (mouseOnLine != lineNumber) {
                     mouseOnLine = lineNumber;
                     repaint();

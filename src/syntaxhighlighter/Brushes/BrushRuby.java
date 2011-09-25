@@ -45,6 +45,6 @@ public class BrushRuby extends Brush {
 
         setHTMLScriptRegExp(HTMLScriptRegExp.phpScriptTags);
 
-        setCommonFileExtensionList(Arrays.asList(new String[]{"rb", "rbw"}));
+        setCommonFileExtensionList(Arrays.asList("rb", "rbw"));
     }
 }
