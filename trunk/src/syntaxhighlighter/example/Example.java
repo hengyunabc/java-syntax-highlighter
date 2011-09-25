@@ -9,8 +9,9 @@
  */
 package syntaxhighlighter.example;
 
-import java.io.File;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +31,18 @@ import syntaxhighlighter.Themes.ThemeRDark;
  */
 public class Example {
 
-    public static void main(String[] args) throws IOException {
+    public static String readFile(String path) throws IOException {
+        int byteRead = 0;
+        byte[] b = new byte[256];
+        InputStream in = Example.class.getResourceAsStream(path);
+        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        while ((byteRead = in.read(b)) > 0) {
+            bout.write(b, 0, byteRead);
+        }
+        return new String(bout.toByteArray());
+    }
+
+    public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
@@ -50,13 +62,11 @@ public class Example {
 
                     SyntaxHighlighter highlighter = new SyntaxHighlighter(new BrushXml(), new ThemeRDark());
                     highlighter.setHtmlScript(true);
-                    highlighter.addHTMLScriptBrush(new BrushCss());
-                    highlighter.addHTMLScriptBrush(new BrushJScript());
+                    highlighter.setHTMLScriptBrush(Arrays.asList(new BrushCss(), new BrushJScript()));
                     highlighter.addHTMLScriptBrush(new BrushPhp());
-                    File file = new File(Example.class.getResource("/syntaxhighlighter/example/example.html").toURI());
-                    highlighter.setContent(file);
+                    highlighter.setContent(readFile("/syntaxhighlighter/example/example.html"));
                     highlighter.setFirstLine(10);
-                    highlighter.setHighlightedLineList(Arrays.asList(new Integer[]{13, 27, 28, 38, 42, 43, 53}));
+                    highlighter.setHighlightedLineList(Arrays.asList(13, 27, 28, 38, 42, 43, 53));
 
                     end = System.currentTimeMillis();
                     System.out.println((end - start));
