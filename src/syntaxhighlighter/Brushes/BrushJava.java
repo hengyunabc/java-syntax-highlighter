@@ -26,7 +26,7 @@ public class BrushJava extends Brush {
 
         List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
         regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments"));
-        regExpRuleList.add(new RegExpRule("\\/\\*([^\\*][\\s\\S]*)?\\*\\/", Pattern.MULTILINE, "comments"));
+        regExpRuleList.add(new RegExpRule("\\/\\*([^\\*][\\s\\S]*?)?\\*\\/", Pattern.MULTILINE, "comments"));
         regExpRuleList.add(new RegExpRule("\\/\\*(?!\\*\\/)\\*[\\s\\S]*?\\*\\/", Pattern.MULTILINE, "preprocessor"));
         regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string"));
         regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string"));

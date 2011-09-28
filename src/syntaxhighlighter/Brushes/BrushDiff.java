@@ -26,14 +26,14 @@ public class BrushDiff extends Brush {
         super();
 
         List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
-        regExpRuleList.add(new RegExpRule("^\\+\\+\\+.*$", Pattern.MULTILINE, "color2"));
-        regExpRuleList.add(new RegExpRule("^\\-\\-\\-.*$", Pattern.MULTILINE, "color2"));
+        regExpRuleList.add(new RegExpRule("^\\+\\+\\+\\s.*$", Pattern.MULTILINE, "color2"));
+        regExpRuleList.add(new RegExpRule("^\\-\\-\\-\\s.*$", Pattern.MULTILINE, "color2"));
         regExpRuleList.add(new RegExpRule("^\\s.*$", Pattern.MULTILINE, "color1"));
         regExpRuleList.add(new RegExpRule("^@@.*@@$", Pattern.MULTILINE, "variable"));
-        regExpRuleList.add(new RegExpRule("^\\+[^\\+]{1}.*$", Pattern.MULTILINE, "string"));
-        regExpRuleList.add(new RegExpRule("^\\-[^\\-]{1}.*$", Pattern.MULTILINE, "comments"));
+        regExpRuleList.add(new RegExpRule("^\\+.*$", Pattern.MULTILINE, "string"));
+        regExpRuleList.add(new RegExpRule("^\\-.*$", Pattern.MULTILINE, "comments"));
         setRegExpRuleList(regExpRuleList);
 
-        setCommonFileExtensionList(Arrays.asList("diff"));
+        setCommonFileExtensionList(Arrays.asList("diff", "patch"));
     }
 }
