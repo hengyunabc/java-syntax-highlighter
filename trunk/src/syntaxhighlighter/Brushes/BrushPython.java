@@ -28,7 +28,7 @@ public class BrushPython extends Brush {
         // Contributed by Gheorghe Milas and Ahmad Sherif
         List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
         regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLinePerlComments, "comments"));
-        regExpRuleList.add(new RegExpRule("^\\s*@\\w+", Pattern.MULTILINE, "decorator"));
+        regExpRuleList.add(new RegExpRule("^\\s*@\\w+", Pattern.MULTILINE, "color2"));
         regExpRuleList.add(new RegExpRule("(['\\\"]{3})([^['\\\"]{3}])*?['\\\"]{3}", Pattern.MULTILINE, "comments"));
         regExpRuleList.add(new RegExpRule("\"(?!\")(?:\\.|\\\\\\\"|[^\\\"\"\\n])*\"", Pattern.MULTILINE, "string"));
         regExpRuleList.add(new RegExpRule("'(?!')(?:\\.|(\\\\\\')|[^\\''\\n])*'", Pattern.MULTILINE, "string"));

@@ -278,49 +278,6 @@ public class SyntaxHighlighterPane extends JTextPane {
         repaint();
     }
 
-//    public void setCode(List<Segment> segmentList) {
-////        FontMetrics fontMetrics = getFontMetrics(getFont());
-////        int fontHeight = fontMetrics.getHeight() - fontMetrics.getLeading();
-////        float alignmentY = (float) fontMetrics.getAscent() / (float) fontHeight;
-//
-//        Document document = getDocument();
-//        try {
-//            document.remove(0, document.getLength());
-//        } catch (BadLocationException ex) {
-//            Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//        SimpleAttributeSet attributeSet = new SimpleAttributeSet();
-//
-//        for (Segment segment : segmentList) {
-////            if (segment.getStyleKey().equals("string")) {
-////                JCheckBox checkBox = new JCheckBox(segment.getContent());
-////
-////                checkBox.setBorder(BorderFactory.createEmptyBorder(0, 4, 0, 4));
-////                checkBox.setOpaque(false);
-////                checkBox.setAlignmentY(alignmentY);
-////
-////                Style style = segment.getStyle();
-////                checkBox.setForeground(style.getColor());
-////                checkBox.setBackground(style.getBackground());
-////                checkBox.setFont(setFont(getFont(), style.isBold(), style.isItalic()));
-////
-////                checkBox.setPreferredSize(new Dimension(checkBox.getPreferredSize().width, fontHeight));
-////
-////                setCaretPosition(document.getLength());
-////                insertComponent(checkBox);
-////            } else {
-//            try {
-//                String content = segment.getContent();
-//                segment.getStyle().setAttributeSet(attributeSet);
-//                document.insertString(document.getLength(), content, attributeSet);
-//            } catch (BadLocationException ex) {
-//                Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.WARNING, null, ex);
-//            }
-////            }
-//        }
-//        setCaretPosition(0);
-//    }
     public Theme getTheme() {
         return theme;
     }
