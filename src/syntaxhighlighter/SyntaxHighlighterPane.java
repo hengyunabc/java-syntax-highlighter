@@ -52,18 +52,39 @@ import syntaxhighlighter.Parser.MatchResult;
 public class SyntaxHighlighterPane extends JTextPane {
 
     private static final long serialVersionUID = 1L;
-    //
-    private int lineNumberOffset;
-    //
-    private Color highlightedBackground;
-    private boolean highlightWhenMouseOver;
-    private final List<Integer> highlightedLineList;
-    private Highlighter.HighlightPainter highlightPainter;
-    //
-    private Theme theme;
-    private Map<String, List<MatchResult>> styleList;
-    //
-    private int mouseOnLine;
+    /**
+     * The line number offset. E.g. set offset to 9 will make the first line number to appear equals 1 + 9 = 10
+     */
+    protected int lineNumberOffset;
+    /**
+     * The background color of the highlighted line. Default is black.
+     */
+    protected Color highlightedBackground;
+    /**
+     * Indicator that indicate to turn on the mouse-over-highlight effect or not. See {@link #setHighlightWhenMouseOver(boolean)}.
+     */
+    protected boolean highlightWhenMouseOver;
+    /**
+     * The list of line numbers that needed to be highlighted.
+     */
+    protected final List<Integer> highlightedLineList;
+    /**
+     * The highlighter painter used to do the highlight line effect.
+     */
+    protected Highlighter.HighlightPainter highlightPainter;
+    /**
+     * The theme.
+     */
+    protected Theme theme;
+    /**
+     * The style list. see {@link #setStyle(java.util.Map)}.
+     */
+    protected Map<String, List<MatchResult>> styleList;
+    /**
+     * Record the mouse cursor is currently pointing at which line of the document. -1 means not any line.
+     * It is used internally.
+     */
+    protected int mouseOnLine;
 
     public SyntaxHighlighterPane() {
         super();
@@ -128,7 +149,7 @@ public class SyntaxHighlighterPane extends JTextPane {
 
         lineNumberOffset = 0;
 
-        //<editor-fold defaultstate="collapsed" desc="highlight">
+        //<editor-fold defaultstate="collapsed" desc="highlighter painter">
         highlightedBackground = Color.black;
         highlightWhenMouseOver = true;
         highlightedLineList = new ArrayList<Integer>();
@@ -141,6 +162,7 @@ public class SyntaxHighlighterPane extends JTextPane {
                     return;
                 }
 
+                // get the Y-axis value of the visible area of the text component
                 int startY = Math.abs(c.getY());
                 int endY = startY + c.getParent().getHeight();
 
@@ -150,22 +172,31 @@ public class SyntaxHighlighterPane extends JTextPane {
                 int largerestLineNumber = c.getDocument().getDefaultRootElement().getElementCount();
 
                 g.setColor(highlightedBackground);
+
+                // draw the highlight background to the highlighted line
                 synchronized (highlightedLineList) {
                     for (Integer lineNumber : highlightedLineList) {
                         if (lineNumber > largerestLineNumber + lineNumberOffset) {
+                            // skip those line number that out of range
                             continue;
                         }
+                        // get the Y-axis value of this highlighted line
                         int _y = Math.max(0, textPaneFontHeight * (lineNumber - lineNumberOffset - 1));
-                        if (_y + textPaneFontHeight < startY || _y > endY) {
+                        if (_y > endY || _y + textPaneFontHeight < startY) {
+                            // this line is out of visible area, skip it
                             continue;
                         }
+                        // draw the highlighted background
                         g.fillRect(0, _y, c.getWidth(), textPaneFontHeight);
                     }
                 }
+
+                // draw the mouse-over-highlight effect
                 if (mouseOnLine != -1) {
                     if (mouseOnLine <= largerestLineNumber + lineNumberOffset) {
                         int _y = Math.max(0, textPaneFontHeight * (mouseOnLine - lineNumberOffset - 1));
-                        if (_y + textPaneFontHeight > startY && _y < endY) {
+                        if (_y < endY && _y + textPaneFontHeight > startY) {
+                            // the line is within the range of visible area
                             g.fillRect(0, _y, c.getWidth(), textPaneFontHeight);
                         }
                     }
@@ -206,10 +237,13 @@ public class SyntaxHighlighterPane extends JTextPane {
                 }
 
                 Element defaultRootElement = getDocument().getDefaultRootElement();
+                // get the position of the document the mouse cursor is pointing
                 int documentOffsetStart = viewToModel(e.getPoint());
 
+                // the line number that the mouse cursor is currently pointing
                 int lineNumber = documentOffsetStart == -1 ? -1 : defaultRootElement.getElementIndex(documentOffsetStart) + 1 + lineNumberOffset;
                 if (lineNumber == defaultRootElement.getElementCount()) {
+                    // if the line number got is the last line, check if the cursor is actually on the line or already below the line
                     try {
                         Rectangle rectangle = modelToView(documentOffsetStart);
                         if (e.getY() > rectangle.y + rectangle.height) {
@@ -219,6 +253,8 @@ public class SyntaxHighlighterPane extends JTextPane {
                         Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+
+                // only repaint when the line number changed
                 if (mouseOnLine != lineNumber) {
                     mouseOnLine = lineNumber;
                     repaint();
@@ -241,8 +277,13 @@ public class SyntaxHighlighterPane extends JTextPane {
         super.setHighlighter(highlighter);
     }
 
+    /**
+     * Set the content of the syntax highlighter. It is better to set other settings first and set this the last.
+     * @param content the content to set
+     */
     public void setContent(String content) {
         DefaultStyledDocument document = (DefaultStyledDocument) getDocument();
+
         try {
             document.remove(0, document.getLength());
             if (theme != null) {
@@ -253,10 +294,17 @@ public class SyntaxHighlighterPane extends JTextPane {
         } catch (BadLocationException ex) {
             Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         setCaretPosition(0);
+
+        // clear the style list
         styleList = null;
     }
 
+    /**
+     * Apply the list of style to the script text pane. See {@link syntaxhighlighter.Parser#parse(syntaxhighlighter.Brush, boolean, char[], int, int)}.
+     * @param styleList the style list
+     */
     public void setStyle(Map<String, List<MatchResult>> styleList) {
         // not a deep copy
         this.styleList = new HashMap<String, List<MatchResult>>(styleList);
@@ -266,11 +314,14 @@ public class SyntaxHighlighterPane extends JTextPane {
         }
 
         DefaultStyledDocument document = (DefaultStyledDocument) getDocument();
+        // clear all the existing style
         document.setCharacterAttributes(0, document.getLength(), theme.getPlain().getAttributeSet(), true);
 
+        // apply style according to the style list
         for (String key : styleList.keySet()) {
-            AttributeSet attributeSet = theme.getStyle(key).getAttributeSet();
             List<MatchResult> posList = styleList.get(key);
+
+            AttributeSet attributeSet = theme.getStyle(key).getAttributeSet();
             for (MatchResult pos : posList) {
                 document.setCharacterAttributes(pos.getOffset(), pos.getLength(), attributeSet, true);
             }
@@ -279,10 +330,18 @@ public class SyntaxHighlighterPane extends JTextPane {
         repaint();
     }
 
+    /**
+     * Get current theme.
+     * @return the current theme
+     */
     public Theme getTheme() {
         return theme;
     }
 
+    /**
+     * Set the theme.
+     * @param theme the theme
+     */
     public void setTheme(Theme theme) {
         this.theme = theme;
 
@@ -295,28 +354,53 @@ public class SyntaxHighlighterPane extends JTextPane {
         }
     }
 
+    /**
+     * Get the line number offset
+     * @return the offset
+     */
     public int getLineNumberOffset() {
         return lineNumberOffset;
     }
 
+    /**
+     * Set the line number offset. E.g. set offset to 9 will make the first line number to appear equals 1 + 9 = 10
+     * @param offset the offset
+     */
     public void setLineNumberOffset(int offset) {
         lineNumberOffset = Math.max(lineNumberOffset, offset);
         repaint();
     }
 
+    /**
+     * Get the color of the highlighted background. Default is black.
+     * @return the color
+     */
     public Color getHighlightedBackground() {
         return highlightedBackground;
     }
 
+    /**
+     * Set the color of the highlighted background. Default is black.
+     * @param highlightedBackground the color
+     */
     public void setHighlightedBackground(Color highlightedBackground) {
         this.highlightedBackground = highlightedBackground;
         repaint();
     }
 
+    /**
+     * Get the status of the mouse-over-highlight effect. Default is turned on.
+     * @return true if turned on, false if turned off
+     */
     public boolean isHighlightWhenMouseOver() {
         return highlightWhenMouseOver;
     }
 
+    /**
+     * Set turn on the mouse-over-highlight effect or not. Default is turned on.
+     * If set true, there will be a highlight line effect on the line the mouse cursor is pointing (on the script text panel only, not also the line number panel).
+     * @param highlightWhenMouseOver true to turn on, false to turn off
+     */
     public void setHighlightWhenMouseOver(boolean highlightWhenMouseOver) {
         this.highlightWhenMouseOver = highlightWhenMouseOver;
         if (!highlightWhenMouseOver) {
@@ -325,6 +409,10 @@ public class SyntaxHighlighterPane extends JTextPane {
         repaint();
     }
 
+    /**
+     * Get the list of highlighted lines.
+     * @return a copy of the list
+     */
     public List<Integer> getHighlightedLineList() {
         List<Integer> returnList;
         synchronized (highlightedLineList) {
@@ -333,6 +421,10 @@ public class SyntaxHighlighterPane extends JTextPane {
         return returnList;
     }
 
+    /**
+     * Set highlighted lines. Note that this will clear all previous recorded highlighted lines.
+     * @param highlightedLineList the list that contain the highlighted lines
+     */
     public void setHighlightedLineList(List<Integer> highlightedLineList) {
         synchronized (this.highlightedLineList) {
             this.highlightedLineList.clear();
@@ -341,11 +433,22 @@ public class SyntaxHighlighterPane extends JTextPane {
         repaint();
     }
 
+    /**
+     * Add highlighted line.
+     * @param lineNumber the line number to highlight
+     */
     public void addHighlightedLine(int lineNumber) {
         highlightedLineList.add(lineNumber);
         repaint();
     }
 
+    /**
+     * Set the <code>font</code> according to <code>bold</code> and <code>italic</code>.
+     * @param font the font to set
+     * @param bold true to set bold, false not
+     * @param italic true to set italic, false not
+     * @return the font with bold and italic changed
+     */
     protected static Font setFont(Font font, boolean bold, boolean italic) {
         if ((font.getStyle() & Font.ITALIC) != 0) {
             if (!bold) {

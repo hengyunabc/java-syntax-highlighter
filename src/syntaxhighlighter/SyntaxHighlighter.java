@@ -23,15 +23,33 @@ import javax.swing.JScrollPane;
 public class SyntaxHighlighter extends JScrollPane {
 
     private static final long serialVersionUID = 1L;
-    //
-    private SyntaxHighlighterPane highlighter;
-    private JTextComponentRowHeader highlighterRowHeader;
-    //
-    private Brush brush;
-    private Theme theme;
-    private boolean htmlScript;
-    private final List<Brush> htmlScriptBrushList;
-    //
+    /**
+     * The script text panel.
+     */
+    protected SyntaxHighlighterPane highlighter;
+    /**
+     * The gutter panel (line number).
+     */
+    protected JTextComponentRowHeader highlighterRowHeader;
+    /**
+     * The main brush to use.
+     */
+    protected Brush brush;
+    /**
+     * The theme.
+     */
+    protected Theme theme;
+    /**
+     * Indicate whether the HTML-Script option is turned on or not.
+     */
+    protected boolean htmlScript;
+    /**
+     * The brush list that used for HTML-Script.
+     */
+    protected final List<Brush> htmlScriptBrushList;
+    /**
+     * The content of the syntax highlighter, null if there is no content so far.
+     */
     protected String content;
 
     /**
@@ -69,7 +87,8 @@ public class SyntaxHighlighter extends JScrollPane {
     }
 
     /**
-     * Re-render the script text pane. Call it when some setting that affect the rendering was made.
+     * Re-render the script text pane. Invoke this when any change of setting that affect the rendering was made.
+     * This will re-parse the content and set the style.
      */
     protected void render() {
         if (content != null) {
@@ -77,15 +96,20 @@ public class SyntaxHighlighter extends JScrollPane {
             if (htmlScript) {
                 parser.setHTMLScriptBrushList(htmlScriptBrushList);
             }
+            // stop the change listener on the row header to speed up rendering
             highlighterRowHeader.setListenToDocumentUpdate(false);
             highlighter.setStyle(parser.parse(brush, htmlScript, content.toCharArray(), 0, content.length()));
+            // resume the change listener on the row header
             highlighterRowHeader.setListenToDocumentUpdate(true);
+            // notify the row header to update its information related to the SyntaxHighlighterPane
+            // need to call this because we have stopped the change listener of the row header in previous code
             highlighterRowHeader.checkPanelSize();
         }
     }
 
     /**
-     * Get the SyntaxHighlighterPane.
+     * Get the SyntaxHighlighterPane, the script text panel.
+     * <p><b>Note: Normally should not do operation on the SyntaxHighlighterPane directly.</b></p>
      * @return the SyntaxHighlighterPane
      */
     public SyntaxHighlighterPane getHighlighter() {
@@ -93,7 +117,8 @@ public class SyntaxHighlighter extends JScrollPane {
     }
 
     /**
-     * Get the JTextComponentRowHeader.
+     * Get the JTextComponentRowHeader, the line number panel.
+     * <p><b>Note: Normally should not do operation on the JTextComponentRowHeader directly.</b></p>
      * @return the JTextComponentRowHeader
      */
     public JTextComponentRowHeader getHighlighterRowHeader() {
@@ -110,6 +135,9 @@ public class SyntaxHighlighter extends JScrollPane {
 
     /**
      * Set the brush.
+     * <p>
+     * The highlighter will re-render the script text pane every time this function is invoked (if there is any content).
+     * </p>
      * @param brush the brush
      */
     public void setBrush(Brush brush) {
@@ -129,6 +157,9 @@ public class SyntaxHighlighter extends JScrollPane {
 
     /**
      * Set the theme.
+     * <p>
+     * Setting the theme will be re-parse the content, but will clear and apply the new theme on the script text pane.
+     * </p>
      * @param theme the theme
      */
     public void setTheme(Theme theme) {
@@ -155,6 +186,9 @@ public class SyntaxHighlighter extends JScrollPane {
     /**
      * Set HTML Script brushes. Note that this will clear all previous recorded HTML Script brushes.
      * See also {@link #setHtmlScript(boolean)}.
+     * <p>
+     * The highlighter will re-render the script text pane every time this function is invoked (if there is any content).
+     * </p>
      * @param htmlScriptBrushList the list that contain the brushes
      */
     public void setHTMLScriptBrush(List<Brush> htmlScriptBrushList) {
@@ -168,6 +202,10 @@ public class SyntaxHighlighter extends JScrollPane {
     /**
      * Add HTML Script brushes.
      * See also {@link #setHtmlScript(boolean)}.
+     * <p>
+     * The highlighter will re-render the script text pane every time this function is invoked (if there is any content).
+     * If multi brushes is needed to be added, use {@link #getHTMLScriptBrushList()} and {@link #setHTMLScriptBrush(java.util.List)}.
+     * </p>
      * @param brush the brush to add
      */
     public void addHTMLScriptBrush(Brush brush) {
@@ -187,7 +225,10 @@ public class SyntaxHighlighter extends JScrollPane {
     /**
      * Allows you to highlight a mixture of HTML/XML code and a script which is very common in web development.
      * See also {@link #setHTMLScriptBrush(java.util.List)} to set the brushes.
-     * Default is turn off.
+     * Default is off.
+     * <p>
+     * The highlighter will re-render the script text pane every time this function is invoked (if there is any content).
+     * </p>
      * @param htmlScript true to turn on, false to turn off
      */
     public void setHtmlScript(boolean htmlScript) {
@@ -198,7 +239,7 @@ public class SyntaxHighlighter extends JScrollPane {
     }
 
     /**
-     * Set the line number of the first line. E.g. if set 10, the line number will start from 10 instead of 1.
+     * Set the line number of the first line. E.g. if set 10, the line number will start count from 10 instead of 1.
      * @param firstLine the line number of the first line
      */
     public void setFirstLine(int firstLine) {
@@ -233,15 +274,19 @@ public class SyntaxHighlighter extends JScrollPane {
     }
 
     /**
+     * Check the visibility of the gutter.
+     * @return true if the gutter is visible, false if not
+     */
+    public boolean isGutterVisible() {
+        return getRowHeader() != null && getRowHeader().getView() != null;
+    }
+
+    /**
      * Set the visibility of the gutter (line number panel on the left).
-     * @param visible true to make visibly, false to hide it
+     * @param visible true to make visible, false to hide it
      */
     public void setGutterVisible(boolean visible) {
-        if (visible) {
-            setRowHeaderView(highlighterRowHeader);
-        } else {
-            setRowHeaderView(null);
-        }
+        setRowHeaderView(visible ? highlighterRowHeader : null);
     }
 
     /**
@@ -254,7 +299,7 @@ public class SyntaxHighlighter extends JScrollPane {
 
     /**
      * Set turn on the mouse-over-highlight effect or not.
-     * If set true, there will be a highlight line effect on the line it point (on the script text panel only, not also the line number panel).
+     * If set true, there will be a highlight line effect on the line the mouse cursor is pointing (on the script text panel only, not also the line number panel).
      * @param highlightWhenMouseOver true to turn on, false to turn off
      */
     public void setHighlightWhenMouseOver(boolean highlightWhenMouseOver) {
@@ -270,8 +315,8 @@ public class SyntaxHighlighter extends JScrollPane {
     }
 
     /**
-     * Set the content of the syntax highlighter. Better set it last after setting all other settings.
-     * @param content 
+     * Set the content of the syntax highlighter. It is better to set other settings first and set this the last.
+     * @param content the content to set
      */
     public void setContent(String content) {
         this.content = content;
