@@ -34,6 +34,9 @@ import javax.swing.text.Element;
 import javax.swing.text.JTextComponent;
 
 /**
+ * A row header panel for JScrollPane.
+ * It is used with JTextComponent for line number displaying.<br />
+ * <b>The usage is not limited to this syntax highlighter, it can be used on all JTextComponent.</b>
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class JTextComponentRowHeader extends JPanel {
@@ -171,6 +174,7 @@ public class JTextComponentRowHeader extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
 
+        // check whether the height of this panel matches the height of the text component or not
         Dimension textComponentPreferredSize = textComponent.getPreferredSize();
         if (textComponentHeight != textComponentPreferredSize.height) {
             textComponentHeight = textComponentPreferredSize.height;
@@ -196,9 +200,11 @@ public class JTextComponentRowHeader extends JPanel {
         int textPaneFontHeight = textPaneFontMetrics.getHeight();
 
 
+        // get the location of the document of the left top and right bottom point of the visible part
         int documentOffsetStart = textComponent.viewToModel(viewPosition);
         int documentOffsetEnd = textComponent.viewToModel(new Point(viewPosition.x + viewportSize.width, viewPosition.y + viewportSize.height));
 
+        // convert the location of the document to the line number
         int startLine = defaultRootElement.getElementIndex(documentOffsetStart) + 1 + lineNumberOffset;
         int endLine = defaultRootElement.getElementIndex(documentOffsetEnd) + 1 + lineNumberOffset;
 
@@ -217,24 +223,30 @@ public class JTextComponentRowHeader extends JPanel {
             return;
         }
 
+        // text anti-aliasing
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, textAntiAliasing);
+        // preserve the foreground color (for recover the color after highlighing the line)
         Color foregroundColor = getForeground();
+
         g.setColor(foregroundColor);
         g.setFont(getFont());
-        boolean highlighted;
+
         for (int i = startLine, y = startY + baselineOffset; i <= endLine; y += textPaneFontHeight, i++) {
-            highlighted = false;
+            boolean highlighted = false;
             if (highlightedLineList.indexOf((Integer) i) != -1) {
+                // highlight this line
                 g.setColor(borderColor);
                 g.fillRect(0, y - baselineOffset, panelWidth - borderWidth, textPaneFontHeight);
                 g.setColor(highlightedColor);
                 highlighted = true;
             }
 
+            // draw the line number
             String lineNumberString = Integer.toString(i);
             int lineNumberStringWidth = fontMetrics.stringWidth(lineNumberString);
             g.drawString(lineNumberString, panelWidth - lineNumberStringWidth - paddingRight, y);
 
+            // restore the line number text color
             if (highlighted) {
                 g.setColor(foregroundColor);
             }
