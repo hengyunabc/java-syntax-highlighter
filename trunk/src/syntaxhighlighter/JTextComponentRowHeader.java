@@ -44,10 +44,25 @@ public class JTextComponentRowHeader extends JPanel {
     private static final long serialVersionUID = 1L;
     //
     private Object textAntiAliasing = RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT;
+    /**
+     * The color of the border that joint the gutter and the script text panel.
+     */
     private Color borderColor = new Color(184, 184, 184);
+    /**
+     * The background of the row when it is highlighted.
+     */
     private Color highlightedColor = Color.black;
+    /**
+     * The minimum padding from 'the leftmost of the line number text' to 'the left margin'.
+     */
     private int paddingLeft = 7;
+    /**
+     * The minimum padding from 'the rightmost of the line number text' to 'the right margin' (not to the gutter border).
+     */
     private int paddingRight = 2;
+    /**
+     * The width of the border that joint the gutter and the script text panel.
+     */
     private int borderWidth = 1;
     //
     protected JScrollPane scrollPane;
@@ -59,12 +74,24 @@ public class JTextComponentRowHeader extends JPanel {
     protected int panelWidth;
     protected int largestRowNumber;
     protected int textComponentHeight;
-    //
+    /**
+     * The line number offset. E.g. set offset to 9 will make the first line number to appear equals 1 + 9 = 10
+     */
     private int lineNumberOffset;
+    /**
+     * The list of line numbers that needed to be highlighted.
+     */
     private final List<Integer> highlightedLineList;
-    //
+    /**
+     * Indicator indicate whether it is listening to the document change or not.
+     */
     private boolean listenToDocumentUpdate;
 
+    /**
+     * Constructor.
+     * @param scrollPane the JScrollPane that it be added into
+     * @param textComponent the text component to listen the change on
+     */
     public JTextComponentRowHeader(JScrollPane scrollPane, JTextComponent textComponent) {
         super();
 
@@ -149,16 +176,25 @@ public class JTextComponentRowHeader extends JPanel {
         }
     }
 
+    /**
+     * The font of the line number.
+     */
     @Override
     public void setFont(Font font) {
         super.setFont(font);
     }
 
+    /**
+     * The color of the line number.
+     */
     @Override
     public void setForeground(Color foreground) {
         super.setForeground(foreground);
     }
 
+    /**
+     * The background of the panel.
+     */
     @Override
     public void setBackground(Color background) {
         super.setBackground(background);
@@ -253,70 +289,118 @@ public class JTextComponentRowHeader extends JPanel {
         }
     }
 
+    /**
+     * The anti-aliasing setting of the line number text.
+     */
     public Object getTextAntiAliasing() {
         return textAntiAliasing;
     }
 
+    /**
+     * The anti-aliasing setting of the line number text.
+     */
     public void setTextAntiAliasing(Object textAntiAliasing) {
         this.textAntiAliasing = textAntiAliasing;
         repaint();
     }
 
+    /**
+     * The color of the border that joint the gutter and the script text panel.
+     */
     public Color getBorderColor() {
         return borderColor;
     }
 
+    /**
+     * The color of the border that joint the gutter and the script text panel.
+     */
     public void setBorderColor(Color borderColor) {
         this.borderColor = borderColor;
         repaint();
     }
 
+    /**
+     * The background of the row when it is highlighted.
+     */
     public Color getHighlightedColor() {
         return highlightedColor;
     }
 
+    /**
+     * The background of the row when it is highlighted.
+     */
     public void setHighlightedColor(Color highlightedColor) {
         this.highlightedColor = highlightedColor;
         repaint();
     }
 
+    /**
+     * The minimum padding from 'the leftmost of the line number text' to 'the left margin'.
+     */
     public int getPaddingLeft() {
         return paddingLeft;
     }
 
+    /**
+     * The minimum padding from 'the leftmost of the line number text' to 'the left margin'.
+     */
     public void setPaddingLeft(int paddingLeft) {
         this.paddingLeft = paddingLeft;
         checkPanelSize();
     }
 
+    /**
+     * The minimum padding from 'the rightmost of the line number text' to 'the right margin' (not to the gutter border).
+     */
     public int getPaddingRight() {
         return paddingRight;
     }
 
+    /**
+     * The minimum padding from 'the rightmost of the line number text' to 'the right margin' (not to the gutter border).
+     */
     public void setPaddingRight(int paddingRight) {
         this.paddingRight = paddingRight;
         checkPanelSize();
     }
 
+    /**
+     * The width of the border that joint the gutter and the script text panel.
+     */
     public int getBorderWidth() {
         return borderWidth;
     }
 
+    /**
+     * The width of the border that joint the gutter and the script text panel.
+     */
     public void setBorderWidth(int borderWidth) {
         this.borderWidth = borderWidth;
         repaint();
     }
 
+    /**
+     * Get the line number offset
+     * @return the offset
+     */
     public int getLineNumberOffset() {
         return lineNumberOffset;
     }
 
+    /**
+     * Set the line number offset. E.g. set offset to 9 will make the first line number to appear equals 1 + 9 = 10
+     * @param offset the offset
+     */
     public void setLineNumberOffset(int offset) {
         lineNumberOffset = Math.max(lineNumberOffset, offset);
         checkPanelSize();
         repaint();
     }
 
+    /**
+     * Get the list of highlighted lines.
+     * @return a copy of the list
+     */
     public List<Integer> getHighlightedLineList() {
         List<Integer> returnList;
         synchronized (highlightedLineList) {
@@ -325,6 +409,10 @@ public class JTextComponentRowHeader extends JPanel {
         return returnList;
     }
 
+    /**
+     * Set highlighted lines. Note that this will clear all previous recorded highlighted lines.
+     * @param highlightedLineList the list that contain the highlighted lines
+     */
     public void setHighlightedLineList(List<Integer> highlightedLineList) {
         synchronized (this.highlightedLineList) {
             this.highlightedLineList.clear();
@@ -333,15 +421,28 @@ public class JTextComponentRowHeader extends JPanel {
         repaint();
     }
 
+    /**
+     * Add highlighted line.
+     * @param lineNumber the line number to highlight
+     */
     public void addHighlightedLine(int lineNumber) {
         highlightedLineList.add(lineNumber);
         repaint();
     }
 
+    /**
+     * Check if it is listening to the document change.
+     * @return true if it is listening, false if not 
+     */
     public boolean isListenToDocumentUpdate() {
         return listenToDocumentUpdate;
     }
 
+    /**
+     * Set to listen to document change or not. It is useful when a number of updates is needed to be done to the text component.
+     * May invoke {@link #updatePanelSize()}.
+     * @param listenToDocumentUpdate true to listen on document change, false not
+     */
     public void setListenToDocumentUpdate(boolean listenToDocumentUpdate) {
         this.listenToDocumentUpdate = listenToDocumentUpdate;
     }
