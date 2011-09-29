@@ -17,52 +17,128 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 /**
- * Theme for SyntaxHighlighter.
+ * Theme for the syntax highlighter.
+ * <p>To make a new theme, either extending this class of initiate this class and set the parameter by the setter.
+ * For the default value, please refer to the constructor.</p>
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class Theme {
 
     /**
-     * General
+     * The font of the script text.
      */
-    private Font font;
-    private Color background;
+    protected Font font;
     /**
-     * Line
+     * The background color of the script text area.
      */
-    private Color highlightedBackground;
+    protected Color background;
     /**
-     * Gutter
+     * The background color of the highlighted line of script text.
      */
-    private Color gutterText;
-    private Color gutterBorderColor;
-    private int gutterBorderWidth;
-    private Font gutterTextFont;
-    private int gutterTextPaddingLeft;
-    private int gutterTextPaddingRight;
+    protected Color highlightedBackground;
     /**
-     * Code
+     * Gutter (line number column on the left)
      */
-    private Style plain;
-    private Style comments;
-    private Style string;
-    private Style keyword;
-    private Style preprocessor;
-    private Style variable;
-    private Style value;
-    private Style functions;
-    private Style constants;
-    private Style script;
-    private Style scriptBackground;
-    private Style color1;
-    private Style color2;
-    private Style color3;
+    /**
+     * The color of the gutter text.
+     */
+    protected Color gutterText;
+    /**
+     * The color of the border that joint the gutter and the script text panel.
+     */
+    protected Color gutterBorderColor;
+    /**
+     * The width of the border that joint the gutter and the script text panel.
+     */
+    protected int gutterBorderWidth;
+    /**
+     * The font of the gutter text.
+     */
+    protected Font gutterTextFont;
+    /**
+     * The minimum padding from 'the leftmost of the line number text' to 'the left margin'.
+     */
+    protected int gutterTextPaddingLeft;
+    /**
+     * The minimum padding from 'the rightmost of the line number text' to 'the right margin' (not to the gutter border).
+     */
+    protected int gutterTextPaddingRight;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    protected Style plain;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    protected Style comments;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    protected Style string;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    protected Style keyword;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    protected Style preprocessor;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    protected Style variable;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    protected Style value;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    protected Style functions;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    protected Style constants;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    protected Style script;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    protected Style scriptBackground;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    protected Style color1;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    protected Style color2;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    protected Style color3;
 
     /**
-     * Constructor.
+     * Constructor.<br />
+     * <p>
+     * <b>Default value:</b><br />
+     * <ul>
+     * <li>font: Consolas 12pt</li>
+     * <li>background: white</li>
+     * <li>gutter text: black</li>
+     * <li>gutter border: R: 184, G: 184, B: 184</li>
+     * <li>gutter border width: 3px</li>
+     * <li>gutter text font: Consolas 12pt</li>
+     * <li>gutter text padding-left: 7px</li>
+     * <li>gutter text padding-right: 7px</li>
+     * <li>plain, comments, string, keyword, preprocessor, variable, value, functions, constants, script, scriptBackground, color1, color2, color3: no style set</li>
+     * </ul>
+     * </p>
      */
     public Theme() {
-        font = gutterTextFont;
+        font = new Font("Consolas", Font.PLAIN, 12);
         background = Color.white;
 
         highlightedBackground = Color.gray;
@@ -108,8 +184,8 @@ public class Theme {
 
     /**
      * Get the {@link syntaxhighlighter.Theme.Style} by keyword.
-     * @param key the keyword
-     * @return the {@link syntaxhighlighter.Theme.Style} related to the {@code key}
+     * @param key the keyword, possible values: plain, comments, string, keyword, preprocessor, variable, value, functions, constants, script, scriptBackground, color1, color2 or color3
+     * @return the {@link syntaxhighlighter.Theme.Style} related to the {@code key}; if the style related to the <code>key</code> not exist, the style of 'plain' will return.
      */
     public Style getStyle(String key) {
         if (key.equals("plain")) {
@@ -146,188 +222,326 @@ public class Theme {
         }
     }
 
-    public Color getBackground() {
-        return background;
-    }
-
-    public void setBackground(Color background) {
-        this.background = background;
-    }
-
-    public Color getHighlightedBackground() {
-        return highlightedBackground;
-    }
-
-    public void setHighlightedBackground(Color highlightedBackground) {
-        this.highlightedBackground = highlightedBackground;
-    }
-
-    public Color getGutterText() {
-        return gutterText;
-    }
-
-    public void setGutterText(Color gutterText) {
-        this.gutterText = gutterText;
-    }
-
-    public Color getGutterBorderColor() {
-        return gutterBorderColor;
-    }
-
-    public void setGutterBorderColor(Color gutterBorderColor) {
-        this.gutterBorderColor = gutterBorderColor;
-    }
-
-    public int getGutterBorderWidth() {
-        return gutterBorderWidth;
-    }
-
-    public void setGutterBorderWidth(int gutterBorderWidth) {
-        this.gutterBorderWidth = gutterBorderWidth;
-    }
-
-    public Font getGutterTextFont() {
-        return gutterTextFont;
-    }
-
-    public void setGutterTextFont(Font gutterTextFont) {
-        this.gutterTextFont = gutterTextFont;
-    }
-
-    public int getGutterTextPaddingLeft() {
-        return gutterTextPaddingLeft;
-    }
-
-    public void setGutterTextPaddingLeft(int gutterTextPaddingLeft) {
-        this.gutterTextPaddingLeft = gutterTextPaddingLeft;
-    }
-
-    public int getGutterTextPaddingRight() {
-        return gutterTextPaddingRight;
-    }
-
-    public void setGutterTextPaddingRight(int gutterTextPaddingRight) {
-        this.gutterTextPaddingRight = gutterTextPaddingRight;
-    }
-
+    /**
+     * The font of the script text.
+     */
     public Font getFont() {
         return font;
     }
 
+    /**
+     * The font of the script text.
+     */
     public void setFont(Font font) {
         this.font = font;
     }
 
-    public Style getColor1() {
-        return color1;
+    /**
+     * The background color of the script text area.
+     */
+    public Color getBackground() {
+        return background;
     }
 
-    public void setColor1(Style color1) {
-        this.color1 = color1;
+    /**
+     * The background color of the script text area.
+     */
+    public void setBackground(Color background) {
+        this.background = background;
     }
 
-    public Style getColor2() {
-        return color2;
+    /**
+     * The background color of the highlighted line of script text.
+     */
+    public Color getHighlightedBackground() {
+        return highlightedBackground;
     }
 
-    public void setColor2(Style color2) {
-        this.color2 = color2;
+    /**
+     * The background color of the highlighted line of script text.
+     */
+    public void setHighlightedBackground(Color highlightedBackground) {
+        this.highlightedBackground = highlightedBackground;
     }
 
-    public Style getColor3() {
-        return color3;
+    /**
+     * The color of the gutter text.
+     */
+    public Color getGutterText() {
+        return gutterText;
     }
 
-    public void setColor3(Style color3) {
-        this.color3 = color3;
+    /**
+     * The color of the gutter text.
+     */
+    public void setGutterText(Color gutterText) {
+        this.gutterText = gutterText;
     }
 
-    public Style getComments() {
-        return comments;
+    /**
+     * The color of the border that joint the gutter and the script text panel.
+     */
+    public Color getGutterBorderColor() {
+        return gutterBorderColor;
     }
 
-    public void setComments(Style comments) {
-        this.comments = comments;
+    /**
+     * The color of the border that joint the gutter and the script text panel.
+     */
+    public void setGutterBorderColor(Color gutterBorderColor) {
+        this.gutterBorderColor = gutterBorderColor;
     }
 
-    public Style getConstants() {
-        return constants;
+    /**
+     * The width of the border that joint the gutter and the script text panel.
+     */
+    public int getGutterBorderWidth() {
+        return gutterBorderWidth;
     }
 
-    public void setConstants(Style constants) {
-        this.constants = constants;
+    /**
+     * The width of the border that joint the gutter and the script text panel.
+     */
+    public void setGutterBorderWidth(int gutterBorderWidth) {
+        this.gutterBorderWidth = gutterBorderWidth;
     }
 
-    public Style getFunctions() {
-        return functions;
+    /**
+     * The font of the gutter text.
+     */
+    public Font getGutterTextFont() {
+        return gutterTextFont;
     }
 
-    public void setFunctions(Style functions) {
-        this.functions = functions;
+    /**
+     * The font of the gutter text.
+     */
+    public void setGutterTextFont(Font gutterTextFont) {
+        this.gutterTextFont = gutterTextFont;
     }
 
-    public Style getKeyword() {
-        return keyword;
+    /**
+     * The minimum padding from 'the leftmost of the line number text' to 'the left margin'.
+     */
+    public int getGutterTextPaddingLeft() {
+        return gutterTextPaddingLeft;
     }
 
-    public void setKeyword(Style keyword) {
-        this.keyword = keyword;
+    /**
+     * The minimum padding from 'the leftmost of the line number text' to 'the left margin'.
+     */
+    public void setGutterTextPaddingLeft(int gutterTextPaddingLeft) {
+        this.gutterTextPaddingLeft = gutterTextPaddingLeft;
     }
 
+    /**
+     * The minimum padding from 'the rightmost of the line number text' to 'the right margin' (not to the gutter border).
+     */
+    public int getGutterTextPaddingRight() {
+        return gutterTextPaddingRight;
+    }
+
+    /**
+     * The minimum padding from 'the rightmost of the line number text' to 'the right margin' (not to the gutter border).
+     */
+    public void setGutterTextPaddingRight(int gutterTextPaddingRight) {
+        this.gutterTextPaddingRight = gutterTextPaddingRight;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
     public Style getPlain() {
         return plain;
     }
 
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
     public void setPlain(Style plain) {
         this.plain = plain;
     }
 
-    public Style getPreprocessor() {
-        return preprocessor;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public Style getComments() {
+        return comments;
     }
 
-    public void setPreprocessor(Style preprocessor) {
-        this.preprocessor = preprocessor;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public void setComments(Style comments) {
+        this.comments = comments;
     }
 
-    public Style getScript() {
-        return script;
-    }
-
-    public void setScript(Style script) {
-        this.script = script;
-    }
-
-    public Style getScriptBackground() {
-        return scriptBackground;
-    }
-
-    public void setScriptBackground(Style scriptBackground) {
-        this.scriptBackground = scriptBackground;
-    }
-
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
     public Style getString() {
         return string;
     }
 
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
     public void setString(Style string) {
         this.string = string;
     }
 
-    public Style getValue() {
-        return value;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public Style getKeyword() {
+        return keyword;
     }
 
-    public void setValue(Style value) {
-        this.value = value;
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public void setKeyword(Style keyword) {
+        this.keyword = keyword;
     }
 
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public Style getPreprocessor() {
+        return preprocessor;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public void setPreprocessor(Style preprocessor) {
+        this.preprocessor = preprocessor;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
     public Style getVariable() {
         return variable;
     }
 
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
     public void setVariable(Style variable) {
         this.variable = variable;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public Style getValue() {
+        return value;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public void setValue(Style value) {
+        this.value = value;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public Style getFunctions() {
+        return functions;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public void setFunctions(Style functions) {
+        this.functions = functions;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public Style getConstants() {
+        return constants;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public void setConstants(Style constants) {
+        this.constants = constants;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public Style getScript() {
+        return script;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public void setScript(Style script) {
+        this.script = script;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public Style getScriptBackground() {
+        return scriptBackground;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public void setScriptBackground(Style scriptBackground) {
+        this.scriptBackground = scriptBackground;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public Style getColor1() {
+        return color1;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public void setColor1(Style color1) {
+        this.color1 = color1;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public Style getColor2() {
+        return color2;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public void setColor2(Style color2) {
+        this.color2 = color2;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public Style getColor3() {
+        return color3;
+    }
+
+    /**
+     * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
+     */
+    public void setColor3(Style color3) {
+        this.color3 = color3;
     }
 
     @Override
@@ -424,17 +638,27 @@ public class Theme {
      */
     public static class Style {
 
-        private boolean bold;
-        private Color color;
+        protected boolean bold;
+        protected Color color;
         /**
          * The background color, null means no background color is set.
          */
-        private Color background;
-        private boolean underline;
-        private boolean italic;
+        protected Color background;
+        protected boolean underline;
+        protected boolean italic;
 
         /**
          * Constructor.
+         * <p>
+         * <b>Default values:</b><br />
+         * <ul>
+         * <li>bold: false;</li>
+         * <li>color: black;</li>
+         * <li>background: null;</li>
+         * <li>underline: false;</li>
+         * <li>italic: false;</li>
+         * </ul>
+         * </p>
          */
         public Style() {
             bold = false;

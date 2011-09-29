@@ -26,11 +26,17 @@ import syntaxhighlighter.SyntaxHighlighter;
 import syntaxhighlighter.Themes.ThemeRDark;
 
 /**
- * Usage example.
+ * Usage example. This will just cover some of the functions. For more functions available, see the JavaDoc of SyntaxHighlighter.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class Example {
 
+    /**
+     * Read the file from the resource.
+     * @param path the path to the resource
+     * @return the content of the resource in string
+     * @throws IOException error occured
+     */
     public static String readFile(String path) throws IOException {
         int byteRead = 0;
         byte[] b = new byte[256];
@@ -43,6 +49,7 @@ public class Example {
     }
 
     public static void main(String[] args) {
+        // set look & feel
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
@@ -54,27 +61,36 @@ public class Example {
             @Override
             public void run() {
                 try {
-                    JFrame frame = new JFrame();
-                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+                    // timer start
                     long start, end;
                     start = System.currentTimeMillis();
 
+                    // use XML (for HTML) brush and RDark theme
                     SyntaxHighlighter highlighter = new SyntaxHighlighter(new BrushXml(), new ThemeRDark());
+                    // turn HTML script on
                     highlighter.setHtmlScript(true);
+                    // set HTML Script brushes
                     highlighter.setHTMLScriptBrush(Arrays.asList(new BrushCss(), new BrushJScript()));
+                    // besides set, you can also adds
                     highlighter.addHTMLScriptBrush(new BrushPhp());
-                    highlighter.setContent(readFile("/syntaxhighlighter/example/example.html"));
+                    // set the line number count from 10 instead of 1
                     highlighter.setFirstLine(10);
+                    // set to highlight line 13, 27, 28, 38, 42, 43 and 53
                     highlighter.setHighlightedLineList(Arrays.asList(13, 27, 28, 38, 42, 43, 53));
+                    // set the content of the script, the example.html is located in the package path: /syntaxhighlighter/example/example.html
+                    highlighter.setContent(readFile("/syntaxhighlighter/example/example.html"));
 
+                    // timer end
                     end = System.currentTimeMillis();
-                    System.out.println((end - start));
+                    System.out.println("time elapsed: " + (end - start) + "ms");
 
+                    // initiate a frame and display
+                    JFrame frame = new JFrame();
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    // SyntaxHighlighter is actually a JScrollPane
                     frame.setContentPane(highlighter);
-                    frame.pack();
-//                    frame.setSize(new Dimension(800, 600));
                     frame.setLocationByPlatform(true);
+                    frame.pack();
                     frame.setVisible(true);
                 } catch (Exception ex) {
                     Logger.getLogger(Example.class.getName()).log(Level.SEVERE, null, ex);

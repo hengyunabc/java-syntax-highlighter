@@ -46,6 +46,7 @@ import javax.swing.text.ViewFactory;
 import syntaxhighlighter.Parser.MatchResult;
 
 /**
+ * The text pane for the script text.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class SyntaxHighlighterPane extends JTextPane {
