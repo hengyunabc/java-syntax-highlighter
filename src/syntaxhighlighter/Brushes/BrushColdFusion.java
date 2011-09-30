@@ -27,12 +27,12 @@ public class BrushColdFusion extends Brush {
 
         // Contributed by Jen
         // http://www.jensbits.com/2009/05/14/coldfusion-brush-for-syntaxhighlighter-plus
-        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
-        regExpRuleList.add(new RegExpRule("--(.*)$", Pattern.MULTILINE, "comments")); // one line and multiline comments
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.xmlComments, "comments")); // single quoted strings
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // double quoted strings
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // single quoted strings
-        regExpRuleList.add(new RegExpRule(getKeywords("Abs ACos AddSOAPRequestHeader AddSOAPResponseHeader AjaxLink AjaxOnLoad ArrayAppend ArrayAvg ArrayClear ArrayDeleteAt "
+        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
+        _regExpRuleList.add(new RegExpRule("--(.*)$", Pattern.MULTILINE, "comments")); // one line and multiline comments
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.xmlComments, "comments")); // single quoted strings
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // double quoted strings
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // single quoted strings
+        _regExpRuleList.add(new RegExpRule(getKeywords("Abs ACos AddSOAPRequestHeader AddSOAPResponseHeader AjaxLink AjaxOnLoad ArrayAppend ArrayAvg ArrayClear ArrayDeleteAt "
                 + "ArrayInsertAt ArrayIsDefined ArrayIsEmpty ArrayLen ArrayMax ArrayMin ArraySet ArraySort ArraySum ArraySwap ArrayToList "
                 + "Asc ASin Atn BinaryDecode BinaryEncode BitAnd BitMaskClear BitMaskRead BitMaskSet BitNot BitOr BitSHLN BitSHRN BitXor "
                 + "Ceiling CharsetDecode CharsetEncode Chr CJustify Compare CompareNoCase Cos CreateDate CreateDateTime CreateObject "
@@ -69,8 +69,8 @@ public class BrushColdFusion extends Brush {
                 + "StructSort StructUpdate Tan TimeFormat ToBase64 ToBinary ToScript ToString Trim UCase URLDecode URLEncodedFormat URLSessionFormat Val "
                 + "ValueList VerifyClient Week Wrap Wrap WriteOutput XmlChildPos XmlElemNew XmlFormat XmlGetNodeType XmlNew XmlParse XmlSearch XmlTransform "
                 + "XmlValidate Year YesNoFormat"), Pattern.CASE_INSENSITIVE | Pattern.MULTILINE, "functions")); // functions
-        regExpRuleList.add(new RegExpRule(getKeywords("all and any between cross in join like not null or outer some"), Pattern.CASE_INSENSITIVE | Pattern.MULTILINE, "color1")); // operators and such
-        regExpRuleList.add(new RegExpRule(getKeywords("cfabort cfajaximport cfajaxproxy cfapplet cfapplication cfargument cfassociate cfbreak cfcache cfcalendar "
+        _regExpRuleList.add(new RegExpRule(getKeywords("all and any between cross in join like not null or outer some"), Pattern.CASE_INSENSITIVE | Pattern.MULTILINE, "color1")); // operators and such
+        _regExpRuleList.add(new RegExpRule(getKeywords("cfabort cfajaximport cfajaxproxy cfapplet cfapplication cfargument cfassociate cfbreak cfcache cfcalendar "
                 + "cfcase cfcatch cfchart cfchartdata cfchartseries cfcol cfcollection cfcomponent cfcontent cfcookie cfdbinfo "
                 + "cfdefaultcase cfdirectory cfdiv cfdocument cfdocumentitem cfdocumentsection cfdump cfelse cfelseif cferror "
                 + "cfexchangecalendar cfexchangeconnection cfexchangecontact cfexchangefilter cfexchangemail cfexchangetask "
@@ -84,7 +84,7 @@ public class BrushColdFusion extends Brush {
                 + "cfscript cfsearch cfselect cfset cfsetting cfsilent cfslider cfsprydataset cfstoredproc cfswitch cftable "
                 + "cftextarea cfthread cfthrow cftimer cftooltip cftrace cftransaction cftree cftreeitem cftry cfupdate cfwddx "
                 + "cfwindow cfxml cfzip cfzipparam"), Pattern.CASE_INSENSITIVE | Pattern.MULTILINE, "keyword")); // keyword
-        setRegExpRuleList(regExpRuleList);
+        setRegExpRuleList(_regExpRuleList);
 
         setCommonFileExtensionList(Arrays.asList("cfm", "cfml"));
     }

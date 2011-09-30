@@ -26,14 +26,14 @@ public class BrushBash extends Brush {
         super();
 
         // bold
-        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
-        regExpRuleList.add(new RegExpRule("^#!.*$", Pattern.MULTILINE, "preprocessor"));
-        regExpRuleList.add(new RegExpRule("\\/[\\w-\\/]+", Pattern.MULTILINE, "plain"));
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLinePerlComments, "comments")); // one line comments
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // double quoted strings
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // single quoted strings
-        regExpRuleList.add(new RegExpRule(getKeywords("if fi then elif else for do done until while break continue case function return in eq ne ge le"), Pattern.MULTILINE, "keyword")); // keywords
-        regExpRuleList.add(new RegExpRule(getKeywords("alias apropos awk basename bash bc bg builtin bzip2 cal cat cd cfdisk chgrp chmod chown chroot"
+        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
+        _regExpRuleList.add(new RegExpRule("^#!.*$", Pattern.MULTILINE, "preprocessor"));
+        _regExpRuleList.add(new RegExpRule("\\/[\\w-\\/]+", Pattern.MULTILINE, "plain"));
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLinePerlComments, "comments")); // one line comments
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // double quoted strings
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // single quoted strings
+        _regExpRuleList.add(new RegExpRule(getKeywords("if fi then elif else for do done until while break continue case function return in eq ne ge le"), Pattern.MULTILINE, "keyword")); // keywords
+        _regExpRuleList.add(new RegExpRule(getKeywords("alias apropos awk basename bash bc bg builtin bzip2 cal cat cd cfdisk chgrp chmod chown chroot"
                 + "cksum clear cmp comm command cp cron crontab csplit cut date dc dd ddrescue declare df "
                 + "diff diff3 dig dir dircolors dirname dirs du echo egrep eject enable env ethtool eval "
                 + "exec exit expand export expr false fdformat fdisk fg fgrep file find fmt fold format "
@@ -47,7 +47,7 @@ public class BrushBash extends Brush {
                 + "times touch top traceroute trap tr true tsort tty type ulimit umask umount unalias "
                 + "uname unexpand uniq units unset unshar useradd usermod users uuencode uudecode v vdir "
                 + "vi watch wc whereis which who whoami Wget xargs yes"), Pattern.MULTILINE, "functions")); // commands
-        setRegExpRuleList(regExpRuleList);
+        setRegExpRuleList(_regExpRuleList);
 
         setCommonFileExtensionList(Arrays.asList("sh"));
     }

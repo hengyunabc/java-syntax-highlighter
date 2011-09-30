@@ -26,22 +26,22 @@ public class BrushRuby extends Brush {
         super();
 
         // Contributed by Erik Peterson.
-        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLinePerlComments, "comments")); // one line comments
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // double quoted strings
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // single quoted strings
-        regExpRuleList.add(new RegExpRule("\\b[A-Z0-9_]+\\b", "constants")); // constants
-        regExpRuleList.add(new RegExpRule(":[a-z][A-Za-z0-9_]*", "color2")); // symbols
+        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLinePerlComments, "comments")); // one line comments
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // double quoted strings
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // single quoted strings
+        _regExpRuleList.add(new RegExpRule("\\b[A-Z0-9_]+\\b", "constants")); // constants
+        _regExpRuleList.add(new RegExpRule(":[a-z][A-Za-z0-9_]*", "color2")); // symbols
         RegExpRule rule = new RegExpRule("(\\$|@@|@)\\w+", "variable");
         rule.setBold(true);
-        regExpRuleList.add(rule); // $global, @instance, and @@class variables
-        regExpRuleList.add(new RegExpRule(getKeywords("alias and BEGIN begin break case class def define_method defined do each else elsif "
+        _regExpRuleList.add(rule); // $global, @instance, and @@class variables
+        _regExpRuleList.add(new RegExpRule(getKeywords("alias and BEGIN begin break case class def define_method defined do each else elsif "
                 + "END end ensure false for if in module new next nil not or raise redo rescue retry return "
                 + "self super then throw true undef unless until when while yield"), Pattern.MULTILINE, "keyword")); // keywords
-        regExpRuleList.add(new RegExpRule(getKeywords("Array Bignum Binding Class Continuation Dir Exception FalseClass File::Stat File Fixnum Fload "
+        _regExpRuleList.add(new RegExpRule(getKeywords("Array Bignum Binding Class Continuation Dir Exception FalseClass File::Stat File Fixnum Fload "
                 + "Hash Integer IO MatchData Method Module NilClass Numeric Object Proc Range Regexp String Struct::TMS Symbol "
                 + "ThreadGroup Thread Time TrueClass"), Pattern.MULTILINE, "color1")); // builtins
-        setRegExpRuleList(regExpRuleList);
+        setRegExpRuleList(_regExpRuleList);
 
         setHTMLScriptRegExp(HTMLScriptRegExp.phpScriptTags);
 

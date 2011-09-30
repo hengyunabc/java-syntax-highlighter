@@ -26,12 +26,12 @@ public class BrushCpp extends Brush {
         super();
 
         // Copyright 2006 Shin, YoungJin
-        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // one line comments
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // strings
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // strings
-        regExpRuleList.add(new RegExpRule("^ *#.*", Pattern.MULTILINE, "preprocessor"));
+        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // one line comments
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // strings
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // strings
+        _regExpRuleList.add(new RegExpRule("^ *#.*", Pattern.MULTILINE, "preprocessor"));
         RegExpRule rule = new RegExpRule(getKeywords("ATOM BOOL BOOLEAN BYTE CHAR COLORREF DWORD DWORDLONG DWORD_PTR "
                 + "DWORD32 DWORD64 FLOAT HACCEL HALF_PTR HANDLE HBITMAP HBRUSH "
                 + "HCOLORSPACE HCONV HCONVLIST HCURSOR HDC HDDEDATA HDESK HDROP HDWP "
@@ -57,7 +57,7 @@ public class BrushCpp extends Brush {
                 + "time_t __time64_t _timeb __timeb64 tm uintptr_t _utimbuf "
                 + "va_list wchar_t wctrans_t wctype_t wint_t signed"), Pattern.MULTILINE, "color1");
         rule.setBold(true);
-        regExpRuleList.add(rule);
+        _regExpRuleList.add(rule);
         // bold
         rule = new RegExpRule(getKeywords("assert isalnum isalpha iscntrl isdigit isgraph islower isprint"
                 + "ispunct isspace isupper isxdigit tolower toupper errno localeconv "
@@ -76,7 +76,7 @@ public class BrushCpp extends Brush {
                 + "strncpy strpbrk strrchr strspn strstr strtok strxfrm asctime "
                 + "clock ctime difftime gmtime localtime mktime strftime time"), Pattern.MULTILINE, "functions");
         rule.setBold(true);
-        regExpRuleList.add(rule);
+        _regExpRuleList.add(rule);
         rule = new RegExpRule(getKeywords("break case catch class const __finally __exception __try "
                 + "const_cast continue private public protected __declspec "
                 + "default delete deprecated dllexport dllimport do dynamic_cast "
@@ -87,8 +87,8 @@ public class BrushCpp extends Brush {
                 + "thread throw true false try typedef typeid typename union "
                 + "using uuid virtual void volatile whcar_t while"), Pattern.MULTILINE, "keyword");
         rule.setBold(true);
-        regExpRuleList.add(rule);
-        setRegExpRuleList(regExpRuleList);
+        _regExpRuleList.add(rule);
+        setRegExpRuleList(_regExpRuleList);
 
         setCommonFileExtensionList(Arrays.asList("c", "cpp"));
     }
