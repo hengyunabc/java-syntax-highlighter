@@ -24,23 +24,23 @@ public class BrushJava extends Brush {
     public BrushJava() {
         super();
 
-        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments"));
-        regExpRuleList.add(new RegExpRule("\\/\\*([^\\*][\\s\\S]*?)?\\*\\/", Pattern.MULTILINE, "comments"));
-        regExpRuleList.add(new RegExpRule("\\/\\*(?!\\*\\/)\\*[\\s\\S]*?\\*\\/", Pattern.MULTILINE, "preprocessor"));
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string"));
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string"));
-        regExpRuleList.add(new RegExpRule("\\b([\\d]+(\\.[\\d]+)?|0x[a-f0-9]+)\\b", Pattern.CASE_INSENSITIVE, "value"));
-        regExpRuleList.add(new RegExpRule("(?!\\@interface\\b)\\@[\\$\\w]+\\b", "color1"));
-        regExpRuleList.add(new RegExpRule("\\@interface\\b", "color2"));
-        regExpRuleList.add(new RegExpRule(getKeywords("abstract assert boolean break byte case catch char class const "
+        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments"));
+        _regExpRuleList.add(new RegExpRule("\\/\\*([^\\*][\\s\\S]*?)?\\*\\/", Pattern.MULTILINE, "comments"));
+        _regExpRuleList.add(new RegExpRule("\\/\\*(?!\\*\\/)\\*[\\s\\S]*?\\*\\/", Pattern.MULTILINE, "preprocessor"));
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string"));
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string"));
+        _regExpRuleList.add(new RegExpRule("\\b([\\d]+(\\.[\\d]+)?|0x[a-f0-9]+)\\b", Pattern.CASE_INSENSITIVE, "value"));
+        _regExpRuleList.add(new RegExpRule("(?!\\@interface\\b)\\@[\\$\\w]+\\b", "color1"));
+        _regExpRuleList.add(new RegExpRule("\\@interface\\b", "color2"));
+        _regExpRuleList.add(new RegExpRule(getKeywords("abstract assert boolean break byte case catch char class const "
                 + "continue default do double else enum extends "
                 + "false final finally float for goto if implements import "
                 + "instanceof int interface long native new null "
                 + "package private protected public return "
                 + "short static strictfp super switch synchronized this throw throws true "
                 + "transient try void volatile while"), Pattern.MULTILINE, "keyword"));
-        setRegExpRuleList(regExpRuleList);
+        setRegExpRuleList(_regExpRuleList);
 
         setHTMLScriptRegExp(new HTMLScriptRegExp("(?:&lt;|<)%[@!=]?", "%(?:&gt;|>)"));
 

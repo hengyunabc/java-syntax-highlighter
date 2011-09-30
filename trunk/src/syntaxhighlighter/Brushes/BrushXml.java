@@ -27,10 +27,10 @@ public class BrushXml extends Brush {
     public BrushXml() {
         super();
 
-        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
+        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
 
-        regExpRuleList.add(new RegExpRule("(\\&lt;|<)\\!\\[[\\w\\s]*?\\[(.|\\s)*?\\]\\](\\&gt;|>)", Pattern.MULTILINE, "color2"));
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.xmlComments, "comments"));
+        _regExpRuleList.add(new RegExpRule("(\\&lt;|<)\\!\\[[\\w\\s]*?\\[(.|\\s)*?\\]\\](\\&gt;|>)", Pattern.MULTILINE, "color2"));
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.xmlComments, "comments"));
 
         // regular expression for highlighting the tag
         RegExpRule tagRegExpRule = new RegExpRule("(?:&lt;|<)[\\s\\/\\?]*([:\\w-\\.]+)", Pattern.COMMENTS, "");
@@ -57,9 +57,9 @@ public class BrushXml extends Brush {
         // perform futher operation on the group 2 of the matched results
         matchesToRegExp.put(2, valueRegExpRule);
         _regExpRule.setGroupOperations(matchesToRegExp);
-        regExpRuleList.add(_regExpRule);
+        _regExpRuleList.add(_regExpRule);
 
-        setRegExpRuleList(regExpRuleList);
+        setRegExpRuleList(_regExpRuleList);
 
         setCommonFileExtensionList(Arrays.asList("xml", "html", "xhtml", "xslt"));
     }

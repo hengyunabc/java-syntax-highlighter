@@ -27,13 +27,13 @@ public class BrushPowerShell extends Brush {
 
         // Contributes by B.v.Zanten, Getronics
         // http://confluence.atlassian.com/display/CONFEXT/New+Code+Macro
-        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
-        regExpRuleList.add(new RegExpRule("#.*$", Pattern.MULTILINE, "comments")); // one line comments
-        regExpRuleList.add(new RegExpRule("\\$[a-zA-Z0-9]+\\b", "value")); // variables $Computer1
-        regExpRuleList.add(new RegExpRule("\\-[a-zA-Z]+\\b", "keyword")); // Operators    -not  -and  -eq
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // strings
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // strings
-        regExpRuleList.add(new RegExpRule(getKeywords("Add-Content Add-History Add-Member Add-PSSnapin Clear(-Content)? Clear-Item "
+        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
+        _regExpRuleList.add(new RegExpRule("#.*$", Pattern.MULTILINE, "comments")); // one line comments
+        _regExpRuleList.add(new RegExpRule("\\$[a-zA-Z0-9]+\\b", "value")); // variables $Computer1
+        _regExpRuleList.add(new RegExpRule("\\-[a-zA-Z]+\\b", "keyword")); // Operators    -not  -and  -eq
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // strings
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // strings
+        _regExpRuleList.add(new RegExpRule(getKeywords("Add-Content Add-History Add-Member Add-PSSnapin Clear(-Content)? Clear-Item "
                 + "Clear-ItemProperty Clear-Variable Compare-Object ConvertFrom-SecureString Convert-Path "
                 + "ConvertTo-Html ConvertTo-SecureString Copy(-Item)? Copy-ItemProperty Export-Alias "
                 + "Export-Clixml Export-Console Export-Csv ForEach(-Object)? Format-Custom Format-List "
@@ -54,14 +54,14 @@ public class BrushPowerShell extends Brush {
                 + "Start-Sleep Start-Transcript Stop-Process Stop-Service Stop-Transcript Suspend-Service "
                 + "Tee-Object Test-Path Trace-Command Update-FormatData Update-TypeData Where(-Object)? "
                 + "Write-Debug Write-Error Write(-Host)? Write-Output Write-Progress Write-Verbose Write-Warning"), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "keyword"));
-        regExpRuleList.add(new RegExpRule(getKeywords("ac asnp clc cli clp clv cpi cpp cvpa diff epal epcsv fc fl "
+        _regExpRuleList.add(new RegExpRule(getKeywords("ac asnp clc cli clp clv cpi cpp cvpa diff epal epcsv fc fl "
                 + "ft fw gal gc gci gcm gdr ghy gi gl gm gp gps group gsv "
                 + "gsnp gu gv gwmi iex ihy ii ipal ipcsv mi mp nal ndr ni nv oh rdr "
                 + "ri rni rnp rp rsnp rv rvpa sal sasv sc select si sl sleep sort sp "
                 + "spps spsv sv tee cat cd cp h history kill lp ls "
                 + "mount mv popd ps pushd pwd r rm rmdir echo cls chdir del dir "
                 + "erase rd ren type % \\?"), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "keyword"));
-        setRegExpRuleList(regExpRuleList);
+        setRegExpRuleList(_regExpRuleList);
 
         setCommonFileExtensionList(Arrays.asList("ps1"));
     }

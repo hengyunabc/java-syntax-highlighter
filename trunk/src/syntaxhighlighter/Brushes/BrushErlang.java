@@ -26,19 +26,19 @@ public class BrushErlang extends Brush {
 
         // Contributed by Jean-Lou Dupont
         // http://jldupont.blogspot.com/2009/06/erlang-syntax-highlighter.html
-        List<RegExpRule> regExpRuleList = new ArrayList<RegExpRule>();
-        regExpRuleList.add(new RegExpRule("[A-Z][A-Za-z0-9_]+", "constants"));
-        regExpRuleList.add(new RegExpRule("\\%.+", Pattern.MULTILINE, "comments"));
-        regExpRuleList.add(new RegExpRule("\\?[A-Za-z0-9_]+", "preprocessor"));
-        regExpRuleList.add(new RegExpRule("[a-z0-9_]+:[a-z0-9_]+", "functions"));
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string"));
-        regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string"));
+        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
+        _regExpRuleList.add(new RegExpRule("[A-Z][A-Za-z0-9_]+", "constants"));
+        _regExpRuleList.add(new RegExpRule("\\%.+", Pattern.MULTILINE, "comments"));
+        _regExpRuleList.add(new RegExpRule("\\?[A-Za-z0-9_]+", "preprocessor"));
+        _regExpRuleList.add(new RegExpRule("[a-z0-9_]+:[a-z0-9_]+", "functions"));
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string"));
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string"));
         // According to: http://erlang.org/doc/reference_manual/introduction.html#1.5
-        regExpRuleList.add(new RegExpRule(getKeywords("after and andalso band begin bnot bor bsl bsr bxor "
+        _regExpRuleList.add(new RegExpRule(getKeywords("after and andalso band begin bnot bor bsl bsr bxor "
                 + "case catch cond div end fun if let not of or orelse "
                 + "query receive rem try when xor"
                 + // additional
                 " module export import define"), Pattern.MULTILINE, "keyword"));
-        setRegExpRuleList(regExpRuleList);
+        setRegExpRuleList(_regExpRuleList);
     }
 }

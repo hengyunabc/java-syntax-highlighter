@@ -56,7 +56,7 @@ public class Brush {
      * @param regExpRuleList the list
      */
     public void setRegExpRuleList(List<RegExpRule> regExpRuleList) {
-        this.regExpRuleList = regExpRuleList;
+        this.regExpRuleList = new ArrayList<RegExpRule>(regExpRuleList);
     }
 
     /**
