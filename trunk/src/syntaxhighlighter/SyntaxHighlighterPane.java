@@ -55,15 +55,15 @@ public class SyntaxHighlighterPane extends JTextPane {
     /**
      * The line number offset. E.g. set offset to 9 will make the first line number to appear equals 1 + 9 = 10
      */
-    protected int lineNumberOffset;
+    private int lineNumberOffset;
     /**
      * The background color of the highlighted line. Default is black.
      */
-    protected Color highlightedBackground;
+    private Color highlightedBackground;
     /**
      * Indicator that indicate to turn on the mouse-over-highlight effect or not. See {@link #setHighlightWhenMouseOver(boolean)}.
      */
-    protected boolean highlightWhenMouseOver;
+    private boolean highlightWhenMouseOver;
     /**
      * The list of line numbers that needed to be highlighted.
      */

@@ -42,7 +42,9 @@ import javax.swing.text.JTextComponent;
 public class JTextComponentRowHeader extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    //
+    /**
+     * The anti-aliasing setting of the line number text.
+     */
     private Object textAntiAliasing = RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT;
     /**
      * The color of the border that joint the gutter and the script text panel.
@@ -64,15 +66,33 @@ public class JTextComponentRowHeader extends JPanel {
      * The width of the border that joint the gutter and the script text panel.
      */
     private int borderWidth = 1;
-    //
+    /**
+     * The JScrollPane that it be added into
+     */
     protected JScrollPane scrollPane;
+    /**
+     * The text component to listen the change on
+     */
     protected JTextComponent textComponent;
-    //
+    /**
+     * The document of the text component.
+     */
     protected Document document;
+    /**
+     * The document listener for {@link #document}.
+     */
     protected DocumentListener documentListener;
-    //
+    /**
+     * The cached panel width.
+     */
     protected int panelWidth;
+    /**
+     * The cached largest row number (for determine panel width {@link #panelWidth}).
+     */
     protected int largestRowNumber;
+    /**
+     * The cached text component height, for determine panel height.
+     */
     protected int textComponentHeight;
     /**
      * The line number offset. E.g. set offset to 9 will make the first line number to appear equals 1 + 9 = 10
@@ -147,6 +167,9 @@ public class JTextComponentRowHeader extends JPanel {
         checkPanelSize();
     }
 
+    /**
+     * Validate the document of the text component to see has changed or not.
+     */
     protected void validateTextComponentDocument() {
         Document _currentDocument = textComponent.getDocument();
         if (document != _currentDocument) {
@@ -156,6 +179,10 @@ public class JTextComponentRowHeader extends JPanel {
         }
     }
 
+    /**
+     * Check whether the height of the row header panel match with the height of the text component or not.
+     * If not, it will invoke {@link #updatePanelSize()}.
+     */
     protected void checkPanelSize() {
         validateTextComponentDocument();
         int _largestRowNumber = document.getDefaultRootElement().getElementCount() + lineNumberOffset;
@@ -167,6 +194,9 @@ public class JTextComponentRowHeader extends JPanel {
         }
     }
 
+    /**
+     * Update the panel size.
+     */
     protected void updatePanelSize() {
         Container parent = getParent();
         if (parent != null) {

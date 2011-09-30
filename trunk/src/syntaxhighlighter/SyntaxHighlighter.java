@@ -42,7 +42,7 @@ public class SyntaxHighlighter extends JScrollPane {
     /**
      * Indicate whether the HTML-Script option is turned on or not.
      */
-    protected boolean htmlScript;
+    private boolean htmlScript;
     /**
      * The brush list that used for HTML-Script.
      */

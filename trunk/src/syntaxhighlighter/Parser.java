@@ -274,21 +274,21 @@ public class Parser {
         /**
          * The position in the document for this matched result.
          */
-        protected int offset;
+        private int offset;
         /**
          * The length of the matched result.
          */
-        protected int length;
+        private int length;
         /**
          * The style key for this matched result, see {@link syntaxhighlighter.Theme}.
          */
-        protected String styleKey;
+        private String styleKey;
         /**
          * Indicate whether this match should be bolded or not.
          * This will override the 'bold' setting of the style (by styleKey).
          * If it is null, there will be nothing done on the 'bold' of the style.
          */
-        protected Boolean bold;
+        private Boolean bold;
 
         /**
          * Constructor.
