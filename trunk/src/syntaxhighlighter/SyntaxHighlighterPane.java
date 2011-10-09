@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.JTextPane;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
@@ -145,7 +144,6 @@ public class SyntaxHighlighterPane extends JTextPane {
             }
         });
         //</editor-fold>
-        setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
         lineNumberOffset = 0;
 

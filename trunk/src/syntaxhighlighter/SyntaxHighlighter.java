@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 
 /**
@@ -78,6 +79,7 @@ public class SyntaxHighlighter extends JScrollPane {
         setBorder(null);
 
         highlighter = highlighterPane;
+        highlighter.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
         highlighter.setTheme(theme);
         setViewportView(highlighter);
 
@@ -286,7 +288,13 @@ public class SyntaxHighlighter extends JScrollPane {
      * @param visible true to make visible, false to hide it
      */
     public void setGutterVisible(boolean visible) {
-        setRowHeaderView(visible ? highlighterRowHeader : null);
+        if (visible) {
+            setRowHeaderView(highlighterRowHeader);
+            highlighter.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+        } else {
+            setRowHeaderView(null);
+            highlighter.setBorder(null);
+        }
     }
 
     /**

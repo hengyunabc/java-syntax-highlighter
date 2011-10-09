@@ -25,13 +25,7 @@ public class BrushPhp extends Brush {
     public BrushPhp() {
         super();
 
-        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // one line comments
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // double quoted strings
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // single quoted strings
-        _regExpRuleList.add(new RegExpRule("\\$\\w+", "variable")); // variables
-        _regExpRuleList.add(new RegExpRule(getKeywords("abs acos acosh addcslashes addslashes "
+        String funcs = "abs acos acosh addcslashes addslashes "
                 + "array_change_key_case array_chunk array_combine array_count_values array_diff "
                 + "array_diff_assoc array_diff_key array_diff_uassoc array_diff_ukey array_fill "
                 + "array_filter array_flip array_intersect array_intersect_assoc array_intersect_key "
@@ -64,13 +58,23 @@ public class BrushPhp extends Brush {
                 + "str_word_count strcasecmp strchr strcmp strcoll strcspn strftime strip_tags stripcslashes "
                 + "stripos stripslashes stristr strlen strnatcasecmp strnatcmp strncasecmp strncmp strpbrk "
                 + "strpos strptime strrchr strrev strripos strrpos strspn strstr strtok strtolower strtotime "
-                + "strtoupper strtr strval substr substr_compare"), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "functions")); // common functions
-        _regExpRuleList.add(new RegExpRule(getKeywords("__FILE__ __LINE__ __METHOD__ __FUNCTION__ __CLASS__"), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "constants")); // constants
-        _regExpRuleList.add(new RegExpRule(getKeywords("abstract and array as break case catch cfunction class clone const continue declare default die do "
+                + "strtoupper strtr strval substr substr_compare";
+        String keywords = "abstract and array as break case catch cfunction class clone const continue declare default die do "
                 + "else elseif enddeclare endfor endforeach endif endswitch endwhile extends final for foreach "
                 + "function include include_once global goto if implements interface instanceof namespace new "
                 + "old_function or private protected public return require require_once static switch "
-                + "throw try use var while xor"), Pattern.MULTILINE, "keyword")); // keyword
+                + "throw try use var while xor";
+        String constants = "__FILE__ __LINE__ __METHOD__ __FUNCTION__ __CLASS__";
+
+        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // one line comments
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // double quoted strings
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // single quoted strings
+        _regExpRuleList.add(new RegExpRule("\\$\\w+", "variable")); // variables
+        _regExpRuleList.add(new RegExpRule(getKeywords(funcs), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "functions")); // common functions
+        _regExpRuleList.add(new RegExpRule(getKeywords(constants), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "constants")); // constants
+        _regExpRuleList.add(new RegExpRule(getKeywords(keywords), Pattern.MULTILINE, "keyword")); // keyword
         setRegExpRuleList(_regExpRuleList);
 
         setHTMLScriptRegExp(HTMLScriptRegExp.phpScriptTags);

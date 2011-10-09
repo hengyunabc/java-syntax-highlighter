@@ -25,15 +25,8 @@ public class BrushBash extends Brush {
     public BrushBash() {
         super();
 
-        // bold
-        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
-        _regExpRuleList.add(new RegExpRule("^#!.*$", Pattern.MULTILINE, "preprocessor"));
-        _regExpRuleList.add(new RegExpRule("\\/[\\w-\\/]+", Pattern.MULTILINE, "plain"));
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLinePerlComments, "comments")); // one line comments
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // double quoted strings
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // single quoted strings
-        _regExpRuleList.add(new RegExpRule(getKeywords("if fi then elif else for do done until while break continue case function return in eq ne ge le"), Pattern.MULTILINE, "keyword")); // keywords
-        _regExpRuleList.add(new RegExpRule(getKeywords("alias apropos awk basename bash bc bg builtin bzip2 cal cat cd cfdisk chgrp chmod chown chroot"
+        String keywords = "if fi then elif else for do done until while break continue case function return in eq ne ge le";
+        String commands = "alias apropos awk basename bash bc bg builtin bzip2 cal cat cd cfdisk chgrp chmod chown chroot"
                 + "cksum clear cmp comm command cp cron crontab csplit cut date dc dd ddrescue declare df "
                 + "diff diff3 dig dir dircolors dirname dirs du echo egrep eject enable env ethtool eval "
                 + "exec exit expand export expr false fdformat fdisk fg fgrep file find fmt fold format "
@@ -46,7 +39,18 @@ public class BrushBash extends Brush {
                 + "sleep sort source split ssh strace su sudo sum symlink sync tail tar tee test time "
                 + "times touch top traceroute trap tr true tsort tty type ulimit umask umount unalias "
                 + "uname unexpand uniq units unset unshar useradd usermod users uuencode uudecode v vdir "
-                + "vi watch wc whereis which who whoami Wget xargs yes"), Pattern.MULTILINE, "functions")); // commands
+                + "vi watch wc whereis which who whoami Wget xargs yes";
+
+        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
+        RegExpRule _regExpRule = new RegExpRule("^#!.*$", Pattern.MULTILINE, "preprocessor");
+        _regExpRule.setBold(true);
+        _regExpRuleList.add(_regExpRule);
+        _regExpRuleList.add(new RegExpRule("\\/[\\w-\\/]+", Pattern.MULTILINE, "plain"));
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLinePerlComments, "comments")); // one line comments
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // double quoted strings
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // single quoted strings
+        _regExpRuleList.add(new RegExpRule(getKeywords(keywords), Pattern.MULTILINE, "keyword")); // keywords
+        _regExpRuleList.add(new RegExpRule(getKeywords(commands), Pattern.MULTILINE, "functions")); // commands
         setRegExpRuleList(_regExpRuleList);
 
         setCommonFileExtensionList(Arrays.asList("sh"));

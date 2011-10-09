@@ -25,11 +25,7 @@ public class BrushVb extends Brush {
     public BrushVb() {
         super();
 
-        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
-        _regExpRuleList.add(new RegExpRule("'.*$", Pattern.MULTILINE, "comments")); // one line comments
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // strings
-        _regExpRuleList.add(new RegExpRule("^\\s*#.*$", Pattern.MULTILINE, "preprocessor")); // preprocessor tags like #region and #endregion
-        _regExpRuleList.add(new RegExpRule(getKeywords("AddHandler AddressOf AndAlso Alias And Ansi As Assembly Auto "
+        String keywords = "AddHandler AddressOf AndAlso Alias And Ansi As Assembly Auto "
                 + "Boolean ByRef Byte ByVal Call Case Catch CBool CByte CChar CDate "
                 + "CDec CDbl Char CInt Class CLng CObj Const CShort CSng CStr CType "
                 + "Date Decimal Declare Default Delegate Dim DirectCast Do Double Each "
@@ -42,7 +38,13 @@ public class BrushVb extends Brush {
                 + "Protected Public RaiseEvent ReadOnly ReDim REM RemoveHandler Resume "
                 + "Return Select Set Shadows Shared Short Single Static Step Stop String "
                 + "Structure Sub SyncLock Then Throw To True Try TypeOf Unicode Until "
-                + "Variant When While With WithEvents WriteOnly Xor"), Pattern.MULTILINE, "keyword")); // vb keyword
+                + "Variant When While With WithEvents WriteOnly Xor";
+
+        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
+        _regExpRuleList.add(new RegExpRule("'.*$", Pattern.MULTILINE, "comments")); // one line comments
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // strings
+        _regExpRuleList.add(new RegExpRule("^\\s*#.*$", Pattern.MULTILINE, "preprocessor")); // preprocessor tags like #region and #endregion
+        _regExpRuleList.add(new RegExpRule(getKeywords(keywords), Pattern.MULTILINE, "keyword")); // vb keyword
         setRegExpRuleList(_regExpRuleList);
 
         setHTMLScriptRegExp(HTMLScriptRegExp.aspScriptTags);

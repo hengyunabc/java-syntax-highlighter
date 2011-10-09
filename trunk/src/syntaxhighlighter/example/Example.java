@@ -34,18 +34,41 @@ public class Example {
     /**
      * Read the file from the resource.
      * @param path the path to the resource
-     * @return the content of the resource in string
-     * @throws IOException error occured
+     * @return the content of the resource in string or empty string if error occurred (for example purpose, no null is returned)
      */
-    public static String readFile(String path) throws IOException {
+    public static String readFile(String path) {
+        String returnResult = null;
+
         int byteRead = 0;
         byte[] b = new byte[256];
-        InputStream in = Example.class.getResourceAsStream(path);
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
-        while ((byteRead = in.read(b)) > 0) {
-            bout.write(b, 0, byteRead);
+        InputStream in = null;
+
+        try {
+            in = Example.class.getResourceAsStream(path);
+            if (in == null) {
+                throw new Exception();
+            }
+
+            while ((byteRead = in.read(b)) > 0) {
+                bout.write(b, 0, byteRead);
+            }
+
+            returnResult = new String(bout.toByteArray(), "US-ASCII");
+        } catch (Exception ex) {
+            returnResult = "";
+            Logger.getLogger(Example.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(Example.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        return new String(bout.toByteArray());
+
+        return returnResult;
     }
 
     public static void main(String[] args) {

@@ -27,21 +27,25 @@ public class BrushJavaFX extends Brush {
 
         // Contributed by Patrick Webster
         // http://patrickwebster.blogspot.com/2009/04/javafx-brush-for-syntaxhighlighter.html
+
+        String datatypes = "Boolean Byte Character Double Duration "
+                + "Float Integer Long Number Short String Void";
+        String keywords = "abstract after and as assert at before bind bound break catch class "
+                + "continue def delete else exclusive extends false finally first for from "
+                + "function if import in indexof init insert instanceof into inverse last "
+                + "lazy mixin mod nativearray new not null on or override package postinit "
+                + "protected public public-init public-read replace return reverse sizeof "
+                + "step super then this throw true try tween typeof var where while with "
+                + "attribute let private readonly static trigger";
+
         List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
         _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments"));
         _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments"));
         _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string"));
         _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string"));
         _regExpRuleList.add(new RegExpRule("(-?\\.?)(\\b(\\d*\\.?\\d+|\\d+\\.?\\d*)(e[+-]?\\d+)?|0x[a-f\\d]+)\\b\\.?", Pattern.CASE_INSENSITIVE, "color2")); // numbers
-        _regExpRuleList.add(new RegExpRule(getKeywords("Boolean Byte Character Double Duration "
-                + "Float Integer Long Number Short String Void"), Pattern.MULTILINE, "variable")); // datatypes
-        _regExpRuleList.add(new RegExpRule(getKeywords("abstract after and as assert at before bind bound break catch class "
-                + "continue def delete else exclusive extends false finally first for from "
-                + "function if import in indexof init insert instanceof into inverse last "
-                + "lazy mixin mod nativearray new not null on or override package postinit "
-                + "protected public public-init public-read replace return reverse sizeof "
-                + "step super then this throw true try tween typeof var where while with "
-                + "attribute let private readonly static trigger"), Pattern.MULTILINE, "keyword"));
+        _regExpRuleList.add(new RegExpRule(getKeywords(datatypes), Pattern.MULTILINE, "variable")); // datatypes
+        _regExpRuleList.add(new RegExpRule(getKeywords(keywords), Pattern.MULTILINE, "keyword"));
         setRegExpRuleList(_regExpRuleList);
 
         setHTMLScriptRegExp(HTMLScriptRegExp.aspScriptTags);
