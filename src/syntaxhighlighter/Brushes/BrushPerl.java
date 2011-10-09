@@ -26,13 +26,8 @@ public class BrushPerl extends Brush {
         super();
 
         // Contributed by David Simmons-Duffin and Marty Kube
-        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
-        _regExpRuleList.add(new RegExpRule("#[^!].*$", Pattern.MULTILINE, "comments"));
-        _regExpRuleList.add(new RegExpRule("^\\s*#!.*$", Pattern.MULTILINE, "preprocessor")); // shebang
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string"));
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string"));
-        _regExpRuleList.add(new RegExpRule("(\\$|@|%)\\w+", "variable"));
-        _regExpRuleList.add(new RegExpRule(getKeywords("abs accept alarm atan2 bind binmode chdir chmod chomp chop chown chr "
+
+        String funcs = "abs accept alarm atan2 bind binmode chdir chmod chomp chop chown chr "
                 + "chroot close closedir connect cos crypt defined delete each endgrent "
                 + "endhostent endnetent endprotoent endpwent endservent eof exec exists "
                 + "exp fcntl fileno flock fork format formline getc getgrent getgrgid "
@@ -50,10 +45,19 @@ public class BrushPerl extends Brush {
                 + "shmwrite shutdown sin sleep socket socketpair sort splice split sprintf "
                 + "sqrt srand stat study substr symlink syscall sysopen sysread sysseek "
                 + "system syswrite tell telldir time times tr truncate uc ucfirst umask "
-                + "undef unlink unpack unshift utime values vec wait waitpid warn write"), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "functions"));
-        _regExpRuleList.add(new RegExpRule(getKeywords("bless caller continue dbmclose dbmopen die do dump else elsif eval exit "
+                + "undef unlink unpack unshift utime values vec wait waitpid warn write";
+        String keywords = "bless caller continue dbmclose dbmopen die do dump else elsif eval exit "
                 + "for foreach goto if import last local my next no our package redo ref "
-                + "require return sub tie tied unless untie until use wantarray while"), Pattern.MULTILINE, "keyword"));
+                + "require return sub tie tied unless untie until use wantarray while";
+
+        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
+        _regExpRuleList.add(new RegExpRule("#[^!].*$", Pattern.MULTILINE, "comments"));
+        _regExpRuleList.add(new RegExpRule("^\\s*#!.*$", Pattern.MULTILINE, "preprocessor")); // shebang
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string"));
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string"));
+        _regExpRuleList.add(new RegExpRule("(\\$|@|%)\\w+", "variable"));
+        _regExpRuleList.add(new RegExpRule(getKeywords(funcs), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "functions"));
+        _regExpRuleList.add(new RegExpRule(getKeywords(keywords), Pattern.MULTILINE, "keyword"));
         setRegExpRuleList(_regExpRuleList);
 
         setHTMLScriptRegExp(HTMLScriptRegExp.phpScriptTags);

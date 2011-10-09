@@ -26,6 +26,20 @@ public class BrushPython extends Brush {
         super();
 
         // Contributed by Gheorghe Milas and Ahmad Sherif
+
+        String keywords = "and assert break class continue def del elif else "
+                + "except exec finally for from global if import in is "
+                + "lambda not or pass print raise return try yield while";
+        String funcs = "__import__ abs all any apply basestring bin bool buffer callable "
+                + "chr classmethod cmp coerce compile complex delattr dict dir "
+                + "divmod enumerate eval execfile file filter float format frozenset "
+                + "getattr globals hasattr hash help hex id input int intern "
+                + "isinstance issubclass iter len list locals long map max min next "
+                + "object oct open ord pow print property range raw_input reduce "
+                + "reload repr reversed round set setattr slice sorted staticmethod "
+                + "str sum super tuple type type unichr unicode vars xrange zip";
+        String special = "None True False self cls class_";
+
         List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
         _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLinePerlComments, "comments"));
         _regExpRuleList.add(new RegExpRule("^\\s*@\\w+", Pattern.MULTILINE, "color2"));
@@ -34,18 +48,9 @@ public class BrushPython extends Brush {
         _regExpRuleList.add(new RegExpRule("'(?!')(?:\\.|(\\\\\\')|[^\\''\\n])*'", Pattern.MULTILINE, "string"));
         _regExpRuleList.add(new RegExpRule("\\+|\\-|\\*|\\/|\\%|=|==", Pattern.MULTILINE, "keyword"));
         _regExpRuleList.add(new RegExpRule("\\b\\d+\\.?\\w*", "value"));
-        _regExpRuleList.add(new RegExpRule(getKeywords("__import__ abs all any apply basestring bin bool buffer callable "
-                + "chr classmethod cmp coerce compile complex delattr dict dir "
-                + "divmod enumerate eval execfile file filter float format frozenset "
-                + "getattr globals hasattr hash help hex id input int intern "
-                + "isinstance issubclass iter len list locals long map max min next "
-                + "object oct open ord pow print property range raw_input reduce "
-                + "reload repr reversed round set setattr slice sorted staticmethod "
-                + "str sum super tuple type type unichr unicode vars xrange zip"), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "functions"));
-        _regExpRuleList.add(new RegExpRule(getKeywords("and assert break class continue def del elif else "
-                + "except exec finally for from global if import in is "
-                + "lambda not or pass print raise return try yield while"), Pattern.MULTILINE, "keyword"));
-        _regExpRuleList.add(new RegExpRule(getKeywords("None True False self cls class_"), Pattern.MULTILINE, "color1"));
+        _regExpRuleList.add(new RegExpRule(getKeywords(funcs), Pattern.MULTILINE | Pattern.CASE_INSENSITIVE, "functions"));
+        _regExpRuleList.add(new RegExpRule(getKeywords(keywords), Pattern.MULTILINE, "keyword"));
+        _regExpRuleList.add(new RegExpRule(getKeywords(special), Pattern.MULTILINE, "color1"));
         setRegExpRuleList(_regExpRuleList);
 
         setHTMLScriptRegExp(HTMLScriptRegExp.aspScriptTags);

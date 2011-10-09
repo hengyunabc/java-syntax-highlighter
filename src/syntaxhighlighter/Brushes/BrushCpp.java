@@ -26,13 +26,8 @@ public class BrushCpp extends Brush {
         super();
 
         // Copyright 2006 Shin, YoungJin
-        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // one line comments
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // strings
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // strings
-        _regExpRuleList.add(new RegExpRule("^ *#.*", Pattern.MULTILINE, "preprocessor"));
-        RegExpRule rule = new RegExpRule(getKeywords("ATOM BOOL BOOLEAN BYTE CHAR COLORREF DWORD DWORDLONG DWORD_PTR "
+
+        String datatypes = "ATOM BOOL BOOLEAN BYTE CHAR COLORREF DWORD DWORDLONG DWORD_PTR "
                 + "DWORD32 DWORD64 FLOAT HACCEL HALF_PTR HANDLE HBITMAP HBRUSH "
                 + "HCOLORSPACE HCONV HCONVLIST HCURSOR HDC HDDEDATA HDESK HDROP HDWP "
                 + "HENHMETAFILE HFILE HFONT HGDIOBJ HGLOBAL HHOOK HICON HINSTANCE HKEY "
@@ -55,11 +50,17 @@ public class BrushCpp extends Brush {
                 + "jmp_buf mbstate_t _off_t _onexit_t _PNH ptrdiff_t _purecall_handler "
                 + "sig_atomic_t size_t _stat __stat64 _stati64 terminate_function "
                 + "time_t __time64_t _timeb __timeb64 tm uintptr_t _utimbuf "
-                + "va_list wchar_t wctrans_t wctype_t wint_t signed"), Pattern.MULTILINE, "color1");
-        rule.setBold(true);
-        _regExpRuleList.add(rule);
-        // bold
-        rule = new RegExpRule(getKeywords("assert isalnum isalpha iscntrl isdigit isgraph islower isprint"
+                + "va_list wchar_t wctrans_t wctype_t wint_t signed";
+        String keywords = "break case catch class const __finally __exception __try "
+                + "const_cast continue private public protected __declspec "
+                + "default delete deprecated dllexport dllimport do dynamic_cast "
+                + "else enum explicit extern if for friend goto inline "
+                + "mutable naked namespace new noinline noreturn nothrow "
+                + "register reinterpret_cast return selectany "
+                + "sizeof static static_cast struct switch template this "
+                + "thread throw true false try typedef typeid typename union "
+                + "using uuid virtual void volatile whcar_t while";
+        String functions = "assert isalnum isalpha iscntrl isdigit isgraph islower isprint"
                 + "ispunct isspace isupper isxdigit tolower toupper errno localeconv "
                 + "setlocale acos asin atan atan2 ceil cos cosh exp fabs floor fmod "
                 + "frexp ldexp log log10 modf pow sin sinh sqrt tan tanh jmp_buf "
@@ -74,20 +75,23 @@ public class BrushCpp extends Brush {
                 + "wcstombs wctomb memchr memcmp memcpy memmove memset strcat strchr "
                 + "strcmp strcoll strcpy strcspn strerror strlen strncat strncmp "
                 + "strncpy strpbrk strrchr strspn strstr strtok strxfrm asctime "
-                + "clock ctime difftime gmtime localtime mktime strftime time"), Pattern.MULTILINE, "functions");
-        rule.setBold(true);
-        _regExpRuleList.add(rule);
-        rule = new RegExpRule(getKeywords("break case catch class const __finally __exception __try "
-                + "const_cast continue private public protected __declspec "
-                + "default delete deprecated dllexport dllimport do dynamic_cast "
-                + "else enum explicit extern if for friend goto inline "
-                + "mutable naked namespace new noinline noreturn nothrow "
-                + "register reinterpret_cast return selectany "
-                + "sizeof static static_cast struct switch template this "
-                + "thread throw true false try typedef typeid typename union "
-                + "using uuid virtual void volatile whcar_t while"), Pattern.MULTILINE, "keyword");
-        rule.setBold(true);
-        _regExpRuleList.add(rule);
+                + "clock ctime difftime gmtime localtime mktime strftime time";
+
+        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // one line comments
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // strings
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // strings
+        _regExpRuleList.add(new RegExpRule("^ *#.*", Pattern.MULTILINE, "preprocessor"));
+        RegExpRule _regExpRule = new RegExpRule(getKeywords(datatypes), Pattern.MULTILINE, "color1");
+        _regExpRule.setBold(true);
+        _regExpRuleList.add(_regExpRule);
+        _regExpRule = new RegExpRule(getKeywords(functions), Pattern.MULTILINE, "functions");
+        _regExpRule.setBold(true);
+        _regExpRuleList.add(_regExpRule);
+        _regExpRule = new RegExpRule(getKeywords(keywords), Pattern.MULTILINE, "keyword");
+        _regExpRule.setBold(true);
+        _regExpRuleList.add(_regExpRule);
         setRegExpRuleList(_regExpRuleList);
 
         setCommonFileExtensionList(Arrays.asList("c", "cpp"));

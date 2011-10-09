@@ -25,17 +25,7 @@ public class BrushSass extends Brush {
     public BrushSass() {
         super();
 
-        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // singleline comments
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // double quoted strings
-        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // single quoted strings
-        _regExpRuleList.add(new RegExpRule("\\#[a-fA-F0-9]{3,6}", "value")); // html colors
-        _regExpRuleList.add(new RegExpRule("\\b(-?\\d+)(\\.\\d+)?(px|em|pt|\\:|\\%|)\\b", "value")); // sizes
-        _regExpRuleList.add(new RegExpRule("\\$\\w+", "variable")); // variables
-        _regExpRuleList.add(new RegExpRule(getKeywords("!important !default"), "color3"));
-        _regExpRuleList.add(new RegExpRule(getKeywords("@import @extend @debug @warn @if @for @while @mixin @include"), "preprocessor"));
-        _regExpRuleList.add(new RegExpRule(getKeywordsCSS("ascent azimuth background-attachment background-color background-image background-position "
+        String keywords = "ascent azimuth background-attachment background-color background-image background-position "
                 + "background-repeat background baseline bbox border-collapse border-color border-spacing border-style border-top "
                 + "border-right border-bottom border-left border-top-color border-right-color border-bottom-color border-left-color "
                 + "border-top-style border-right-style border-bottom-style border-left-style border-top-width border-right-width "
@@ -48,8 +38,8 @@ public class BrushSass extends Brush {
                 + "page-break-after page-break-before page-break-inside pause pause-after pause-before pitch pitch-range play-during position "
                 + "quotes right richness size slope src speak-header speak-numeral speak-punctuation speak speech-rate stemh stemv stress "
                 + "table-layout text-align top text-decoration text-indent text-shadow text-transform unicode-bidi unicode-range units-per-em "
-                + "vertical-align visibility voice-family volume white-space widows width widths word-spacing x-height z-index zoom"), Pattern.MULTILINE, "keyword"));
-        _regExpRuleList.add(new RegExpRule(getValuesCSS("above absolute all always aqua armenian attr aural auto avoid baseline behind below bidi-override black blink block blue bold bolder "
+                + "vertical-align visibility voice-family volume white-space widows width widths word-spacing x-height z-index zoom";
+        String values = "above absolute all always aqua armenian attr aural auto avoid baseline behind below bidi-override black blink block blue bold bolder "
                 + "both bottom braille capitalize caption center center-left center-right circle close-quote code collapse compact condensed "
                 + "continuous counter counters crop cross crosshair cursive dashed decimal decimal-leading-zero digits disc dotted double "
                 + "embed embossed e-resize expanded extra-condensed extra-expanded fantasy far-left far-right fast faster fixed format fuchsia "
@@ -62,8 +52,24 @@ public class BrushSass extends Brush {
                 + "small small-caps small-caption smaller soft solid speech spell-out square s-resize static status-bar sub super sw-resize "
                 + "table-caption table-cell table-column table-column-group table-footer-group table-header-group table-row table-row-group teal "
                 + "text-bottom text-top thick thin top transparent tty tv ultra-condensed ultra-expanded underline upper-alpha uppercase upper-latin "
-                + "upper-roman url visible wait white wider w-resize x-fast x-high x-large x-loud x-low x-slow x-small x-soft xx-large xx-small yellow"), "value"));
-        _regExpRuleList.add(new RegExpRule(getKeywords("[mM]onospace [tT]ahoma [vV]erdana [aA]rial [hH]elvetica [sS]ans-serif [sS]erif [cC]ourier mono sans serif"), "value"));
+                + "upper-roman url visible wait white wider w-resize x-fast x-high x-large x-loud x-low x-slow x-small x-soft xx-large xx-small yellow";
+        String fonts = "[mM]onospace [tT]ahoma [vV]erdana [aA]rial [hH]elvetica [sS]ans-serif [sS]erif [cC]ourier mono sans serif";
+        String statements = "!important !default";
+        String preprocessor = "@import @extend @debug @warn @if @for @while @mixin @include";
+
+        List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // singleline comments
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.doubleQuotedString, "string")); // double quoted strings
+        _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // single quoted strings
+        _regExpRuleList.add(new RegExpRule("\\#[a-fA-F0-9]{3,6}", "value")); // html colors
+        _regExpRuleList.add(new RegExpRule("\\b(-?\\d+)(\\.\\d+)?(px|em|pt|\\:|\\%|)\\b", "value")); // sizes
+        _regExpRuleList.add(new RegExpRule("\\$\\w+", "variable")); // variables
+        _regExpRuleList.add(new RegExpRule(getKeywords(statements), "color3")); // statements
+        _regExpRuleList.add(new RegExpRule(getKeywords(preprocessor), "preprocessor")); // preprocessor
+        _regExpRuleList.add(new RegExpRule(getKeywordsCSS(keywords), Pattern.MULTILINE, "keyword")); // keywords
+        _regExpRuleList.add(new RegExpRule(getValuesCSS(values), "value")); // values
+        _regExpRuleList.add(new RegExpRule(getKeywords(fonts), "value")); // fonts
         setRegExpRuleList(_regExpRuleList);
 
         setCommonFileExtensionList(Arrays.asList("sass", "scss"));

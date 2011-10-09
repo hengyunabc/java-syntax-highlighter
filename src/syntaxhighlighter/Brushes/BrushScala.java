@@ -26,6 +26,12 @@ public class BrushScala extends Brush {
         super();
 
         // Contributed by Yegor Jbanov and David Bernard.
+
+        String keywords = "val sealed case def true trait implicit forSome import match object null finally super "
+                + "override try lazy for var catch throw type extends class while with new final yield abstract "
+                + "else do if return protected private this package false";
+        String keyops = "[_:=><%#@]+";
+
         List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
         _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleLineCComments, "comments")); // one line comments
         _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
@@ -33,10 +39,8 @@ public class BrushScala extends Brush {
         _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineDoubleQuotedString, "string")); // double-quoted string
         _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // strings
         _regExpRuleList.add(new RegExpRule("0x[a-f0-9]+|\\d+(\\.\\d+)?", Pattern.CASE_INSENSITIVE, "value")); // numbers
-        _regExpRuleList.add(new RegExpRule(getKeywords("val sealed case def true trait implicit forSome import match object null finally super "
-                + "override try lazy for var catch throw type extends class while with new final yield abstract "
-                + "else do if return protected private this package false"), Pattern.MULTILINE, "keyword")); // keywords
-        _regExpRuleList.add(new RegExpRule("[_:=><%#@]+", Pattern.MULTILINE, "keyword")); // scala keyword
+        _regExpRuleList.add(new RegExpRule(getKeywords(keywords), Pattern.MULTILINE, "keyword")); // keywords
+        _regExpRuleList.add(new RegExpRule(keyops, Pattern.MULTILINE, "keyword")); // scala keyword
         setRegExpRuleList(_regExpRuleList);
 
         setCommonFileExtensionList(Arrays.asList("scl", "scala"));
