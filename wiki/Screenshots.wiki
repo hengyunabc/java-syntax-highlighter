@@ -6,7 +6,7 @@ http://java-syntax-highlighter.googlecode.com/files/1.png<br />
 Default theme (line 9 is mouse over effect):<br />
 http://java-syntax-highlighter.googlecode.com/files/2.png<br />
 
-Django theme:<br />
+Django theme (line 3 is mouse over effect):<br />
 http://java-syntax-highlighter.googlecode.com/files/3.png<br />
 
 RDark theme (line 8 is mouse over effect):<br />
