@@ -11,8 +11,6 @@ package syntaxhighlighter;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
@@ -573,7 +571,7 @@ public class Theme {
             object.color2 = color2.clone();
             object.color3 = color3.clone();
         } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(Theme.class.getName()).log(Level.WARNING, null, ex);
+//            Logger.getLogger(Theme.class.getName()).log(Level.WARNING, null, ex);
         }
         return object;
     }
@@ -773,7 +771,6 @@ public class Theme {
                 object.underline = underline;
                 object.italic = italic;
             } catch (CloneNotSupportedException ex) {
-                Logger.getLogger(Style.class.getName()).log(Level.WARNING, null, ex);
             }
             return object;
         }
