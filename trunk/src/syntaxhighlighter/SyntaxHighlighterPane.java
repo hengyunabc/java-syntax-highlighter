@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTextPane;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
@@ -204,7 +202,7 @@ public class SyntaxHighlighterPane extends JTextPane {
         try {
             getHighlighter().addHighlight(0, 0, highlightPainter);
         } catch (BadLocationException ex) {
-            Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -248,7 +246,7 @@ public class SyntaxHighlighterPane extends JTextPane {
                             lineNumber = -1;
                         }
                     } catch (BadLocationException ex) {
-                        Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
+//                        Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
 
@@ -269,7 +267,7 @@ public class SyntaxHighlighterPane extends JTextPane {
             try {
                 highlighter.addHighlight(0, 0, highlightPainter);
             } catch (BadLocationException ex) {
-                Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         super.setHighlighter(highlighter);
@@ -290,7 +288,7 @@ public class SyntaxHighlighterPane extends JTextPane {
                 document.insertString(0, content, new SimpleAttributeSet());
             }
         } catch (BadLocationException ex) {
-            Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         setCaretPosition(0);

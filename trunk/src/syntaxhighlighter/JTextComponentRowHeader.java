@@ -21,8 +21,6 @@ import java.awt.RenderingHints;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
@@ -285,7 +283,7 @@ public class JTextComponentRowHeader extends JPanel {
             startY = textComponent.modelToView(documentOffsetStart).y;
             baselineOffset = (textPaneFontHeight / 2) + fontAscent - (fontHeight / 2) + fontLeading;
         } catch (BadLocationException ex) {
-            Logger.getLogger(JTextComponentRowHeader.class.getName()).log(Level.WARNING, null, ex);
+//            Logger.getLogger(JTextComponentRowHeader.class.getName()).log(Level.WARNING, null, ex);
             return;
         }
 
