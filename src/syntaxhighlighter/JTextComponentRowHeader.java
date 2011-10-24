@@ -283,6 +283,7 @@ public class JTextComponentRowHeader extends JPanel {
             startY = textComponent.modelToView(documentOffsetStart).y;
             baselineOffset = (textPaneFontHeight / 2) + fontAscent - (fontHeight / 2) + fontLeading;
         } catch (BadLocationException ex) {
+            System.err.println(ex);
 //            Logger.getLogger(JTextComponentRowHeader.class.getName()).log(Level.WARNING, null, ex);
             return;
         }

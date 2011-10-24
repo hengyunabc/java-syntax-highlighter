@@ -571,6 +571,7 @@ public class Theme {
             object.color2 = color2.clone();
             object.color3 = color3.clone();
         } catch (CloneNotSupportedException ex) {
+            System.err.println(ex);
 //            Logger.getLogger(Theme.class.getName()).log(Level.WARNING, null, ex);
         }
         return object;

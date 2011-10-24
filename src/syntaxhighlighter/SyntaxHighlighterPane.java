@@ -202,6 +202,7 @@ public class SyntaxHighlighterPane extends JTextPane {
         try {
             getHighlighter().addHighlight(0, 0, highlightPainter);
         } catch (BadLocationException ex) {
+            System.err.println(ex);
 //            Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -246,6 +247,7 @@ public class SyntaxHighlighterPane extends JTextPane {
                             lineNumber = -1;
                         }
                     } catch (BadLocationException ex) {
+                        System.err.println(ex);
 //                        Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
@@ -267,6 +269,7 @@ public class SyntaxHighlighterPane extends JTextPane {
             try {
                 highlighter.addHighlight(0, 0, highlightPainter);
             } catch (BadLocationException ex) {
+                System.err.println(ex);
 //                Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -288,6 +291,7 @@ public class SyntaxHighlighterPane extends JTextPane {
                 document.insertString(0, content, new SimpleAttributeSet());
             }
         } catch (BadLocationException ex) {
+            System.err.println(ex);
 //            Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
         }
 
