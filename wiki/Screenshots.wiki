@@ -1,16 +1,16 @@
 =Screenshots=
 
 Eclipse theme:<br />
-http://java-syntax-highlighter.googlecode.com/files/1.png<br />
+http://java-syntax-highlighter.googlecode.com/svn/wiki/Screenshots/1.png<br />
 
 Default theme (line 9 is mouse over effect):<br />
-http://java-syntax-highlighter.googlecode.com/files/2.png<br />
+http://java-syntax-highlighter.googlecode.com/svn/wiki/Screenshots/2.png<br />
 
 Django theme (line 3 is mouse over effect):<br />
-http://java-syntax-highlighter.googlecode.com/files/3.png<br />
+http://java-syntax-highlighter.googlecode.com/svn/wiki/Screenshots/3.png<br />
 
 RDark theme (line 8 is mouse over effect):<br />
-http://java-syntax-highlighter.googlecode.com/files/4.png<br />
+http://java-syntax-highlighter.googlecode.com/svn/wiki/Screenshots/4.png<br />
 
 Support of line number row header:<br />
-http://java-syntax-highlighter.googlecode.com/files/5.png<br />
+http://java-syntax-highlighter.googlecode.com/svn/wiki/Screenshots/5.png<br />
