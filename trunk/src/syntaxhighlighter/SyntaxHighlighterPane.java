@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextPane;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
@@ -48,6 +50,15 @@ import syntaxhighlighter.Parser.MatchResult;
  */
 public class SyntaxHighlighterPane extends JTextPane {
 
+    /**
+     * Indicate whether it is in debug mode or not.
+     */
+    protected final static boolean debug;
+
+    static {
+        String debugMode = System.getProperty("SoftwareUpdaterDebugMode");
+        debug = debugMode == null || !debugMode.equals("true") ? false : true;
+    }
     private static final long serialVersionUID = 1L;
     /**
      * The line number offset. E.g. set offset to 9 will make the first line number to appear equals 1 + 9 = 10
@@ -202,8 +213,9 @@ public class SyntaxHighlighterPane extends JTextPane {
         try {
             getHighlighter().addHighlight(0, 0, highlightPainter);
         } catch (BadLocationException ex) {
-            System.err.println(ex);
-//            Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
+            if (debug) {
+                Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         //</editor-fold>
 
@@ -247,8 +259,9 @@ public class SyntaxHighlighterPane extends JTextPane {
                             lineNumber = -1;
                         }
                     } catch (BadLocationException ex) {
-                        System.err.println(ex);
-//                        Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
+                        if (debug) {
+                            Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
 
@@ -269,8 +282,9 @@ public class SyntaxHighlighterPane extends JTextPane {
             try {
                 highlighter.addHighlight(0, 0, highlightPainter);
             } catch (BadLocationException ex) {
-                System.err.println(ex);
-//                Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
+                if (debug) {
+                    Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         super.setHighlighter(highlighter);
@@ -291,8 +305,9 @@ public class SyntaxHighlighterPane extends JTextPane {
                 document.insertString(0, content, new SimpleAttributeSet());
             }
         } catch (BadLocationException ex) {
-            System.err.println(ex);
-//            Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
+            if (debug) {
+                Logger.getLogger(SyntaxHighlighterPane.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         setCaretPosition(0);

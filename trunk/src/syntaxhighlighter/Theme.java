@@ -11,6 +11,8 @@ package syntaxhighlighter;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
@@ -22,6 +24,15 @@ import javax.swing.text.StyleConstants;
  */
 public class Theme {
 
+    /**
+     * Indicate whether it is in debug mode or not.
+     */
+    protected final static boolean debug;
+
+    static {
+        String debugMode = System.getProperty("SoftwareUpdaterDebugMode");
+        debug = debugMode == null || !debugMode.equals("true") ? false : true;
+    }
     /**
      * The font of the script text.
      */
@@ -571,8 +582,9 @@ public class Theme {
             object.color2 = color2.clone();
             object.color3 = color3.clone();
         } catch (CloneNotSupportedException ex) {
-            System.err.println(ex);
-//            Logger.getLogger(Theme.class.getName()).log(Level.WARNING, null, ex);
+            if (debug) {
+                Logger.getLogger(Theme.class.getName()).log(Level.WARNING, null, ex);
+            }
         }
         return object;
     }

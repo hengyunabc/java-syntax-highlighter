@@ -23,6 +23,10 @@ import javax.swing.JScrollPane;
  */
 public class SyntaxHighlighter extends JScrollPane {
 
+    static {
+        // set debug mode
+        System.setProperty("SyntaxHighlighterDebugMode", "false");
+    }
     private static final long serialVersionUID = 1L;
     /**
      * The script text panel.
