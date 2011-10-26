@@ -21,6 +21,8 @@ import java.awt.RenderingHints;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JViewport;
@@ -39,6 +41,15 @@ import javax.swing.text.JTextComponent;
  */
 public class JTextComponentRowHeader extends JPanel {
 
+    /**
+     * Indicate whether it is in debug mode or not.
+     */
+    protected final static boolean debug;
+
+    static {
+        String debugMode = System.getProperty("SoftwareUpdaterDebugMode");
+        debug = debugMode == null || !debugMode.equals("true") ? false : true;
+    }
     private static final long serialVersionUID = 1L;
     /**
      * The anti-aliasing setting of the line number text.
@@ -283,8 +294,9 @@ public class JTextComponentRowHeader extends JPanel {
             startY = textComponent.modelToView(documentOffsetStart).y;
             baselineOffset = (textPaneFontHeight / 2) + fontAscent - (fontHeight / 2) + fontLeading;
         } catch (BadLocationException ex) {
-            System.err.println(ex);
-//            Logger.getLogger(JTextComponentRowHeader.class.getName()).log(Level.WARNING, null, ex);
+            if (debug) {
+                Logger.getLogger(JTextComponentRowHeader.class.getName()).log(Level.WARNING, null, ex);
+            }
             return;
         }
 
