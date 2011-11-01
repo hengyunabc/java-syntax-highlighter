@@ -55,7 +55,7 @@ public class BrushSass extends Brush {
                 + "upper-roman url visible wait white wider w-resize x-fast x-high x-large x-loud x-low x-slow x-small x-soft xx-large xx-small yellow";
         String fonts = "[mM]onospace [tT]ahoma [vV]erdana [aA]rial [hH]elvetica [sS]ans-serif [sS]erif [cC]ourier mono sans serif";
         String statements = "!important !default";
-        String preprocessor = "@import @extend @debug @warn @if @for @while @mixin @include";
+        String preprocessors = "import extend debug warn if for while mixin include";
 
         List<RegExpRule> _regExpRuleList = new ArrayList<RegExpRule>();
         _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.multiLineCComments, "comments")); // multiline comments
@@ -64,12 +64,19 @@ public class BrushSass extends Brush {
         _regExpRuleList.add(new RegExpRule(Brush.RegExpRule.singleQuotedString, "string")); // single quoted strings
         _regExpRuleList.add(new RegExpRule("\\#[a-fA-F0-9]{3,6}", "value")); // html colors
         _regExpRuleList.add(new RegExpRule("\\b(-?\\d+)(\\.\\d+)?(px|em|pt|\\:|\\%|)\\b", "value")); // sizes
-        _regExpRuleList.add(new RegExpRule("\\$\\w+", "variable")); // variables
+        _regExpRuleList.add(new RegExpRule("(\\$|!)\\w+", "variable")); // variables
         _regExpRuleList.add(new RegExpRule(getKeywords(statements), "color3")); // statements
-        _regExpRuleList.add(new RegExpRule(getKeywords(preprocessor), "preprocessor")); // preprocessor
+        _regExpRuleList.add(new RegExpRule(getKeywordsPrependedBy(preprocessors, "@"), "preprocessor")); // preprocessor
+        _regExpRuleList.add(new RegExpRule("(^|\\n)\\s*=.*", "functions")); // short mixin declarations
+        _regExpRuleList.add(new RegExpRule("(^|\\n)\\s*\\+.*", "functions")); // short mixin call
+        _regExpRuleList.add(new RegExpRule("&amp;", "keyword")); // &
+        _regExpRuleList.add(new RegExpRule("#(\\w|-|_)+", "color2")); // ids
+        // original code uses 'color4' which do not exist yet, here uses color1 as a temporary replacement
+        _regExpRuleList.add(new RegExpRule("(\\.(\\w|-|_)+)", "color1")); // classes
         _regExpRuleList.add(new RegExpRule(getKeywordsCSS(keywords), Pattern.MULTILINE, "keyword")); // keywords
+        _regExpRuleList.add(new RegExpRule(getKeywordsPrependedBy(keywords, ":"), "keyword")); // :keyword value
         _regExpRuleList.add(new RegExpRule(getValuesCSS(values), "value")); // values
-        _regExpRuleList.add(new RegExpRule(getKeywords(fonts), "value")); // fonts
+        _regExpRuleList.add(new RegExpRule(getKeywords(fonts), "color1")); // fonts
         setRegExpRuleList(_regExpRuleList);
 
         setCommonFileExtensionList(Arrays.asList("sass", "scss"));
@@ -81,5 +88,9 @@ public class BrushSass extends Brush {
 
     protected static String getValuesCSS(String str) {
         return "\\b" + str.replaceAll("\\s", "(?!-)(?!:)\\\\b|\\\\b()") + ":\\b";
+    }
+
+    protected static String getKeywordsPrependedBy(String keywords, String by) {
+        return "(?:" + by + "\\b" + keywords.replaceAll("^\\s+|\\s+$", "").replaceAll("\\s+", "|" + by + "\\b").replaceAll("^\\s+|\\s+$", "") + ")\\b";
     }
 }

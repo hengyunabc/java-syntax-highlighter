@@ -41,6 +41,9 @@ public class Parser {
      * @param match the matched result
      */
     protected void addMatch(Map<Integer, List<MatchResult>> matches, MatchResult match) {
+        if (matches == null || match == null) {
+            return;
+        }
         List<MatchResult> matchList = matches.get(match.getOffset());
         if (matchList == null) {
             matchList = new ArrayList<MatchResult>();
@@ -56,6 +59,9 @@ public class Parser {
      * @param end the end position in the document
      */
     protected void removeMatches(Map<Integer, List<MatchResult>> matches, int start, int end) {
+        if (matches == null) {
+            return;
+        }
         for (int offset : matches.keySet()) {
             List<MatchResult> offsetMatches = matches.get(offset);
 
@@ -92,6 +98,9 @@ public class Parser {
      * @return the map with the style key be the key
      */
     protected Map<String, List<MatchResult>> getStyle(Map<Integer, List<MatchResult>> matches) {
+        if (matches == null) {
+            return null;
+        }
         Map<String, List<MatchResult>> returnMap = new HashMap<String, List<MatchResult>>();
 
         // start from every loop, it will compare the offset from this record, if this record is greater than the offset, it will skip that match
@@ -143,6 +152,9 @@ public class Parser {
      * @return the parsed result, the key of the map is style key
      */
     public Map<String, List<MatchResult>> parse(Brush brush, boolean htmlScript, char[] content, int offset, int length) {
+        if (brush == null || content == null) {
+            return null;
+        }
         Map<Integer, List<MatchResult>> matches = new TreeMap<Integer, List<MatchResult>>();
         return parse(matches, brush, htmlScript, content, offset, length);
     }
@@ -159,6 +171,9 @@ public class Parser {
      * @return the parsed result, the key of the map is style key
      */
     protected Map<String, List<MatchResult>> parse(Map<Integer, List<MatchResult>> matches, Brush brush, boolean htmlScript, char[] content, int offset, int length) {
+        if (matches == null || brush == null || content == null) {
+            return null;
+        }
         // parse the RegExpRule in the brush first
         List<RegExpRule> regExpRuleList = brush.getRegExpRuleList();
         for (RegExpRule regExpRule : regExpRuleList) {
@@ -207,6 +222,9 @@ public class Parser {
      * @param length the length
      */
     protected void parse(Map<Integer, List<MatchResult>> matches, RegExpRule regExpRule, char[] content, int offset, int length) {
+        if (matches == null || regExpRule == null || content == null) {
+            return;
+        }
         Map<Integer, Object> groupOperations = regExpRule.getGroupOperations();
 
         Pattern regExpPattern = regExpRule.getPattern();
@@ -254,7 +272,9 @@ public class Parser {
     public void setHTMLScriptBrushList(List<Brush> htmlScriptBrushList) {
         synchronized (this.htmlScriptBrushList) {
             this.htmlScriptBrushList.clear();
-            this.htmlScriptBrushList.addAll(htmlScriptBrushList);
+            if (htmlScriptBrushList != null) {
+                this.htmlScriptBrushList.addAll(htmlScriptBrushList);
+            }
         }
     }
 
@@ -263,6 +283,9 @@ public class Parser {
      * @param brush the brush to add
      */
     public void addHTMLScriptBrush(Brush brush) {
+        if (brush == null) {
+            return;
+        }
         htmlScriptBrushList.add(brush);
     }
 
@@ -294,10 +317,13 @@ public class Parser {
          * Constructor.
          * @param offset the position in the document for this matched result
          * @param length the length of the matched result.
-         * @param styleKey the style key for this matched result, see {@link syntaxhighlighter.Theme}
+         * @param styleKey the style key for this matched result, cannot be null, see {@link syntaxhighlighter.Theme}
          * @param bold indicate whether this match should be bolded or not, for details see {@link #bold}
          */
         protected MatchResult(int offset, int length, String styleKey, Boolean bold) {
+            if (styleKey == null) {
+                throw new NullPointerException("argument 'styleKey' cannot be null");
+            }
             this.offset = offset;
             this.length = length;
             this.styleKey = styleKey;

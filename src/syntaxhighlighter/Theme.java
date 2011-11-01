@@ -242,6 +242,9 @@ public class Theme {
      * The font of the script text.
      */
     public void setFont(Font font) {
+        if (font == null) {
+            throw new NullPointerException("argument 'font' cannot be null");
+        }
         this.font = font;
     }
 
@@ -256,6 +259,9 @@ public class Theme {
      * The background color of the script text area.
      */
     public void setBackground(Color background) {
+        if (background == null) {
+            throw new NullPointerException("argument 'background' cannot be null");
+        }
         this.background = background;
     }
 
@@ -270,6 +276,9 @@ public class Theme {
      * The background color of the highlighted line of script text.
      */
     public void setHighlightedBackground(Color highlightedBackground) {
+        if (highlightedBackground == null) {
+            throw new NullPointerException("argument 'highlightedBackground' cannot be null");
+        }
         this.highlightedBackground = highlightedBackground;
     }
 
@@ -284,6 +293,9 @@ public class Theme {
      * The color of the gutter text.
      */
     public void setGutterText(Color gutterText) {
+        if (gutterText == null) {
+            throw new NullPointerException("argument 'gutterText' cannot be null");
+        }
         this.gutterText = gutterText;
     }
 
@@ -298,6 +310,9 @@ public class Theme {
      * The color of the border that joint the gutter and the script text panel.
      */
     public void setGutterBorderColor(Color gutterBorderColor) {
+        if (gutterBorderColor == null) {
+            throw new NullPointerException("argument 'gutterBorderColor' cannot be null");
+        }
         this.gutterBorderColor = gutterBorderColor;
     }
 
@@ -326,6 +341,9 @@ public class Theme {
      * The font of the gutter text.
      */
     public void setGutterTextFont(Font gutterTextFont) {
+        if (gutterTextFont == null) {
+            throw new NullPointerException("argument 'gutterTextFont' cannot be null");
+        }
         this.gutterTextFont = gutterTextFont;
     }
 
@@ -368,6 +386,9 @@ public class Theme {
      * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
      */
     public void setPlain(Style plain) {
+        if (plain == null) {
+            throw new NullPointerException("argument 'plain' cannot be null");
+        }
         this.plain = plain;
     }
 
@@ -382,6 +403,9 @@ public class Theme {
      * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
      */
     public void setComments(Style comments) {
+        if (comments == null) {
+            throw new NullPointerException("argument 'comments' cannot be null");
+        }
         this.comments = comments;
     }
 
@@ -396,6 +420,9 @@ public class Theme {
      * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
      */
     public void setString(Style string) {
+        if (string == null) {
+            throw new NullPointerException("argument 'string' cannot be null");
+        }
         this.string = string;
     }
 
@@ -410,6 +437,9 @@ public class Theme {
      * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
      */
     public void setKeyword(Style keyword) {
+        if (keyword == null) {
+            throw new NullPointerException("argument 'keyword' cannot be null");
+        }
         this.keyword = keyword;
     }
 
@@ -424,6 +454,9 @@ public class Theme {
      * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
      */
     public void setPreprocessor(Style preprocessor) {
+        if (preprocessor == null) {
+            throw new NullPointerException("argument 'preprocessor' cannot be null");
+        }
         this.preprocessor = preprocessor;
     }
 
@@ -438,6 +471,9 @@ public class Theme {
      * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
      */
     public void setVariable(Style variable) {
+        if (variable == null) {
+            throw new NullPointerException("argument 'variable' cannot be null");
+        }
         this.variable = variable;
     }
 
@@ -452,6 +488,9 @@ public class Theme {
      * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
      */
     public void setValue(Style value) {
+        if (value == null) {
+            throw new NullPointerException("argument 'value' cannot be null");
+        }
         this.value = value;
     }
 
@@ -466,6 +505,9 @@ public class Theme {
      * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
      */
     public void setFunctions(Style functions) {
+        if (functions == null) {
+            throw new NullPointerException("argument 'functions' cannot be null");
+        }
         this.functions = functions;
     }
 
@@ -480,6 +522,9 @@ public class Theme {
      * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
      */
     public void setConstants(Style constants) {
+        if (constants == null) {
+            throw new NullPointerException("argument 'constants' cannot be null");
+        }
         this.constants = constants;
     }
 
@@ -494,6 +539,9 @@ public class Theme {
      * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
      */
     public void setScript(Style script) {
+        if (script == null) {
+            throw new NullPointerException("argument 'script' cannot be null");
+        }
         this.script = script;
     }
 
@@ -508,6 +556,9 @@ public class Theme {
      * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
      */
     public void setScriptBackground(Style scriptBackground) {
+        if (scriptBackground == null) {
+            throw new NullPointerException("argument 'scriptBackground' cannot be null");
+        }
         this.scriptBackground = scriptBackground;
     }
 
@@ -522,6 +573,9 @@ public class Theme {
      * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
      */
     public void setColor1(Style color1) {
+        if (color1 == null) {
+            throw new NullPointerException("argument 'color1' cannot be null");
+        }
         this.color1 = color1;
     }
 
@@ -536,6 +590,9 @@ public class Theme {
      * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
      */
     public void setColor2(Style color2) {
+        if (color2 == null) {
+            throw new NullPointerException("argument 'color2' cannot be null");
+        }
         this.color2 = color2;
     }
 
@@ -550,6 +607,9 @@ public class Theme {
      * Code style, keywords are the same as those in JavaScript SyntaxHighlighter.
      */
     public void setColor3(Style color3) {
+        if (color3 == null) {
+            throw new NullPointerException("argument 'color3' cannot be null");
+        }
         this.color3 = color3;
     }
 
@@ -685,6 +745,9 @@ public class Theme {
          * @param attributeSet the AttributeSet to set the style on
          */
         public void setAttributeSet(SimpleAttributeSet attributeSet) {
+            if (attributeSet == null) {
+                return;
+            }
             StyleConstants.setBold(attributeSet, bold);
             StyleConstants.setForeground(attributeSet, color);
             if (background != null) {
@@ -725,6 +788,9 @@ public class Theme {
          * @param background input null means do not set the background
          */
         public void setBackground(Color background) {
+            if (background == null) {
+                throw new NullPointerException("argument 'background' cannot be null");
+            }
             this.background = background;
         }
 
@@ -741,6 +807,9 @@ public class Theme {
         }
 
         public void setColor(Color color) {
+            if (color == null) {
+                throw new NullPointerException("argument 'color' cannot be null");
+            }
             this.color = color;
         }
 

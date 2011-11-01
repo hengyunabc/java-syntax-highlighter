@@ -292,17 +292,18 @@ public class SyntaxHighlighterPane extends JTextPane {
 
     /**
      * Set the content of the syntax highlighter. It is better to set other settings first and set this the last.
-     * @param content the content to set
+     * @param newContent the content to set, cannot be null
      */
     public void setContent(String content) {
+        String newContent = content == null ? "" : content;
         DefaultStyledDocument document = (DefaultStyledDocument) getDocument();
 
         try {
             document.remove(0, document.getLength());
             if (theme != null) {
-                document.insertString(0, content, theme.getPlain().getAttributeSet());
+                document.insertString(0, newContent, theme.getPlain().getAttributeSet());
             } else {
-                document.insertString(0, content, new SimpleAttributeSet());
+                document.insertString(0, newContent, new SimpleAttributeSet());
             }
         } catch (BadLocationException ex) {
             if (debug) {
@@ -318,9 +319,13 @@ public class SyntaxHighlighterPane extends JTextPane {
 
     /**
      * Apply the list of style to the script text pane. See {@link syntaxhighlighter.Parser#parse(syntaxhighlighter.Brush, boolean, char[], int, int)}.
-     * @param styleList the style list
+     * @param styleList the style list, cannot be null
      */
     public void setStyle(Map<String, List<MatchResult>> styleList) {
+        if (styleList == null) {
+            this.styleList = new HashMap<String, List<MatchResult>>();
+            return;
+        }
         // not a deep copy
         this.styleList = new HashMap<String, List<MatchResult>>(styleList);
 
@@ -355,9 +360,12 @@ public class SyntaxHighlighterPane extends JTextPane {
 
     /**
      * Set the theme.
-     * @param theme the theme
+     * @param theme the theme, cannot be null
      */
     public void setTheme(Theme theme) {
+        if (theme == null) {
+            throw new NullPointerException("argument 'theme' cannot be null");
+        }
         this.theme = theme;
 
         setFont(theme.getFont());
@@ -396,9 +404,12 @@ public class SyntaxHighlighterPane extends JTextPane {
 
     /**
      * Set the color of the highlighted background. Default is black.
-     * @param highlightedBackground the color
+     * @param highlightedBackground the color, cannot be null
      */
     public void setHighlightedBackground(Color highlightedBackground) {
+        if (highlightedBackground == null) {
+            throw new NullPointerException("argument 'highlightedBackground' cannot be null");
+        }
         this.highlightedBackground = highlightedBackground;
         repaint();
     }
@@ -443,7 +454,9 @@ public class SyntaxHighlighterPane extends JTextPane {
     public void setHighlightedLineList(List<Integer> highlightedLineList) {
         synchronized (this.highlightedLineList) {
             this.highlightedLineList.clear();
-            this.highlightedLineList.addAll(highlightedLineList);
+            if (highlightedLineList != null) {
+                this.highlightedLineList.addAll(highlightedLineList);
+            }
         }
         repaint();
     }
@@ -462,9 +475,12 @@ public class SyntaxHighlighterPane extends JTextPane {
      * @param font the font to set
      * @param bold true to set bold, false not
      * @param italic true to set italic, false not
-     * @return the font with bold and italic changed
+     * @return the font with bold and italic changed, or null if the input <code>font</code> is null
      */
     protected static Font setFont(Font font, boolean bold, boolean italic) {
+        if (font == null) {
+            return null;
+        }
         if ((font.getStyle() & Font.ITALIC) != 0) {
             if (!bold) {
                 return font.deriveFont(font.getStyle() ^ Font.BOLD);

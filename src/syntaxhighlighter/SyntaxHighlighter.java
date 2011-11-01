@@ -75,6 +75,16 @@ public class SyntaxHighlighter extends JScrollPane {
     public SyntaxHighlighter(Brush brush, Theme theme, SyntaxHighlighterPane highlighterPane) {
         super();
 
+        if (brush == null) {
+            throw new NullPointerException("argument 'brush' cannot be null");
+        }
+        if (theme == null) {
+            throw new NullPointerException("argument 'theme' cannot be null");
+        }
+        if (highlighterPane == null) {
+            throw new NullPointerException("argument 'highlighterPane' cannot be null");
+        }
+
         this.brush = brush;
         this.theme = theme;
         htmlScript = false;
@@ -144,9 +154,12 @@ public class SyntaxHighlighter extends JScrollPane {
      * <p>
      * The highlighter will re-render the script text pane every time this function is invoked (if there is any content).
      * </p>
-     * @param brush the brush
+     * @param brush the brush, cannot be null
      */
     public void setBrush(Brush brush) {
+        if (brush == null) {
+            throw new NullPointerException("argument 'brush' cannot be null");
+        }
         if (!this.brush.equals(brush)) {
             this.brush = brush;
             render();
@@ -164,11 +177,14 @@ public class SyntaxHighlighter extends JScrollPane {
     /**
      * Set the theme.
      * <p>
-     * Setting the theme will be re-parse the content, but will clear and apply the new theme on the script text pane.
+     * Setting the theme will not re-parse the content, but will clear and apply the new theme on the script text pane.
      * </p>
-     * @param theme the theme
+     * @param theme the theme, cannot be null
      */
     public void setTheme(Theme theme) {
+        if (theme == null) {
+            throw new NullPointerException("argument 'theme' cannot be null");
+        }
         if (!this.theme.equals(theme)) {
             this.theme = theme;
             highlighter.setTheme(theme);
@@ -200,7 +216,9 @@ public class SyntaxHighlighter extends JScrollPane {
     public void setHTMLScriptBrush(List<Brush> htmlScriptBrushList) {
         synchronized (this.htmlScriptBrushList) {
             this.htmlScriptBrushList.clear();
-            this.htmlScriptBrushList.addAll(htmlScriptBrushList);
+            if (htmlScriptBrushList != null) {
+                this.htmlScriptBrushList.addAll(htmlScriptBrushList);
+            }
         }
         render();
     }
@@ -215,6 +233,9 @@ public class SyntaxHighlighter extends JScrollPane {
      * @param brush the brush to add
      */
     public void addHTMLScriptBrush(Brush brush) {
+        if (brush == null) {
+            return;
+        }
         htmlScriptBrushList.add(brush);
         render();
     }
@@ -343,8 +364,11 @@ public class SyntaxHighlighter extends JScrollPane {
      * @throws IOException error occured, either it is not a valid file or failed to read the file
      */
     protected static String readFile(File file) throws IOException {
+        if (file == null) {
+            throw new IOException("argument 'file' cannot be null");
+        }
         if (!file.isFile()) {
-            throw new IOException();
+            throw new IOException("It is not a file.");
         }
 
         byte[] buffer = new byte[(int) file.length()];
