@@ -124,6 +124,13 @@ public class JTextComponentRowHeader extends JPanel {
     public JTextComponentRowHeader(JScrollPane scrollPane, JTextComponent textComponent) {
         super();
 
+        if (scrollPane == null) {
+            throw new NullPointerException("argument 'scrollPane' cannot be null");
+        }
+        if (textComponent == null) {
+            throw new NullPointerException("argument 'textComponent' cannot be null");
+        }
+
         setFont(new Font("Verdana", Font.PLAIN, 10));
         setForeground(Color.black);
         setBackground(new Color(233, 232, 226));
@@ -341,6 +348,9 @@ public class JTextComponentRowHeader extends JPanel {
      * The anti-aliasing setting of the line number text.
      */
     public void setTextAntiAliasing(Object textAntiAliasing) {
+        if (textAntiAliasing == null) {
+            throw new NullPointerException("argument 'textAntiAliasing' cannot be null");
+        }
         this.textAntiAliasing = textAntiAliasing;
         repaint();
     }
@@ -356,6 +366,9 @@ public class JTextComponentRowHeader extends JPanel {
      * The color of the border that joint the gutter and the script text panel.
      */
     public void setBorderColor(Color borderColor) {
+        if (borderColor == null) {
+            throw new NullPointerException("argument 'borderColor' cannot be null");
+        }
         this.borderColor = borderColor;
         repaint();
     }
@@ -371,6 +384,9 @@ public class JTextComponentRowHeader extends JPanel {
      * The background of the row when it is highlighted.
      */
     public void setHighlightedColor(Color highlightedColor) {
+        if (highlightedColor == null) {
+            throw new NullPointerException("argument 'highlightedColor' cannot be null");
+        }
         this.highlightedColor = highlightedColor;
         repaint();
     }
@@ -457,7 +473,9 @@ public class JTextComponentRowHeader extends JPanel {
     public void setHighlightedLineList(List<Integer> highlightedLineList) {
         synchronized (this.highlightedLineList) {
             this.highlightedLineList.clear();
-            this.highlightedLineList.addAll(highlightedLineList);
+            if (highlightedLineList != null) {
+                this.highlightedLineList.addAll(highlightedLineList);
+            }
         }
         repaint();
     }

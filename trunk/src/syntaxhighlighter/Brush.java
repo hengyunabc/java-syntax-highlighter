@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 public class Brush {
 
     /**
-     * Regular expression rule list. It will be executed in sequence.
+     * Regular expression rules list. It will be executed in sequence.
      */
     protected List<RegExpRule> regExpRuleList;
     /**
@@ -30,7 +30,7 @@ public class Brush {
      */
     protected List<String> commonFileExtensionList;
     /**
-     * HTML script RegExp. null means no HTML script RegExp for this brush.
+     * HTML script RegExp, null means no HTML script RegExp for this brush.
      */
     protected HTMLScriptRegExp htmlScriptRegExp;
 
@@ -56,6 +56,10 @@ public class Brush {
      * @param regExpRuleList the list
      */
     public void setRegExpRuleList(List<RegExpRule> regExpRuleList) {
+        if (regExpRuleList == null) {
+            this.regExpRuleList = new ArrayList<RegExpRule>();
+            return;
+        }
         this.regExpRuleList = new ArrayList<RegExpRule>(regExpRuleList);
     }
 
@@ -69,7 +73,7 @@ public class Brush {
 
     /**
      * Set the HTML script RegExp.
-     * @param htmlScriptRegExp the RegExp
+     * @param htmlScriptRegExp the RegExp, null means no HTML script RegExp for this brush.
      */
     public void setHTMLScriptRegExp(HTMLScriptRegExp htmlScriptRegExp) {
         this.htmlScriptRegExp = htmlScriptRegExp;
@@ -85,9 +89,13 @@ public class Brush {
 
     /**
      * Set the common file extension list.
-     * @param commonFileExtensionList the list
+     * @param commonFileExtensionList the list, cannot be null
      */
     public void setCommonFileExtensionList(List<String> commonFileExtensionList) {
+        if (commonFileExtensionList == null) {
+            this.commonFileExtensionList = new ArrayList<String>();
+            return;
+        }
         this.commonFileExtensionList = new ArrayList<String>(commonFileExtensionList);
     }
 
@@ -95,6 +103,9 @@ public class Brush {
      * Similar function in SyntaxHighlighter for making string of keywords into regular expression.
      */
     protected static String getKeywords(String str) {
+        if (str == null) {
+            throw new NullPointerException("argument 'str' cannot be null");
+        }
         return "\\b(?:" + str.replaceAll("^\\s+|\\s+$", "").replaceAll("\\s+", "|") + ")\\b";
     }
 
@@ -151,12 +162,12 @@ public class Brush {
 
         /**
          * Constructor.
-         * @param left the regular expression of the left tag
-         * @param right the regular expression of the right tag
+         * @param left the regular expression of the left tag, cannot be null
+         * @param right the regular expression of the right tag, cannot be null
          */
         public HTMLScriptRegExp(String left, String right) {
-            this.left = left;
-            this.right = right;
+            setLeft(left);
+            setRight(right);
         }
 
         /**
@@ -172,6 +183,9 @@ public class Brush {
          * @param left the RegExp
          */
         public void setLeft(String left) {
+            if (left == null) {
+                throw new NullPointerException("argument 'left' cannot be null");
+            }
             this.left = left;
         }
 
@@ -188,6 +202,9 @@ public class Brush {
          * @param right the RegExp
          */
         public void setRight(String right) {
+            if (right == null) {
+                throw new NullPointerException("argument 'right' cannot be null");
+            }
             this.right = right;
         }
 
@@ -269,12 +286,15 @@ public class Brush {
          * </p>
          */
         protected Map<Integer, Object> groupOperations;
+        /**
+         * Set bold the matched results or not. Null means don't enforce.
+         */
         protected Boolean bold;
 
         /**
          * Constructor.
          * @param regExp the regular expression for this rule
-         * @param styleKey the style key, the style to apply to the matched result
+         * @param styleKey the style key, the style to apply to the matched result, cannot be null
          */
         public RegExpRule(String regExp, String styleKey) {
             this(regExp, 0, styleKey);
@@ -284,7 +304,7 @@ public class Brush {
          * Constructor.
          * @param regExp the regular expression for this rule
          * @param regFlags the flags for the regular expression, see the flags in {@link java.util.regex.Pattern}
-         * @param styleKey the style key, the style to apply to the matched result
+         * @param styleKey the style key, the style to apply to the matched result, cannot be null
          */
         public RegExpRule(String regExp, int regFlags, String styleKey) {
             this(Pattern.compile(regExp, regFlags), styleKey);
@@ -293,10 +313,13 @@ public class Brush {
         /**
          * Constructor.
          * @param pattern the compiled regular expression
-         * @param styleKey the style key, the style to apply to the matched result
+         * @param styleKey the style key, the style to apply to the matched result, cannot be null
          */
         public RegExpRule(Pattern pattern, String styleKey) {
-            this.pattern = pattern;
+            if (styleKey == null) {
+                throw new NullPointerException("argument 'styleKey' cannot be null");
+            }
+            setPattern(pattern);
             this.groupOperations = new HashMap<Integer, Object>();
             groupOperations.put(0, styleKey);
         }
@@ -311,9 +334,12 @@ public class Brush {
 
         /**
          * Set the compiled pattern.
-         * @param pattern the pattern
+         * @param pattern the pattern, cannot be null
          */
         public void setPattern(Pattern pattern) {
+            if (pattern == null) {
+                throw new NullPointerException("argument 'pattern' cannot be null");
+            }
             this.pattern = pattern;
         }
 
@@ -327,9 +353,12 @@ public class Brush {
 
         /**
          * Set the string of the regular expression.
-         * @param regExp the string of the regular expression
+         * @param regExp the string of the regular expression, cannot be null
          */
         public void setRegExp(String regExp) {
+            if (regExp == null) {
+                throw new NullPointerException("argument 'regExp' cannot be null");
+            }
             pattern = Pattern.compile(regExp, pattern.flags());
         }
 
@@ -362,13 +391,25 @@ public class Brush {
          * @param GroupOperations the group operations map
          */
         public void setGroupOperations(Map<Integer, Object> GroupOperations) {
+            if (GroupOperations == null) {
+                this.groupOperations = new HashMap<Integer, Object>();
+                return;
+            }
             this.groupOperations = new HashMap<Integer, Object>(GroupOperations);
         }
 
+        /**
+         * Get whether bold the matched result or not.
+         * @return true means bold it, false means dun bold, null mean neither bold nor not bold (no setting is done)
+         */
         public Boolean getBold() {
             return bold;
         }
 
+        /**
+         * Set bold the matched results or not. Null means don't enforce.
+         * @param bold true means bold it, false means dun bold, null mean neither bold nor not bold (no setting is done)
+         */
         public void setBold(Boolean bold) {
             this.bold = bold;
         }
