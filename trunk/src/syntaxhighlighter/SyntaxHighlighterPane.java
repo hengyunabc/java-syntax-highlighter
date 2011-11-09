@@ -56,7 +56,7 @@ public class SyntaxHighlighterPane extends JTextPane {
     protected final static boolean debug;
 
     static {
-        String debugMode = System.getProperty("SoftwareUpdaterDebugMode");
+        String debugMode = System.getProperty("SyntaxHighlighterDebugMode");
         debug = debugMode == null || !debugMode.equals("true") ? false : true;
     }
     private static final long serialVersionUID = 1L;
