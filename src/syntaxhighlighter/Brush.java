@@ -17,6 +17,9 @@ import java.util.regex.Pattern;
 
 /**
  * Brush for syntax highlighter.
+ * In syntax highlighter, every supported programming language has its own brush.
+ * Brush contain a set of rules, the highlighter/parser will use these rules to determine 
+ * the structure of the code and apply different color to different group of component.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class Brush {
@@ -26,11 +29,12 @@ public class Brush {
      */
     protected List<RegExpRule> regExpRuleList;
     /**
-     * The list of common file extension for this language.
+     * The list of common file extension for this language. It is no use so far, just for reference.
      */
     protected List<String> commonFileExtensionList;
     /**
-     * HTML script RegExp, null means no HTML script RegExp for this brush.
+     * HTML script RegExp, null means no HTML script RegExp for this brush. If this language 
+     * will not be implanted into HTML, leave it null.
      */
     protected HTMLScriptRegExp htmlScriptRegExp;
 
@@ -100,7 +104,8 @@ public class Brush {
     }
 
     /**
-     * Similar function in SyntaxHighlighter for making string of keywords into regular expression.
+     * Similar function in JavaScript SyntaxHighlighter for making string of keywords separated by 
+     * space into regular expression.
      */
     protected static String getKeywords(String str) {
         if (str == null) {
@@ -109,6 +114,9 @@ public class Brush {
         return "\\b(?:" + str.replaceAll("^\\s+|\\s+$", "").replaceAll("\\s+", "|") + ")\\b";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -135,7 +143,10 @@ public class Brush {
     }
 
     /**
-     * The regular expression to determine which part of the HTML script is using this programming language.
+     * Regular expression for HTML script. This will be used to determine if the language 
+     * was implanted into the HTML using <code>left</code> and <code>right</code>.
+     * e.g. left is "<script>" and right is "</script>", if there is any content start with "<script>"
+     * and "</script>", the content in between these two will be parsed by using this brush.
      */
     public static class HTMLScriptRegExp {
 
@@ -210,13 +221,17 @@ public class Brush {
 
         /**
          * Get the pattern of this HTML script RegExp.
+         * Itis a combination of left and right tag and some pattern to match the in-between content.
          * Group 1 is the left tag, group 2 is the inner content, group 3 is the right tag.
-         * @return the pattern, flags: CASE_INSENSITIVE and DOTALL
+         * @return the pattern with flags: CASE_INSENSITIVE and DOTALL
          */
         public Pattern getpattern() {
             return Pattern.compile("(" + left + ")(.*?)(" + right + ")", Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
@@ -275,26 +290,26 @@ public class Brush {
          */
         protected Pattern pattern;
         /**
-         * The key is the group number of the matched result.
+         * The key is the group number (see {@link java.util.regex.Matcher}) of the matched result.
          * <p>
-         * The value can either be a string or a RegExpRule.
+         * The value can either be a string or a RegExpRule:
          * <ul>
          * <li>If it is a string, it should be one of the style key from {@link syntaxhighlighter.Theme}.<br />
          * The style will be applied to the 'strip of string related to the group number'.</li>
-         * <li>If it is a RegExpRule, the 'strip of string related to the group number' will be applied to this RegExpRule for further operations/matching.</li>
+         * <li>If it is a RegExpRule, the RegExpRule will be applied on the 'strip of string related to the group number' for further operations/matching.</li>
          * </ul>
          * </p>
          */
         protected Map<Integer, Object> groupOperations;
         /**
-         * Set bold the matched results or not. Null means don't enforce.
+         * Set 'bold the matched results' or not. Null means don't set this, remain default.
          */
         protected Boolean bold;
 
         /**
          * Constructor.
          * @param regExp the regular expression for this rule
-         * @param styleKey the style key, the style to apply to the matched result, cannot be null
+         * @param styleKey the style key, the style to apply to the matched result
          */
         public RegExpRule(String regExp, String styleKey) {
             this(regExp, 0, styleKey);
@@ -304,7 +319,7 @@ public class Brush {
          * Constructor.
          * @param regExp the regular expression for this rule
          * @param regFlags the flags for the regular expression, see the flags in {@link java.util.regex.Pattern}
-         * @param styleKey the style key, the style to apply to the matched result, cannot be null
+         * @param styleKey the style key, the style to apply to the matched result
          */
         public RegExpRule(String regExp, int regFlags, String styleKey) {
             this(Pattern.compile(regExp, regFlags), styleKey);
@@ -313,9 +328,12 @@ public class Brush {
         /**
          * Constructor.
          * @param pattern the compiled regular expression
-         * @param styleKey the style key, the style to apply to the matched result, cannot be null
+         * @param styleKey the style key, the style to apply to the matched result
          */
         public RegExpRule(Pattern pattern, String styleKey) {
+            if (pattern == null) {
+                throw new NullPointerException("argument 'pattern' cannot be null");
+            }
             if (styleKey == null) {
                 throw new NullPointerException("argument 'styleKey' cannot be null");
             }
@@ -334,7 +352,7 @@ public class Brush {
 
         /**
          * Set the compiled pattern.
-         * @param pattern the pattern, cannot be null
+         * @param pattern the pattern
          */
         public void setPattern(Pattern pattern) {
             if (pattern == null) {
@@ -353,7 +371,7 @@ public class Brush {
 
         /**
          * Set the string of the regular expression.
-         * @param regExp the string of the regular expression, cannot be null
+         * @param regExp the string of the regular expression
          */
         public void setRegExp(String regExp) {
             if (regExp == null) {
@@ -400,20 +418,23 @@ public class Brush {
 
         /**
          * Get whether bold the matched result or not.
-         * @return true means bold it, false means dun bold, null mean neither bold nor not bold (no setting is done)
+         * @return true means bold it, false means dun bold, null mean neither bold nor not bold (remain default)
          */
         public Boolean getBold() {
             return bold;
         }
 
         /**
-         * Set bold the matched results or not. Null means don't enforce.
-         * @param bold true means bold it, false means dun bold, null mean neither bold nor not bold (no setting is done)
+         * Set bold the matched results or not. Null means remain default.
+         * @param bold true means bold it, false means dun bold, null mean neither bold nor not bold (remain default)
          */
         public void setBold(Boolean bold) {
             this.bold = bold;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();

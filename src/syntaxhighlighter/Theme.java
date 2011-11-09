@@ -30,7 +30,7 @@ public class Theme {
     protected final static boolean debug;
 
     static {
-        String debugMode = System.getProperty("SoftwareUpdaterDebugMode");
+        String debugMode = System.getProperty("SyntaxHighlighterDebugMode");
         debug = debugMode == null || !debugMode.equals("true") ? false : true;
     }
     /**
@@ -613,6 +613,9 @@ public class Theme {
         this.color3 = color3;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Theme clone() {
         Theme object = null;
@@ -649,6 +652,9 @@ public class Theme {
         return object;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -741,7 +747,7 @@ public class Theme {
 
         /**
          * Apply the style to the AttributeSet.
-         * Note that the AttributeSet should only be set by this function or some unexpected style may appear.
+         * Note that the AttributeSet should only be set by this function once or some unexpected style may appear.
          * @param attributeSet the AttributeSet to set the style on
          */
         public void setAttributeSet(SimpleAttributeSet attributeSet) {
@@ -829,6 +835,9 @@ public class Theme {
             this.underline = underline;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public boolean equals(Object obj) {
             if (obj == null || !(obj instanceof Style)) {
@@ -842,6 +851,9 @@ public class Theme {
                     && _object.underline == underline && _object.italic == italic;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public Style clone() {
             Style object = null;
@@ -857,6 +869,9 @@ public class Theme {
             return object;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();

@@ -26,49 +26,46 @@ import syntaxhighlighter.SyntaxHighlighter;
 import syntaxhighlighter.Themes.ThemeRDark;
 
 /**
- * Usage example. This will just cover some of the functions. For more functions available, see the JavaDoc of SyntaxHighlighter.
+ * Usage example. This will just cover some of the functions. To know other available functions, please read the JavaDoc.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class Example {
 
     /**
-     * Read the file from the resource.
-     * @param path the path to the resource
-     * @return the content of the resource in string or empty string if error occurred (for example purpose, no null is returned)
+     * Read the resource file from the jar.
+     * @param path the resource path
+     * @return the content of the resource file in byte array
+     * @throws IOException error occurred when reading the content from the file
      */
-    public static String readFile(String path) {
-        String returnResult = null;
+    public static byte[] readResourceFile(String path) throws IOException {
+        if (path == null) {
+            throw new NullPointerException("argument 'path' cannot be null");
+        }
 
-        int byteRead = 0;
-        byte[] b = new byte[256];
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
         InputStream in = null;
-
         try {
             in = Example.class.getResourceAsStream(path);
             if (in == null) {
-                throw new Exception();
+                throw new IOException("Resources not found: " + path);
             }
 
-            while ((byteRead = in.read(b)) > 0) {
+            int byteRead = 0;
+            byte[] b = new byte[8096];
+
+            while ((byteRead = in.read(b)) != -1) {
                 bout.write(b, 0, byteRead);
             }
-
-            returnResult = new String(bout.toByteArray(), "US-ASCII");
-        } catch (Exception ex) {
-            returnResult = "";
-            Logger.getLogger(Example.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            try {
-                if (in != null) {
+            if (in != null) {
+                try {
                     in.close();
+                } catch (IOException ex) {
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(Example.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
-        return returnResult;
+        return bout.toByteArray();
     }
 
     public static void main(String[] args) {
@@ -94,14 +91,14 @@ public class Example {
                     highlighter.setHtmlScript(true);
                     // set HTML Script brushes
                     highlighter.setHTMLScriptBrush(Arrays.asList(new BrushCss(), new BrushJScript()));
-                    // besides set, you can also adds
+                    // besides set, you can also add
                     highlighter.addHTMLScriptBrush(new BrushPhp());
                     // set the line number count from 10 instead of 1
                     highlighter.setFirstLine(10);
                     // set to highlight line 13, 27, 28, 38, 42, 43 and 53
                     highlighter.setHighlightedLineList(Arrays.asList(13, 27, 28, 38, 42, 43, 53));
-                    // set the content of the script, the example.html is located in the package path: /syntaxhighlighter/example/example.html
-                    highlighter.setContent(readFile("/syntaxhighlighter/example/example.html"));
+                    // set the content of the script, the example.html is located in the jar: /syntaxhighlighter/example/example.html
+                    highlighter.setContent(new String(readResourceFile("/syntaxhighlighter/example/example.html")));
 
                     // timer end
                     end = System.currentTimeMillis();
