@@ -49,7 +49,7 @@ public class SyntaxHighlighter extends JScrollPane {
      */
     private boolean htmlScript;
     /**
-     * The brush list that used for HTML-Script.
+     * The brushes list for HTML-Script.
      */
     protected final List<Brush> htmlScriptBrushList;
     /**
@@ -67,7 +67,7 @@ public class SyntaxHighlighter extends JScrollPane {
     }
 
     /**
-     * Constructor. It is used when SyntaxHighlighterPane is extended.
+     * Constructor.
      * @param brush the brush for the syntax highlighter
      * @param theme the theme for the syntax highlighter
      * @param highlighterPane the script text pane of the syntax highlighter
@@ -124,8 +124,8 @@ public class SyntaxHighlighter extends JScrollPane {
     }
 
     /**
-     * Get the SyntaxHighlighterPane, the script text panel.
-     * <p><b>Note: Normally should not do operation on the SyntaxHighlighterPane directly.</b></p>
+     * Get the SyntaxHighlighterPane (the script text panel).
+     * <p><b>Note: Normally should not operate on the SyntaxHighlighterPane directly.</b></p>
      * @return the SyntaxHighlighterPane
      */
     public SyntaxHighlighterPane getHighlighter() {
@@ -134,7 +134,7 @@ public class SyntaxHighlighter extends JScrollPane {
 
     /**
      * Get the JTextComponentRowHeader, the line number panel.
-     * <p><b>Note: Normally should not do operation on the JTextComponentRowHeader directly.</b></p>
+     * <p><b>Note: Normally should not operate on the JTextComponentRowHeader directly.</b></p>
      * @return the JTextComponentRowHeader
      */
     public JTextComponentRowHeader getHighlighterRowHeader() {
@@ -142,7 +142,7 @@ public class SyntaxHighlighter extends JScrollPane {
     }
 
     /**
-     * Get the brush
+     * Get the brush.
      * @return the brush
      */
     public Brush getBrush() {
@@ -152,9 +152,9 @@ public class SyntaxHighlighter extends JScrollPane {
     /**
      * Set the brush.
      * <p>
-     * The highlighter will re-render the script text pane every time this function is invoked (if there is any content).
+     * The highlighter will re-render the script text pane every time this function is invoked.
      * </p>
-     * @param brush the brush, cannot be null
+     * @param brush the brush
      */
     public void setBrush(Brush brush) {
         if (brush == null) {
@@ -179,7 +179,7 @@ public class SyntaxHighlighter extends JScrollPane {
      * <p>
      * Setting the theme will not re-parse the content, but will clear and apply the new theme on the script text pane.
      * </p>
-     * @param theme the theme, cannot be null
+     * @param theme the theme
      */
     public void setTheme(Theme theme) {
         if (theme == null) {
@@ -301,7 +301,7 @@ public class SyntaxHighlighter extends JScrollPane {
     }
 
     /**
-     * Check the visibility of the gutter.
+     * Get the visibility of the gutter.
      * @return true if the gutter is visible, false if not
      */
     public boolean isGutterVisible() {
@@ -309,7 +309,7 @@ public class SyntaxHighlighter extends JScrollPane {
     }
 
     /**
-     * Set the visibility of the gutter (line number panel on the left).
+     * Set the visibility of the gutter.
      * @param visible true to make visible, false to hide it
      */
     public void setGutterVisible(boolean visible) {
@@ -323,20 +323,20 @@ public class SyntaxHighlighter extends JScrollPane {
     }
 
     /**
-     * Get the status of the mouse-over-highlight effect.
+     * Get the status of the mouse-over highlight effect. Default is on.
      * @return true if turned on, false if turned off
      */
-    public boolean isHighlightWhenMouseOver() {
-        return highlighter.isHighlightWhenMouseOver();
+    public boolean isHighlightOnMouseOver() {
+        return highlighter.isHighlightOnMouseOver();
     }
 
     /**
-     * Set turn on the mouse-over-highlight effect or not.
-     * If set true, there will be a highlight line effect on the line the mouse cursor is pointing (on the script text panel only, not also the line number panel).
+     * Set turn on the mouse-over highlight effect or not.
+     * If set true, there will be a highlight effect on the line that the mouse cursor currently is pointing on (on the script text panel only, not on the line number panel).
      * @param highlightWhenMouseOver true to turn on, false to turn off
      */
-    public void setHighlightWhenMouseOver(boolean highlightWhenMouseOver) {
-        highlighter.setHighlightWhenMouseOver(highlightWhenMouseOver);
+    public void setHighlightOnMouseOver(boolean highlightWhenMouseOver) {
+        highlighter.setHighlightOnMouseOver(highlightWhenMouseOver);
     }
 
     /**
