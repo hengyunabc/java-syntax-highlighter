@@ -36,6 +36,7 @@ import javax.swing.text.JTextComponent;
 /**
  * A row header panel for JScrollPane.
  * It is used with JTextComponent for line number displaying.<br />
+ * Currently it only accept fixed-height line.<br />
  * <b>The usage is not limited to this syntax highlighter, it can be used on all JTextComponent.</b>
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
@@ -47,12 +48,12 @@ public class JTextComponentRowHeader extends JPanel {
     protected final static boolean debug;
 
     static {
-        String debugMode = System.getProperty("SoftwareUpdaterDebugMode");
+        String debugMode = System.getProperty("SyntaxHighlighterDebugMode");
         debug = debugMode == null || !debugMode.equals("true") ? false : true;
     }
     private static final long serialVersionUID = 1L;
     /**
-     * The anti-aliasing setting of the line number text.
+     * The anti-aliasing setting of the line number text. See {@link java.awt.RenderingHints}.
      */
     private Object textAntiAliasing = RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT;
     /**
@@ -76,11 +77,11 @@ public class JTextComponentRowHeader extends JPanel {
      */
     private int borderWidth = 1;
     /**
-     * The JScrollPane that it be added into
+     * The JScrollPane that it be added into.
      */
     protected JScrollPane scrollPane;
     /**
-     * The text component to listen the change on
+     * The text component to listen the change events on.
      */
     protected JTextComponent textComponent;
     /**
@@ -104,22 +105,22 @@ public class JTextComponentRowHeader extends JPanel {
      */
     protected int textComponentHeight;
     /**
-     * The line number offset. E.g. set offset to 9 will make the first line number to appear equals 1 + 9 = 10
+     * The line number offset. E.g. set offset to 9 will make the first line number to appear at line 1 + 9 = 10
      */
     private int lineNumberOffset;
     /**
-     * The list of line numbers that needed to be highlighted.
+     * The list of line numbers that indicate which lines are needed to be highlighted.
      */
     private final List<Integer> highlightedLineList;
     /**
-     * Indicator indicate whether it is listening to the document change or not.
+     * Indicator indicate whether it is listening to the document change events or not.
      */
     private boolean listenToDocumentUpdate;
 
     /**
      * Constructor.
      * @param scrollPane the JScrollPane that it be added into
-     * @param textComponent the text component to listen the change on
+     * @param textComponent the text component to listen the change events on
      */
     public JTextComponentRowHeader(JScrollPane scrollPane, JTextComponent textComponent) {
         super();
@@ -184,7 +185,7 @@ public class JTextComponentRowHeader extends JPanel {
     }
 
     /**
-     * Validate the document of the text component to see has changed or not.
+     * Check if the 'document of the textComponent' has changed to another document or not.
      */
     protected void validateTextComponentDocument() {
         Document _currentDocument = textComponent.getDocument();
@@ -246,12 +247,18 @@ public class JTextComponentRowHeader extends JPanel {
         super.setBackground(background);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Dimension getPreferredSize() {
         textComponentHeight = textComponent.getPreferredSize().height;
         return new Dimension(panelWidth, textComponentHeight);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -282,11 +289,11 @@ public class JTextComponentRowHeader extends JPanel {
         int textPaneFontHeight = textPaneFontMetrics.getHeight();
 
 
-        // get the location of the document of the left top and right bottom point of the visible part
+        // get the location of the document of the left top and right bottom point of the visible part of the text component
         int documentOffsetStart = textComponent.viewToModel(viewPosition);
         int documentOffsetEnd = textComponent.viewToModel(new Point(viewPosition.x + viewportSize.width, viewPosition.y + viewportSize.height));
 
-        // convert the location of the document to the line number
+        // convert the location to line number
         int startLine = defaultRootElement.getElementIndex(documentOffsetStart) + 1 + lineNumberOffset;
         int endLine = defaultRootElement.getElementIndex(documentOffsetEnd) + 1 + lineNumberOffset;
 
@@ -338,14 +345,14 @@ public class JTextComponentRowHeader extends JPanel {
     }
 
     /**
-     * The anti-aliasing setting of the line number text.
+     * The anti-aliasing setting of the line number text. See {@link java.awt.RenderingHints}.
      */
     public Object getTextAntiAliasing() {
         return textAntiAliasing;
     }
 
     /**
-     * The anti-aliasing setting of the line number text.
+     * The anti-aliasing setting of the line number text. See {@link java.awt.RenderingHints}.
      */
     public void setTextAntiAliasing(Object textAntiAliasing) {
         if (textAntiAliasing == null) {
@@ -374,14 +381,14 @@ public class JTextComponentRowHeader extends JPanel {
     }
 
     /**
-     * The background of the row when it is highlighted.
+     * The background of the highlighted row.
      */
     public Color getHighlightedColor() {
         return highlightedColor;
     }
 
     /**
-     * The background of the row when it is highlighted.
+     * The background of the highlighted row.
      */
     public void setHighlightedColor(Color highlightedColor) {
         if (highlightedColor == null) {
@@ -392,14 +399,14 @@ public class JTextComponentRowHeader extends JPanel {
     }
 
     /**
-     * The minimum padding from 'the leftmost of the line number text' to 'the left margin'.
+     * The minimum padding from the 'leftmost of the line number text' to the 'left margin'.
      */
     public int getPaddingLeft() {
         return paddingLeft;
     }
 
     /**
-     * The minimum padding from 'the leftmost of the line number text' to 'the left margin'.
+     * The minimum padding from 'the leftmost of the line number text' to the 'left margin'.
      */
     public void setPaddingLeft(int paddingLeft) {
         this.paddingLeft = paddingLeft;
@@ -407,14 +414,14 @@ public class JTextComponentRowHeader extends JPanel {
     }
 
     /**
-     * The minimum padding from 'the rightmost of the line number text' to 'the right margin' (not to the gutter border).
+     * The minimum padding from the 'rightmost of the line number text' to the 'right margin' (not to the gutter border).
      */
     public int getPaddingRight() {
         return paddingRight;
     }
 
     /**
-     * The minimum padding from 'the rightmost of the line number text' to 'the right margin' (not to the gutter border).
+     * The minimum padding from the 'rightmost of the line number text' to the 'right margin' (not to the gutter border).
      */
     public void setPaddingRight(int paddingRight) {
         this.paddingRight = paddingRight;
@@ -445,7 +452,7 @@ public class JTextComponentRowHeader extends JPanel {
     }
 
     /**
-     * Set the line number offset. E.g. set offset to 9 will make the first line number to appear equals 1 + 9 = 10
+     * Set the line number offset. E.g. set offset to 9 will make the first line number to appear at line 1 + 9 = 10
      * @param offset the offset
      */
     public void setLineNumberOffset(int offset) {
@@ -490,7 +497,7 @@ public class JTextComponentRowHeader extends JPanel {
     }
 
     /**
-     * Check if it is listening to the document change.
+     * Check if it is listening to the document change events.
      * @return true if it is listening, false if not 
      */
     public boolean isListenToDocumentUpdate() {
@@ -498,7 +505,7 @@ public class JTextComponentRowHeader extends JPanel {
     }
 
     /**
-     * Set to listen to document change or not. It is useful when a number of updates is needed to be done to the text component.
+     * Set to listen to document change events or not. It is useful when a number of updates are needed to be done to the text component.
      * May invoke {@link #updatePanelSize()}.
      * @param listenToDocumentUpdate true to listen on document change, false not
      */

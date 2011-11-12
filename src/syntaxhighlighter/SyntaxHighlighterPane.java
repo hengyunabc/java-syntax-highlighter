@@ -45,7 +45,7 @@ import javax.swing.text.ViewFactory;
 import syntaxhighlighter.Parser.MatchResult;
 
 /**
- * The text pane for the script text.
+ * The text pane for displaying the script text.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class SyntaxHighlighterPane extends JTextPane {
@@ -61,7 +61,7 @@ public class SyntaxHighlighterPane extends JTextPane {
     }
     private static final long serialVersionUID = 1L;
     /**
-     * The line number offset. E.g. set offset to 9 will make the first line number to appear equals 1 + 9 = 10
+     * The line number offset. E.g. set offset to 9 will make the first line number to appear at line 1 + 9 = 10
      */
     private int lineNumberOffset;
     /**
@@ -69,11 +69,11 @@ public class SyntaxHighlighterPane extends JTextPane {
      */
     private Color highlightedBackground;
     /**
-     * Indicator that indicate to turn on the mouse-over-highlight effect or not. See {@link #setHighlightWhenMouseOver(boolean)}.
+     * Indicator that indicate to turn on the mouse-over highlight effect or not. See {@link #setHighlightOnMouseOver(boolean)}.
      */
     private boolean highlightWhenMouseOver;
     /**
-     * The list of line numbers that needed to be highlighted.
+     * The list of line numbers that indicate which lines are needed to be highlighted.
      */
     protected final List<Integer> highlightedLineList;
     /**
@@ -292,7 +292,7 @@ public class SyntaxHighlighterPane extends JTextPane {
 
     /**
      * Set the content of the syntax highlighter. It is better to set other settings first and set this the last.
-     * @param newContent the content to set, cannot be null
+     * @param content the content to set
      */
     public void setContent(String content) {
         String newContent = content == null ? "" : content;
@@ -319,7 +319,7 @@ public class SyntaxHighlighterPane extends JTextPane {
 
     /**
      * Apply the list of style to the script text pane. See {@link syntaxhighlighter.Parser#parse(syntaxhighlighter.Brush, boolean, char[], int, int)}.
-     * @param styleList the style list, cannot be null
+     * @param styleList the style list
      */
     public void setStyle(Map<String, List<MatchResult>> styleList) {
         if (styleList == null) {
@@ -360,7 +360,7 @@ public class SyntaxHighlighterPane extends JTextPane {
 
     /**
      * Set the theme.
-     * @param theme the theme, cannot be null
+     * @param theme the theme
      */
     public void setTheme(Theme theme) {
         if (theme == null) {
@@ -378,7 +378,7 @@ public class SyntaxHighlighterPane extends JTextPane {
     }
 
     /**
-     * Get the line number offset
+     * Get the line number offset. E.g. set offset to 9 will make the first line number to appear at line 1 + 9 = 10
      * @return the offset
      */
     public int getLineNumberOffset() {
@@ -386,7 +386,7 @@ public class SyntaxHighlighterPane extends JTextPane {
     }
 
     /**
-     * Set the line number offset. E.g. set offset to 9 will make the first line number to appear equals 1 + 9 = 10
+     * Set the line number offset. E.g. set offset to 9 will make the first line number to appear at line 1 + 9 = 10
      * @param offset the offset
      */
     public void setLineNumberOffset(int offset) {
@@ -404,7 +404,7 @@ public class SyntaxHighlighterPane extends JTextPane {
 
     /**
      * Set the color of the highlighted background. Default is black.
-     * @param highlightedBackground the color, cannot be null
+     * @param highlightedBackground the color
      */
     public void setHighlightedBackground(Color highlightedBackground) {
         if (highlightedBackground == null) {
@@ -415,19 +415,19 @@ public class SyntaxHighlighterPane extends JTextPane {
     }
 
     /**
-     * Get the status of the mouse-over-highlight effect. Default is turned on.
+     * Get the status of the mouse-over highlight effect. Default is on.
      * @return true if turned on, false if turned off
      */
-    public boolean isHighlightWhenMouseOver() {
+    public boolean isHighlightOnMouseOver() {
         return highlightWhenMouseOver;
     }
 
     /**
-     * Set turn on the mouse-over-highlight effect or not. Default is turned on.
-     * If set true, there will be a highlight line effect on the line the mouse cursor is pointing (on the script text panel only, not also the line number panel).
+     * Set turn on the mouse-over highlight effect or not. Default is on.
+     * If set true, there will be a highlight effect on the line that the mouse cursor currently is pointing on (on the script text panel only, not on the line number panel).
      * @param highlightWhenMouseOver true to turn on, false to turn off
      */
-    public void setHighlightWhenMouseOver(boolean highlightWhenMouseOver) {
+    public void setHighlightOnMouseOver(boolean highlightWhenMouseOver) {
         this.highlightWhenMouseOver = highlightWhenMouseOver;
         if (!highlightWhenMouseOver) {
             mouseOnLine = -1;
