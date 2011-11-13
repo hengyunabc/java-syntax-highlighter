@@ -18,12 +18,12 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import syntaxhighlighter.Brushes.BrushCss;
-import syntaxhighlighter.Brushes.BrushJScript;
-import syntaxhighlighter.Brushes.BrushPhp;
-import syntaxhighlighter.Brushes.BrushXml;
+import syntaxhighlighter.brush.BrushCss;
+import syntaxhighlighter.brush.BrushJScript;
+import syntaxhighlighter.brush.BrushPhp;
+import syntaxhighlighter.brush.BrushXml;
 import syntaxhighlighter.SyntaxHighlighter;
-import syntaxhighlighter.Themes.ThemeRDark;
+import syntaxhighlighter.theme.ThemeRDark;
 
 /**
  * Usage example. This will just cover some of the functions. To know other available functions, please read the JavaDoc.
