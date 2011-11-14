@@ -1,3 +1,5 @@
+#summary Configurations demo screenshots.
+
 =Configurations Demo=
 
 ===1. Change the first (starting) line number.===
