@@ -343,7 +343,12 @@ public class SyntaxHighlighterPane extends JTextPane {
 
             AttributeSet attributeSet = theme.getStyle(key).getAttributeSet();
             for (MatchResult pos : posList) {
-                document.setCharacterAttributes(pos.getOffset(), pos.getLength(), attributeSet, true);
+                AttributeSet _attributeSet = attributeSet;
+                if (pos.isBold() != null) {
+                    _attributeSet = theme.getStyle(key).getAttributeSet();
+                    StyleConstants.setBold((SimpleAttributeSet) _attributeSet, pos.isBold());
+                }
+                document.setCharacterAttributes(pos.getOffset(), pos.getLength(), _attributeSet, true);
             }
         }
 

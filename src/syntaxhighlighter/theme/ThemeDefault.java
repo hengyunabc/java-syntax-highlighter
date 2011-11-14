@@ -47,6 +47,7 @@ public class ThemeDefault extends Theme {
         setString(style);
 
         style = new Style();
+        style.setBold(true);
         style.setColor(Color.decode("0x006699"));
         setKeyword(style);
 
