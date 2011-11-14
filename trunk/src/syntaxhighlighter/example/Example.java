@@ -73,7 +73,7 @@ public class Example {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
-            Logger.getLogger(SyntaxHighlighter.class.getName()).log(Level.INFO, "Failed to set system look and feel.", ex);
+            Logger.getLogger(Example.class.getName()).log(Level.INFO, "Failed to set system look and feel.", ex);
         }
 
         SwingUtilities.invokeLater(new Runnable() {
