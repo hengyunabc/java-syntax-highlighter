@@ -1,3 +1,5 @@
+#summary Themes demo screenshots.
+
 =Themes Demo=
 
 ==Default theme==
