@@ -1,17 +1,17 @@
 =Configurations Demo=
 
-1. Change the first (starting) line number.<br />
-http://java-syntax-highlighter.googlecode.com/svn/wiki/FunctionsDemo/FirstLine.png<br />
+===1. Change the first (starting) line number.===
+http://java-syntax-highlighter.googlecode.com/svn/wiki/ConfigurationsDemo/FirstLine.png<br />
 
-2. Turn gutter with line numbers on and off.<br />
-http://java-syntax-highlighter.googlecode.com/svn/wiki/FunctionsDemo/GutterVisibility.png<br />
+===2. Turn gutter with line numbers on and off.===
+http://java-syntax-highlighter.googlecode.com/svn/wiki/ConfigurationsDemo/GutterVisibility.png<br />
 
-3. Highlight one or more lines to focus user's attention.<br />
+===3. Highlight one or more lines to focus user's attention.===
 http://java-syntax-highlighter.googlecode.com/svn/wiki/FunctionsDemo/HighlightLines.png<br />
 
-4. Highlight a mixture of HTML/XML code and a script which is very common in web development.<br />
-http://java-syntax-highlighter.googlecode.com/svn/wiki/FunctionsDemo/HTMLScript.png<br /><br />
+===4. Highlight a mixture of HTML/XML code and a script which is very common in web development.===
+http://java-syntax-highlighter.googlecode.com/svn/wiki/ConfigurationsDemo/HTMLScript.png<br /><br />
 
 
-==Full Demo==<br />
-http://java-syntax-highlighter.googlecode.com/svn/wiki/FunctionsDemo/FullDemo.png<br />
+==Full Demo==
+http://java-syntax-highlighter.googlecode.com/svn/wiki/ConfigurationsDemo/FullDemo.png<br />
