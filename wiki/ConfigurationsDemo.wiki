@@ -7,7 +7,7 @@ http://java-syntax-highlighter.googlecode.com/svn/wiki/ConfigurationsDemo/FirstL
 http://java-syntax-highlighter.googlecode.com/svn/wiki/ConfigurationsDemo/GutterVisibility.png<br />
 
 ===3. Highlight one or more lines to focus user's attention.===
-http://java-syntax-highlighter.googlecode.com/svn/wiki/FunctionsDemo/HighlightLines.png<br />
+http://java-syntax-highlighter.googlecode.com/svn/wiki/ConfigurationsDemo/HighlightLines.png<br />
 
 ===4. Highlight a mixture of HTML/XML code and a script which is very common in web development.===
 http://java-syntax-highlighter.googlecode.com/svn/wiki/ConfigurationsDemo/HTMLScript.png<br /><br />
