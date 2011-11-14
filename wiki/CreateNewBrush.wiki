@@ -1,3 +1,5 @@
+#summary Guides to create a brush for new language.
+
 ===How to create a brush for new language?===
 All the brushes that come with the release are placed under [http://java-syntax-highlighter.googlecode.com/svn/trunk/javadoc/syntaxhighlighter/brush/package-summary.html syntaxhighligther.brush] package. All brushes should extends the [http://java-syntax-highlighter.googlecode.com/svn/trunk/javadoc/syntaxhighlighter/Brush.html syntaxhighligther.Brush] class. You can take a look at [http://java-syntax-highlighter.googlecode.com/svn/trunk/javadoc/syntaxhighlighter/brush/BrushJava.html syntaxhighlighter.brush.BrushJava] to see what should be set to make a new brush.
 
