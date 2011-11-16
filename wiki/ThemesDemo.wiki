@@ -2,6 +2,8 @@
 
 =Themes Demo=
 
+<wiki:toc max_depth="2" />
+
 ==Default theme==
 http://java-syntax-highlighter.googlecode.com/svn/wiki/ThemesDemo/ThemeDefault.png<br />
 

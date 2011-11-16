@@ -2,6 +2,8 @@
 
 =Configurations Demo=
 
+<wiki:toc max_depth="2" />
+
 ===1. Change the first (starting) line number.===
 http://java-syntax-highlighter.googlecode.com/svn/wiki/ConfigurationsDemo/FirstLine.png<br />
 
