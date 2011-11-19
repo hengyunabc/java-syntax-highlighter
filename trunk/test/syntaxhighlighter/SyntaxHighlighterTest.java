@@ -34,6 +34,7 @@ public class SyntaxHighlighterTest {
     @Test
     public void test() {
         // there is no testing for brushes in original JavaScript version of SyntaxHighlighter and so far there is no plan for me to create some myself.
+        // if you want something more reliable, you can choose Java Prettify (http://java-prettify.googlecode.com), which has much more tests.
         assertTrue(true);
     }
 }
