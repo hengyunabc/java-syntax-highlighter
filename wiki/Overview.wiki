@@ -34,9 +34,9 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.logging.*;
 import javax.swing.*;
-import syntaxhighlighter.Brushes.*;
+import syntaxhighlighter.brush.*;
 import syntaxhighlighter.SyntaxHighlighter;
-import syntaxhighlighter.Themes.ThemeRDark;
+import syntaxhighlighter.theme.ThemeRDark;
 
 public class Example {
 
