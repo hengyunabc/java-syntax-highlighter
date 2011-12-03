@@ -12,29 +12,29 @@ import static org.junit.Assert.*;
  */
 public class SyntaxHighlighterTest {
 
-    public SyntaxHighlighterTest() {
-    }
+  public SyntaxHighlighterTest() {
+  }
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
+  @BeforeClass
+  public static void setUpClass() throws Exception {
+  }
 
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
+  @AfterClass
+  public static void tearDownClass() throws Exception {
+  }
 
-    @Before
-    public void setUp() {
-    }
+  @Before
+  public void setUp() {
+  }
 
-    @After
-    public void tearDown() {
-    }
+  @After
+  public void tearDown() {
+  }
 
-    @Test
-    public void test() {
-        // there is no testing for brushes in original JavaScript version of SyntaxHighlighter and so far there is no plan for me to create some myself.
-        // if you want something more reliable, you can choose Java Prettify (http://java-prettify.googlecode.com), which has much more tests.
-        assertTrue(true);
-    }
+  @Test
+  public void test() {
+    // there is no testing for brushes in original JavaScript version of SyntaxHighlighter and so far there is no plan for me to create some myself.
+    // if you want something more reliable, you can choose Java Prettify (http://java-prettify.googlecode.com), which has much more tests.
+    assertTrue(true);
+  }
 }
