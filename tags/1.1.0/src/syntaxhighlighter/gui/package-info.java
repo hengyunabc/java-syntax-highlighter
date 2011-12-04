@@ -1,0 +1,4 @@
+/**
+ * GUI.
+ */
+package syntaxhighlighter.gui;
