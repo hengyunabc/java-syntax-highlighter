@@ -278,11 +278,7 @@ public class Parser {
    * @return a copy of the list
    */
   public List<Brush> getHTMLScriptBrushList() {
-    List<Brush> returnList;
-    synchronized (htmlScriptBrushList) {
-      returnList = new ArrayList<Brush>(htmlScriptBrushList);
-    }
-    return returnList;
+    return new ArrayList<Brush>(htmlScriptBrushList);
   }
 
   /**
