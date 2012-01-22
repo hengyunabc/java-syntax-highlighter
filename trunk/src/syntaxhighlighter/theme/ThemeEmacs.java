@@ -22,6 +22,8 @@ package syntaxhighlighter.theme;
 
 import java.awt.Color;
 import java.awt.Font;
+import syntaxhighlight.Style;
+import syntaxhighlight.Theme;
 
 /**
  * Emacs theme.
@@ -48,59 +50,64 @@ public class ThemeEmacs extends Theme {
     setGutterTextPaddingRight(7);
 
     Style style = new Style();
+    style.setBold(true);
+    addStyle("bold", style);
+
+    style = new Style();
     style.setColor(Color.decode("0xd3d3d3"));
+    addStyle("plain", style);
     setPlain(style);
 
     style = new Style();
     style.setColor(Color.decode("0xff7d27"));
-    setComments(style);
+    addStyle("comments", style);
 
     style = new Style();
     style.setColor(Color.decode("0xff9e7b"));
-    setString(style);
+    addStyle("string", style);
 
     style = new Style();
     style.setColor(Color.decode("0x00ffff"));
-    setKeyword(style);
+    addStyle("keyword", style);
 
     style = new Style();
     style.setColor(Color.decode("0xaec4de"));
-    setPreprocessor(style);
+    addStyle("preprocessor", style);
 
     style = new Style();
     style.setColor(Color.decode("0xffaa3e"));
-    setVariable(style);
+    addStyle("variable", style);
 
     style = new Style();
     style.setColor(Color.decode("0x009900"));
-    setValue(style);
+    addStyle("value", style);
 
     style = new Style();
     style.setColor(Color.decode("0x81cef9"));
-    setFunctions(style);
+    addStyle("functions", style);
 
     style = new Style();
     style.setColor(Color.decode("0xff9e7b"));
-    setConstants(style);
+    addStyle("constants", style);
 
     style = new Style();
     style.setBold(true);
     style.setColor(Color.decode("0x00ffff"));
-    setScript(style);
+    addStyle("script", style);
 
     style = new Style();
-    setScriptBackground(style);
+    addStyle("scriptBackground", style);
 
     style = new Style();
     style.setColor(Color.decode("0xebdb8d"));
-    setColor1(style);
+    addStyle("color3", style);
 
     style = new Style();
     style.setColor(Color.decode("0xff7d27"));
-    setColor2(style);
+    addStyle("color2", style);
 
     style = new Style();
     style.setColor(Color.decode("0xaec4de"));
-    setColor3(style);
+    addStyle("color3", style);
   }
 }

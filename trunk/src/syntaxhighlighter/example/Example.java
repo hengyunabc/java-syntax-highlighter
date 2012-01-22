@@ -18,11 +18,12 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import syntaxhighlight.SyntaxHighlighter;
 import syntaxhighlighter.brush.BrushCss;
 import syntaxhighlighter.brush.BrushJScript;
 import syntaxhighlighter.brush.BrushPhp;
 import syntaxhighlighter.brush.BrushXml;
-import syntaxhighlighter.SyntaxHighlighter;
+import syntaxhighlighter.SyntaxHighlighterParser;
 import syntaxhighlighter.theme.ThemeRDark;
 
 /**
@@ -88,14 +89,16 @@ public class Example {
         long start, end;
         start = System.currentTimeMillis();
 
-        // use XML (for HTML) brush and RDark theme
-        SyntaxHighlighter highlighter = new SyntaxHighlighter(new BrushXml(), new ThemeRDark());
+        // the SyntaxHighlighter parser
+        SyntaxHighlighterParser parser = new SyntaxHighlighterParser(new BrushXml());
         // turn HTML script on
-        highlighter.setHtmlScript(true);
+        parser.setHtmlScript(true);
         // set HTML Script brushes
-        highlighter.setHTMLScriptBrush(Arrays.asList(new BrushCss(), new BrushJScript()));
+        parser.setHTMLScriptBrush(Arrays.asList(new BrushCss(), new BrushJScript()));
         // besides set, you can also add
-        highlighter.addHTMLScriptBrush(new BrushPhp());
+        parser.addHTMLScriptBrush(new BrushPhp());
+        // use XML (for HTML) brush and RDark theme
+        SyntaxHighlighter highlighter = new SyntaxHighlighter(parser, new ThemeRDark());
         // set the line number count from 10 instead of 1
         highlighter.setFirstLine(10);
         // set to highlight line 13, 27, 28, 38, 42, 43 and 53
