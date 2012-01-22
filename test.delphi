@@ -1,0 +1,37 @@
+unit Unit1;
+ 
+interface
+ 
+uses
+Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+Dialogs, StdCtrls, Grids;
+ 
+type
+TForm1 = class(TForm)
+StringGrid1: TStringGrid;
+Memo1: TMemo;
+Button1: TButton;
+procedure Button1Click(Sender: TObject);
+private
+{ Private declarations }
+public
+{ Public declarations }
+end;
+ 
+var
+Form1: TForm1;
+ 
+implementation
+ 
+{?R *.dfm}
+ 
+procedure TForm1.Button1Click(Sender: TObject);
+var
+str_from_grid:string;
+begin
+str_from_grid := StringGrid1.Cells[StringGrid1.Col,StringGrid1.Row];
+if Length(str_from_grid) &gt; 1 then
+Memo1.Lines.Add(str_from_grid) ;
+end;
+ 
+end.

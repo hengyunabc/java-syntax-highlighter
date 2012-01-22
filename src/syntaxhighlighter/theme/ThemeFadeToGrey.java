@@ -22,6 +22,8 @@ package syntaxhighlighter.theme;
 
 import java.awt.Color;
 import java.awt.Font;
+import syntaxhighlight.Style;
+import syntaxhighlight.Theme;
 
 /**
  * Fade to Grey theme.
@@ -48,60 +50,65 @@ public class ThemeFadeToGrey extends Theme {
     setGutterTextPaddingRight(7);
 
     Style style = new Style();
+    style.setBold(true);
+    addStyle("bold", style);
+
+    style = new Style();
     style.setColor(Color.white);
+    addStyle("plain", style);
     setPlain(style);
 
     style = new Style();
     style.setColor(Color.decode("0x696854"));
-    setComments(style);
+    addStyle("comments", style);
 
     style = new Style();
     style.setColor(Color.decode("0xe3e658"));
-    setString(style);
+    addStyle("string", style);
 
     style = new Style();
     style.setColor(Color.decode("0xd01d33"));
-    setKeyword(style);
+    addStyle("keyword", style);
 
     style = new Style();
     style.setColor(Color.decode("0x435a5f"));
-    setPreprocessor(style);
+    addStyle("preprocessor", style);
 
     style = new Style();
     style.setColor(Color.decode("0x898989"));
-    setVariable(style);
+    addStyle("variable", style);
 
     style = new Style();
     style.setColor(Color.decode("0x009900"));
-    setValue(style);
+    addStyle("value", style);
 
     style = new Style();
     style.setBold(true);
     style.setColor(Color.decode("0xaaaaaa"));
-    setFunctions(style);
+    addStyle("functions", style);
 
     style = new Style();
     style.setColor(Color.decode("0x96daff"));
-    setConstants(style);
+    addStyle("constants", style);
 
     style = new Style();
     style.setBold(true);
     style.setColor(Color.decode("0xd01d33"));
-    setScript(style);
+    addStyle("script", style);
 
     style = new Style();
-    setScriptBackground(style);
+    addStyle("scriptBackground", style);
 
     style = new Style();
     style.setColor(Color.decode("0xffc074"));
-    setColor1(style);
+    addStyle("color3", style);
 
     style = new Style();
     style.setColor(Color.decode("0x4a8cdb"));
-    setColor2(style);
+    addStyle("color2", style);
 
     style = new Style();
     style.setColor(Color.decode("0x96daff"));
-    setColor3(style);
+    addStyle("color3", style);
   }
 }

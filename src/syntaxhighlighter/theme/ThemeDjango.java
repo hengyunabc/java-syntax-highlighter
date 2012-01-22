@@ -22,6 +22,8 @@ package syntaxhighlighter.theme;
 
 import java.awt.Color;
 import java.awt.Font;
+import syntaxhighlight.Style;
+import syntaxhighlight.Theme;
 
 /**
  * Django theme.
@@ -45,61 +47,66 @@ public class ThemeDjango extends Theme {
     setGutterTextPaddingRight(7);
 
     Style style = new Style();
+    style.setBold(true);
+    addStyle("bold", style);
+
+    style = new Style();
     style.setColor(Color.decode("0xf8f8f8"));
+    addStyle("plain", style);
     setPlain(style);
 
     style = new Style();
     style.setItalic(true);
     style.setColor(Color.decode("0x336442"));
-    setComments(style);
+    addStyle("comments", style);
 
     style = new Style();
     style.setColor(Color.decode("0x9df39f"));
-    setString(style);
+    addStyle("string", style);
 
     style = new Style();
     style.setBold(true);
     style.setColor(Color.decode("0x96dd3b"));
-    setKeyword(style);
+    addStyle("keyword", style);
 
     style = new Style();
     style.setColor(Color.decode("0x91bb9e"));
-    setPreprocessor(style);
+    addStyle("preprocessor", style);
 
     style = new Style();
     style.setColor(Color.decode("0xffaa3e"));
-    setVariable(style);
+    addStyle("variable", style);
 
     style = new Style();
     style.setColor(Color.decode("0xf7e741"));
-    setValue(style);
+    addStyle("value", style);
 
     style = new Style();
     style.setColor(Color.decode("0xffaa3e"));
-    setFunctions(style);
+    addStyle("functions", style);
 
     style = new Style();
     style.setColor(Color.decode("0xe0e8ff"));
-    setConstants(style);
+    addStyle("constants", style);
 
     style = new Style();
     style.setBold(true);
     style.setColor(Color.decode("0x96dd3b"));
-    setScript(style);
+    addStyle("script", style);
 
     style = new Style();
-    setScriptBackground(style);
+    addStyle("scriptBackground", style);
 
     style = new Style();
     style.setColor(Color.decode("0xeb939a"));
-    setColor1(style);
+    addStyle("color3", style);
 
     style = new Style();
     style.setColor(Color.decode("0x91bb9e"));
-    setColor2(style);
+    addStyle("color2", style);
 
     style = new Style();
     style.setColor(Color.decode("0xedef7d"));
-    setColor3(style);
+    addStyle("color3", style);
   }
 }

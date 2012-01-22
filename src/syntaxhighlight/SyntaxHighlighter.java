@@ -1,34 +1,21 @@
-// Copyright (c) 2011 Chan Wai Shing
+// Copyright (C) 2011 Chan Wai Shing
 //
-// Permission is hereby granted, free of charge, to any person obtaining
-// a copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to
-// permit persons to whom the Software is furnished to do so, subject to
-// the following conditions:
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
-// The above copyright notice and this permission notice shall be
-// included in all copies or substantial portions of the Software.
+//      http://www.apache.org/licenses/LICENSE-2.0
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-package syntaxhighlighter;
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+package syntaxhighlight;
 
-import syntaxhighlighter.parser.Parser;
-import syntaxhighlighter.gui.JTextComponentRowHeader;
-import syntaxhighlighter.gui.SyntaxHighlighterPane;
-import syntaxhighlighter.brush.Brush;
-import syntaxhighlighter.theme.Theme;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
@@ -50,21 +37,13 @@ public class SyntaxHighlighter extends JScrollPane {
    */
   protected JTextComponentRowHeader highlighterRowHeader;
   /**
-   * The main brush to use.
-   */
-  protected Brush brush;
-  /**
    * The theme.
    */
   protected Theme theme;
   /**
-   * Indicate whether the HTML-Script option is turned on or not.
+   * The Prettify object.
    */
-  private boolean htmlScript;
-  /**
-   * The brushes list for HTML-Script.
-   */
-  protected final List<Brush> htmlScriptBrushList;
+  protected Parser parser;
   /**
    * The content of the syntax highlighter, null if there is no content so far.
    */
@@ -73,26 +52,23 @@ public class SyntaxHighlighter extends JScrollPane {
   /**
    * Constructor.
    * 
-   * @param brush the brush for the syntax highlighter
+   * @param parser 
    * @param theme the theme for the syntax highlighter
    */
-  public SyntaxHighlighter(Brush brush, Theme theme) {
-    this(brush, theme, new SyntaxHighlighterPane());
+  public SyntaxHighlighter(Parser parser, Theme theme) {
+    this(parser, theme, new SyntaxHighlighterPane());
   }
 
   /**
    * Constructor.
    * 
-   * @param brush the brush for the syntax highlighter
+   * @param parser 
    * @param theme the theme for the syntax highlighter
    * @param highlighterPane the script text pane of the syntax highlighter
    */
-  public SyntaxHighlighter(Brush brush, Theme theme, SyntaxHighlighterPane highlighterPane) {
+  public SyntaxHighlighter(Parser parser, Theme theme, SyntaxHighlighterPane highlighterPane) {
     super();
 
-    if (brush == null) {
-      throw new NullPointerException("argument 'brush' cannot be null");
-    }
     if (theme == null) {
       throw new NullPointerException("argument 'theme' cannot be null");
     }
@@ -100,10 +76,8 @@ public class SyntaxHighlighter extends JScrollPane {
       throw new NullPointerException("argument 'highlighterPane' cannot be null");
     }
 
-    this.brush = brush;
     this.theme = theme;
-    htmlScript = false;
-    htmlScriptBrushList = new ArrayList<Brush>();
+    this.parser = parser;
 
     setBorder(null);
 
@@ -124,13 +98,9 @@ public class SyntaxHighlighter extends JScrollPane {
    */
   protected void render() {
     if (content != null) {
-      Parser parser = new Parser();
-      if (htmlScript) {
-        parser.setHTMLScriptBrushList(htmlScriptBrushList);
-      }
       // stop the change listener on the row header to speed up rendering
       highlighterRowHeader.setListenToDocumentUpdate(false);
-      highlighter.setStyle(parser.parse(brush, htmlScript, content.toCharArray(), 0, content.length()));
+      highlighter.setStyle(parser.parse(null, content));
       // resume the change listener on the row header
       highlighterRowHeader.setListenToDocumentUpdate(true);
       // notify the row header to update its information related to the SyntaxHighlighterPane
@@ -161,32 +131,6 @@ public class SyntaxHighlighter extends JScrollPane {
   }
 
   /**
-   * Get the brush.
-   * 
-   * @return the brush
-   */
-  public Brush getBrush() {
-    return brush;
-  }
-
-  /**
-   * Set the brush.
-   * The highlighter will re-render the script text pane every time this 
-   * function is invoked.
-   * 
-   * @param brush the brush
-   */
-  public void setBrush(Brush brush) {
-    if (brush == null) {
-      throw new NullPointerException("argument 'brush' cannot be null");
-    }
-    if (this.brush != brush) {
-      this.brush = brush;
-      render();
-    }
-  }
-
-  /**
    * Get current theme.
    * 
    * @return the current theme
@@ -211,78 +155,6 @@ public class SyntaxHighlighter extends JScrollPane {
       this.theme = theme;
       highlighter.setTheme(theme);
       theme.setTheme(highlighterRowHeader);
-    }
-  }
-
-  /**
-   * Get the list of HTML Script brushes.
-   * See also {@link #setHtmlScript(boolean)}.
-   * @return a copy of the list
-   */
-  public List<Brush> getHTMLScriptBrushList() {
-    return new ArrayList<Brush>(htmlScriptBrushList);
-  }
-
-  /**
-   * Set HTML Script brushes. Note that this will clear all previous recorded 
-   * HTML Script brushes. See also {@link #setHtmlScript(boolean)}.
-   * The highlighter will re-render the script text pane every time this 
-   * function is invoked (if there is any content).
-   * 
-   * @param htmlScriptBrushList the list that contain the brushes
-   */
-  public void setHTMLScriptBrush(List<Brush> htmlScriptBrushList) {
-    synchronized (this.htmlScriptBrushList) {
-      this.htmlScriptBrushList.clear();
-      if (htmlScriptBrushList != null) {
-        this.htmlScriptBrushList.addAll(htmlScriptBrushList);
-      }
-    }
-    render();
-  }
-
-  /**
-   * Add HTML Script brushes.
-   * See also {@link #setHtmlScript(boolean)}.
-   * The highlighter will re-render the script text pane every time this 
-   * function is invoked (if there is any content). If multi brushes is needed 
-   * to be added, use {@link #getHTMLScriptBrushList()} and 
-   * {@link #setHTMLScriptBrush(java.util.List)}.
-   * 
-   * @param brush the brush to add
-   */
-  public void addHTMLScriptBrush(Brush brush) {
-    if (brush == null) {
-      return;
-    }
-    htmlScriptBrushList.add(brush);
-    render();
-  }
-
-  /**
-   * Get the setting of the HTML Script option.
-   * See also {@link #setHTMLScriptBrush(java.util.List)}.
-   * 
-   * @return true if it is turned on, false if it is turned off
-   */
-  public boolean isHtmlScript() {
-    return htmlScript;
-  }
-
-  /**
-   * Allows you to highlight a mixture of HTML/XML code and a script which is 
-   * very common in web development.
-   * See also {@link #setHTMLScriptBrush(java.util.List)} to set the brushes.
-   * Default is off.
-   * The highlighter will re-render the script text pane every time this 
-   * function is invoked (if there is any content).
-   * 
-   * @param htmlScript true to turn on, false to turn off
-   */
-  public void setHtmlScript(boolean htmlScript) {
-    if (this.htmlScript != htmlScript) {
-      this.htmlScript = htmlScript;
-      render();
     }
   }
 

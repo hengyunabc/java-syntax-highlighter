@@ -22,6 +22,8 @@ package syntaxhighlighter.theme;
 
 import java.awt.Color;
 import java.awt.Font;
+import syntaxhighlight.Style;
+import syntaxhighlight.Theme;
 
 /**
  * RDark theme.
@@ -48,59 +50,64 @@ public class ThemeRDark extends Theme {
     setGutterTextPaddingRight(7);
 
     Style style = new Style();
+    style.setBold(true);
+    addStyle("bold", style);
+
+    style = new Style();
     style.setColor(Color.decode("0xb9bdb6"));
+    addStyle("plain", style);
     setPlain(style);
 
     style = new Style();
     style.setColor(Color.decode("0x878a85"));
-    setComments(style);
+    addStyle("comments", style);
 
     style = new Style();
     style.setColor(Color.decode("0x5ce638"));
-    setString(style);
+    addStyle("string", style);
 
     style = new Style();
     style.setColor(Color.decode("0x5ba1cf"));
-    setKeyword(style);
+    addStyle("keyword", style);
 
     style = new Style();
     style.setColor(Color.decode("0x435a5f"));
-    setPreprocessor(style);
+    addStyle("preprocessor", style);
 
     style = new Style();
     style.setColor(Color.decode("0xffaa3e"));
-    setVariable(style);
+    addStyle("variable", style);
 
     style = new Style();
     style.setColor(Color.decode("0x009900"));
-    setValue(style);
+    addStyle("value", style);
 
     style = new Style();
     style.setColor(Color.decode("0xffaa3e"));
-    setFunctions(style);
+    addStyle("functions", style);
 
     style = new Style();
     style.setColor(Color.decode("0xe0e8ff"));
-    setConstants(style);
+    addStyle("constants", style);
 
     style = new Style();
     style.setBold(true);
     style.setColor(Color.decode("0x5ba1cf"));
-    setScript(style);
+    addStyle("script", style);
 
     style = new Style();
-    setScriptBackground(style);
+    addStyle("scriptBackground", style);
 
     style = new Style();
     style.setColor(Color.decode("0xe0e8ff"));
-    setColor1(style);
+    addStyle("color3", style);
 
     style = new Style();
     style.setColor(Color.white);
-    setColor2(style);
+    addStyle("color2", style);
 
     style = new Style();
     style.setColor(Color.decode("0xffaa3e"));
-    setColor3(style);
+    addStyle("color3", style);
   }
 }
