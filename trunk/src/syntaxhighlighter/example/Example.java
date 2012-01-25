@@ -98,7 +98,7 @@ public class Example {
         // besides set, you can also add
         parser.addHTMLScriptBrush(new BrushPhp());
 
-        // use XML (for HTML) brush and RDark theme
+        // initialize the highlighter and use RDark theme
         SyntaxHighlighter highlighter = new SyntaxHighlighter(parser, new ThemeRDark());
         // set the line number count from 10 instead of 1
         highlighter.setFirstLine(10);
