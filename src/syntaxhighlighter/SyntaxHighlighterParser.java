@@ -11,11 +11,15 @@ import syntaxhighlighter.parser.MatchResult;
 import syntaxhighlighter.parser.SyntaxHighlighter;
 
 /**
+ * The SyntaxHighlighter parser for syntax highlight.
  * @author Chan Wai Shing <cws1989@gmail.com>
  */
 public class SyntaxHighlighterParser implements Parser {
 
   protected SyntaxHighlighter syntaxHighlighter;
+  /**
+   * The brush to use for this syntax highlighter.
+   */
   protected Brush brush;
   /**
    * Indicate whether the HTML-Script option is turned on or not.
@@ -24,8 +28,12 @@ public class SyntaxHighlighterParser implements Parser {
   /**
    * The brushes list for HTML-Script.
    */
-  protected final List<Brush> htmlScriptBrushList;
+  protected final List<Brush> htmlScriptBrushesList;
 
+  /**
+   * Constructor.
+   * @param brush the brush to use
+   */
   public SyntaxHighlighterParser(Brush brush) {
     if (brush == null) {
       throw new NullPointerException("argument 'brush' cannot be null");
@@ -33,7 +41,23 @@ public class SyntaxHighlighterParser implements Parser {
     syntaxHighlighter = new SyntaxHighlighter();
     this.brush = brush;
     htmlScript = false;
-    htmlScriptBrushList = new ArrayList<Brush>();
+    htmlScriptBrushesList = new ArrayList<Brush>();
+  }
+
+  /**
+   * Get the brush.
+   * @return brush the brush
+   */
+  public Brush getBrush() {
+    return brush;
+  }
+
+  /**
+   * Set the brush to use.
+   * @param brush the brush
+   */
+  public void setBrush(Brush brush) {
+    this.brush = brush;
   }
 
   /**
@@ -41,8 +65,8 @@ public class SyntaxHighlighterParser implements Parser {
    * See also {@link #setHtmlScript(boolean)}.
    * @return a copy of the list
    */
-  public List<Brush> getHTMLScriptBrushList() {
-    return new ArrayList<Brush>(htmlScriptBrushList);
+  public List<Brush> getHTMLScriptBrushesList() {
+    return new ArrayList<Brush>(htmlScriptBrushesList);
   }
 
   /**
@@ -51,13 +75,13 @@ public class SyntaxHighlighterParser implements Parser {
    * The highlighter will re-render the script text pane every time this 
    * function is invoked (if there is any content).
    * 
-   * @param htmlScriptBrushList the list that contain the brushes
+   * @param htmlScriptBrushesList the list that contain the brushes
    */
-  public void setHTMLScriptBrush(List<Brush> htmlScriptBrushList) {
-    synchronized (this.htmlScriptBrushList) {
-      this.htmlScriptBrushList.clear();
-      if (htmlScriptBrushList != null) {
-        this.htmlScriptBrushList.addAll(htmlScriptBrushList);
+  public void setHTMLScriptBrushes(List<Brush> htmlScriptBrushesList) {
+    synchronized (this.htmlScriptBrushesList) {
+      this.htmlScriptBrushesList.clear();
+      if (htmlScriptBrushesList != null) {
+        this.htmlScriptBrushesList.addAll(htmlScriptBrushesList);
       }
     }
   }
@@ -67,7 +91,7 @@ public class SyntaxHighlighterParser implements Parser {
    * See also {@link #setHtmlScript(boolean)}.
    * The highlighter will re-render the script text pane every time this 
    * function is invoked (if there is any content). If multi brushes is needed 
-   * to be added, use {@link #getHTMLScriptBrushList()} and 
+   * to be added, use {@link #getHTMLScriptBrushesList()} and 
    * {@link #setHTMLScriptBrush(java.util.List)}.
    * 
    * @param brush the brush to add
@@ -76,7 +100,14 @@ public class SyntaxHighlighterParser implements Parser {
     if (brush == null) {
       return;
     }
-    htmlScriptBrushList.add(brush);
+    htmlScriptBrushesList.add(brush);
+  }
+
+  /**
+   * Clear all HTML Script brushes.
+   */
+  public void clearHTMLScriptBrushes() {
+    htmlScriptBrushesList.clear();
   }
 
   /**
@@ -109,7 +140,7 @@ public class SyntaxHighlighterParser implements Parser {
   public List<ParseResult> parse(String fileExtension, String content) {
     List<ParseResult> returnList = new ArrayList<ParseResult>();
 
-    syntaxHighlighter.setHTMLScriptBrushList(htmlScriptBrushList);
+    syntaxHighlighter.setHTMLScriptBrushList(htmlScriptBrushesList);
     Map<Integer, List<MatchResult>> parsedResult = syntaxHighlighter.parse(brush, htmlScript, content.toCharArray(), 0, content.length());
     for (List<MatchResult> resultList : parsedResult.values()) {
       for (MatchResult result : resultList) {

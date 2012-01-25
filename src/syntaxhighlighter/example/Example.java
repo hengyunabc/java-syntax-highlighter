@@ -94,9 +94,10 @@ public class Example {
         // turn HTML script on
         parser.setHtmlScript(true);
         // set HTML Script brushes
-        parser.setHTMLScriptBrush(Arrays.asList(new BrushCss(), new BrushJScript()));
+        parser.setHTMLScriptBrushes(Arrays.asList(new BrushCss(), new BrushJScript()));
         // besides set, you can also add
         parser.addHTMLScriptBrush(new BrushPhp());
+
         // use XML (for HTML) brush and RDark theme
         SyntaxHighlighter highlighter = new SyntaxHighlighter(parser, new ThemeRDark());
         // set the line number count from 10 instead of 1
