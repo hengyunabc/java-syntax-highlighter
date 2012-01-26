@@ -76,3 +76,9 @@ public class Example {
   }
 }
 }}}
+
+==Screenshot==
+http://java-syntax-highlighter.googlecode.com/svn/wiki/ThemesDemo/ThemeDefault.png
+
+==Support & Discussion==
+[http://groups.google.com/group/java-syntax-highlighter Support & Discussion Group]
