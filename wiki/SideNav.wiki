@@ -3,3 +3,4 @@
   * [ConfigurationsDemo Configurations Demo]
   * [CreateNewBrush Create New Brush]
   * [CreateNewTheme Create New Theme]
+  * [UseTheParserAlone Use the Parser]

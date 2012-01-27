@@ -1,11 +1,10 @@
-#summary Guides to create a brush for new language.
+=Create New Brush=
 
-===How to create a brush for new language?===
-All the brushes that come with the release are placed under [http://java-syntax-highlighter.googlecode.com/svn/trunk/javadoc/syntaxhighlighter/brush/package-summary.html syntaxhighligther.brush] package. All brushes should extends the [http://java-syntax-highlighter.googlecode.com/svn/trunk/javadoc/syntaxhighlighter/Brush.html syntaxhighligther.Brush] class. You can take a look at [http://code.google.com/p/java-syntax-highlighter/source/browse/trunk/src/syntaxhighlighter/brush/BrushJava.java syntaxhighlighter.brush.BrushJava] to see what should be done to make a new brush.
+All the brushes that come with the release are placed under [http://java-syntax-highlighter.googlecode.com/svn/trunk/javadoc/syntaxhighlighter/brush/package-summary.html syntaxhighligther.brush] package. All brushes should extends the [http://java-syntax-highlighter.googlecode.com/svn/trunk/javadoc/syntaxhighlighter/brush/Brush.html syntaxhighligther.brush.Brush] class. You can take a look at [http://code.google.com/p/java-syntax-highlighter/source/browse/trunk/src/syntaxhighlighter/brush/BrushJava.java syntaxhighlighter.brush.BrushJava] to see what should be done to make a new brush.
 
 Before you make one yourself, you may interested in the following information:
  * Check out the [http://www.undermyhat.org/blog/2009/09/list-of-brushes-syntaxhighligher/ List of All Known Available Custom Brushes], which includes many brushes that did not (yet) make it to the standard distribution.
  * Check [http://www.undermyhat.org/blog/2009/09/list-of-brushes-syntaxhighligher/#wishes this wishlist], and vote for it, in case your brush is already wished for before.
  * You can create a brush yourself, see this [http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/custom.html handy custom brush guide].
 
-Reference: http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/
+Reference: [http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes]

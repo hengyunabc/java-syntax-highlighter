@@ -3,7 +3,13 @@
 <wiki:toc max_depth="3" />
 
 ==Overview==
-This is a syntax highlighter written in Java ([http://java-syntax-highlighter.googlecode.com/svn/tags/1.1.0/javadoc/index.html JavaDoc]). It is ported from JavaScript [http://alexgorbatchev.com/SyntaxHighlighter/ SyntaxHighlighter], the current version ported is 3.0.83. If you need an editor more than a highlighter, please find [http://code.google.com/p/jsyntaxpane/ jsyntaxpane]. You may wonder why I will port this to Java, it is because I need it for [http://code.google.com/p/language-files-tool/ Language Files Tool].
+This library is a java port of [http://alexgorbatchev.com/SyntaxHighlighter SyntaxHighlighter], the current version ported is 3.0.83. The copyright holder of the 
+SyntaxHighlighter is Alex Gorbatchev. It is dual licensed under the [http://www.opensource.org/licenses/MIT MIT] and 
+[http://www.opensource.org/licenses/lgpl-3.0 LGPL] licenses. This port is written by [cws1989@gmail.com Chan Wai Shing] distributed under 
+the [http://www.opensource.org/licenses/MIT MIT] and [http://www.opensource.org/licenses/lgpl-3.0 LGPL] licenses.
+
+ * If you need an editor more than a highlighter, please find [http://code.google.com/p/jsyntaxpane/ jsyntaxpane].
+ * I port it for [http://code.google.com/p/language-files-tool/ Language Files Tool].
 
 ==Alternatives==
 [http://java-prettify.googlecode.com Java Prettify]
@@ -14,18 +20,20 @@ Java SE 6 or up
 ==Language Supported (Brushes)==
 ActionScript3, Bash/shell, ColdFusion, C#, C++, CSS, Delphi, Diff, Erlang, Groovy, JavaScript, Java, JavaFX, Perl, PHP, Plain Text, PowerShell, Python, Ruby, Scala, SQL, Visual Basic, XML
 
-http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/
+[http://alexgorbatchev.com/SyntaxHighlighter/manual/brushes/]
 
 ==Themes==
-Default, Django, Eclipse, Emacs, Fade To Grey, MD Ultra, Midnight, RDark<br />
-[http://code.google.com/p/java-syntax-highlighter/wiki/ThemesDemo Click here to visit the gallery.]
+Default, Django, Eclipse, Emacs, Fade To Grey, MD Ultra, Midnight, RDark
+
+[ThemesDemo Click here to visit the gallery.]
 
 ==Configurations==
  * Allows you to change the first (starting) line number.
  * Allows you to turn gutter with line numbers on and off.
  * Allows you to highlight one or more lines to focus user's attention.
  * Allows you to highlight a mixture of HTML/XML code and a script which is very common in web development.
-[http://code.google.com/p/java-syntax-highlighter/wiki/ConfigurationsDemo Click here for a demo.]
+
+[ConfigurationsDemo Click here for a demo.]
 
 ==Example==
 *<font color="red">Note that this highlighter extends Swing component, so all operations are better be executed inside [http://en.wikipedia.org/wiki/Event_dispatching_thread Swing dispatching thread].</font>*
@@ -77,8 +85,8 @@ public class Example {
 }
 }}}
 
-==Screenshot==
-http://java-syntax-highlighter.googlecode.com/svn/wiki/ThemesDemo/ThemeDefault.png
+==Sample Screenshot==
+[http://java-syntax-highlighter.googlecode.com/svn/wiki/ThemesDemo/ThemeDefault.png]
 
 ==Support & Discussion==
 [http://groups.google.com/group/java-syntax-highlighter Support & Discussion Group]
