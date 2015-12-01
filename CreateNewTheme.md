@@ -1,0 +1,3 @@
+# Create New Theme #
+
+All the themes that come with the release are placed under [syntaxhighligther.theme](http://java-syntax-highlighter.googlecode.com/svn/trunk/javadoc/syntaxhighlighter/theme/package-summary.html) package. All themes should extends the [syntaxhighlight.Theme](http://java-syntax-highlighter.googlecode.com/svn/trunk/javadoc/syntaxhighlight/Theme.html) class. You can take a look at [syntaxhighlighter.theme.ThemeDefault](http://code.google.com/p/java-syntax-highlighter/source/browse/trunk/src/syntaxhighlighter/theme/ThemeDefault.java) to see what should be done to make a new theme.
